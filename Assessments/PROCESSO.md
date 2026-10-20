@@ -16,9 +16,11 @@ Padrão para gerar o relatório HTML dos assessments de SQL Server dos clientes 
 
 1. No cliente, abrir o `SQL_Server_Assessment_Profissional_v11.sql` no SSMS.
 2. Deixar `@Modo = 1`, `@GerarHTML = 1` e `@SomenteHTML = 0` (padrão do script).
-3. **Query > Results To > Results to File** (Ctrl+Shift+F), executar e salvar o `.rpt`.
-4. Enviar o `.rpt` para o Claude (anexo na conversa ou commit em `Assessments/rpt/`), informando o nome do cliente.
-5. O Claude roda o gerador e devolve o HTML:
+3. Em Ferramentas > Opções > Resultados da Consulta > SQL Server > Resultados para Texto: formato de saída
+   **delimitado por tab** e número máximo de caracteres por coluna **8192** (configuração recomendada).
+4. **Query > Results To > Results to File** (Ctrl+Shift+F), executar e salvar o `.rpt`.
+5. Enviar o `.rpt` para o Claude (anexo na conversa ou commit em `Assessments/rpt/`), informando o nome do cliente.
+6. O Claude roda o gerador e devolve o HTML:
 
 ```bash
 python3 Assessments/gerador/gerar_html_assessment.py CLIENTE.rpt --cliente "Nome do Cliente"
