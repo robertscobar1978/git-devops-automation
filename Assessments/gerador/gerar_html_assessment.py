@@ -241,6 +241,7 @@ def ler_texto(caminho):
 
 RE_TRACOS = re.compile(r'^-+( +-+)*\s*$')
 RE_TRACOS_TAB = re.compile(r'^-+(\t-+)*\s*$')
+COLUNAS_UNICAS = {'Information', 'Relatorio_HTML'}  # resultsets de uma coluna conhecidos
 RE_AFETADAS = re.compile(r'^\(\d+ (rows?|linhas?|linha\(s\)|row\(s\)) (affected|afetadas?)\)\s*$', re.I)
 
 
@@ -291,6 +292,26 @@ def ler_rpt(texto):
                 vals = [None if v.strip() == 'NULL' else v.strip() for v in vals]
                 vals += [None] * (len(cols) - len(vals))
                 dados.append(vals[:len(cols)])
+            resultsets.append(Resultset(cols, dados, i + 1))
+            i = j
+            continue
+        # "Resultados em arquivo" com delimitador tab: cabeçalho sem linha de traços,
+        # linhas até a próxima linha em branco
+        tabs = lin.count('\t')
+        if (tabs and (not prox.strip() or prox.count('\t') >= tabs)) or (lin.strip() in COLUNAS_UNICAS and prox.strip()):
+            cols = [c.strip() for c in lin.split('\t')]
+            j = i + 1
+            dados = []
+            while j < n and linhas[j].strip() and not RE_AFETADAS.match(linhas[j]):
+                l = linhas[j]
+                # valor com quebra de linha: junta até completar as colunas
+                while l.count('\t') < tabs and j + 1 < n and linhas[j + 1].strip():
+                    j += 1
+                    l = l + '\n' + linhas[j]
+                vals = [None if v.strip() == 'NULL' else v.strip() for v in l.split('\t')]
+                vals += [None] * (len(cols) - len(vals))
+                dados.append(vals[:len(cols)])
+                j += 1
             resultsets.append(Resultset(cols, dados, i + 1))
             i = j
             continue

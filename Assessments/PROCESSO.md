@@ -30,7 +30,9 @@ quantas seções montou e se algum resultset não foi reconhecido.
 
 ### Observações sobre o `.rpt`
 
-- Aceita UTF-16 (padrão do SSMS), UTF-8 e ANSI, com colunas alinhadas (padrão) ou separadas por tab.
+- Aceita UTF-16, UTF-8 e ANSI, com colunas separadas por tab (formato usado nos .rpt da Solo, sem linha
+  de traços sob o cabeçalho) ou alinhadas com linha de traços (padrão do SSMS). Validado com o
+  `ECMDC01PRD.rpt` (script v10, SQL Server 2022): 46 seções reconhecidas, nenhuma pendente.
 - O SSMS corta cada coluna em 256 caracteres no modo texto (Ferramentas > Opções > Resultados da
   Consulta > SQL Server > Resultados para Texto > *Número máximo de caracteres*). Para textos longos
   (mensagens de job, SQL das top queries) vale subir para 8192 antes de executar.
