@@ -1,0 +1,1019 @@
+﻿==============================================================
+ SQL SERVER ASSESSMENT / DISCOVERY - V10
+ SQL Server: 16.0.4265.3
+ Product Level: RTM
+ Edition: Standard Edition (64-bit)
+ Baseline: SQL Server 2017+
+==============================================================
+ID	Categoria	Indicador	Valor	Status	Observacao
+01	IDENTIFICAÇÃO	Servidor	ECMDB01PRD	INFO	Nome do servidor físico/virtual.
+02	IDENTIFICAÇÃO	Instância	MSSQLSERVER	INFO	Nome da instância.
+03	IDENTIFICAÇÃO	SQL Server	SQL Server 2022	INFO	Versão principal do produto. O build completo é apresentado na linha seguinte.
+04	IDENTIFICAÇÃO	Build	16.0.4265.3 (Build 4265)	INFO	Versão completa e build do SQL Server.
+05	IDENTIFICAÇÃO	Edition	Standard Edition (64-bit)	INFO	Edição instalada.
+06	SISTEMA OPERACIONAL	Plataforma	Windows	INFO	Plataforma reportada pelo sistema operacional.
+07	SISTEMA OPERACIONAL	Distribuição	Windows Server 2022 Standard	INFO	Nome/distribuição do sistema operacional.
+08	SISTEMA OPERACIONAL	Release	10.0	INFO	Release do sistema operacional.
+09	SISTEMA OPERACIONAL	Virtualização	HYPERVISOR	INFO	Tipo de virtualização reportado pelo SQL Server.
+10	TOPOLOGIA	FCI / Cluster	NÃO	INFO	FCI não configurado para esta instância.
+11	TOPOLOGIA	Always On / HADR	NÃO HABILITADO	INFO	Configuração HADR da instância.
+12	TOPOLOGIA	Availability Groups	0	INFO	Quantidade de Availability Groups.
+13	TOPOLOGIA	Réplicas	0	INFO	Quantidade de réplicas configuradas.
+14	TOPOLOGIA	Linked Servers	0	INFO	Quantidade de Linked Servers não sistêmicos.
+15	RECURSOS	CPU	8	INFO	CPUs lógicas visíveis para o SQL Server.
+16	RECURSOS	Memória	63 GB	INFO	Memória física reportada pelo SQL Server.
+17	RECURSOS	Databases	3	INFO	Quantidade de databases de usuário.
+18	RECURSOS	TempDB - arquivos de dados	8	INFO	Quantidade de arquivos de dados do TempDB.
+19	RECURSOS	SQL Agent Jobs	14	INFO	Quantidade total de jobs cadastrados.
+20	RECURSOS	Logins com sysadmin	7	INFO	Quantidade de principais associados ao sysadmin.
+21	ASSESSMENT	AGs não saudáveis	0	OK	Estados HADR que requerem investigação.
+22	ASSESSMENT	Databases fora de ONLINE	0	OK	Databases de usuário que não estão ONLINE.
+23	ASSESSMENT	Auto Shrink	0	OK	Databases de usuário com AUTO_SHRINK habilitado.
+24	ASSESSMENT	Auto Close	0	OK	Databases de usuário com AUTO_CLOSE habilitado.
+25	ASSESSMENT	Suspect Pages	0	OK	Registros ativos (event_type 1, 2 e 3) em msdb.dbo.suspect_pages.
+26	ASSESSMENT	Total de ATENÇÕES	0	OK	Quantidade de critérios automáticos de atenção.
+27	ASSESSMENT	Total de CRÍTICOS	0	OK	Quantidade de critérios automáticos críticos.
+
+ 
+==============================================================
+ RESULTADO 01 = DASHBOARD EXECUTIVO
+ IDENTIFICAÇÃO | SISTEMA OPERACIONAL | TOPOLOGIA | RECURSOS | ASSESSMENT
+ Os próximos resultsets apresentam os detalhes do ambiente.
+==============================================================
+ 
+=================================================================
+SQL SERVER - ASSESSMENT / DISCOVERY
+Servidor: ECMDB01PRD
+Data: 2026-10-20 14:45:38
+=================================================================
+ID	Categoria	Indicador	Valor	Status	Observacao
+1	01 - Instância	Servidor	ECMDB01PRD	INFO	Nome do servidor físico/virtual.
+2	01 - Instância	Instância	MSSQLSERVER	INFO	Nome da instância.
+3	01 - Instância	SQL Server	16.0.4265.3	INFO	Versão/build.
+4	01 - Instância	Edition	Standard Edition (64-bit)	INFO	Edição instalada.
+5	01 - Instância	Product Level	RTM	INFO	RTM/SP/branch.
+6	01 - Instância	Update Level	CU26	INFO	CU/GDR quando disponível.
+7	01 - Instância	KB/Update Reference	KB5093420	INFO	Referência do update.
+8	01 - Instância	Collation	SQL_Latin1_General_CP1_CI_AS	INFO	Collation da instância.
+9	01 - Instância	Autenticação	Windows + SQL Server	INFO	Modo de autenticação.
+10	01 - Instância	Always On habilitado	NÃO	INFO	HADR habilitado na instância.
+11	01 - Instância	FCI / Failover Cluster Instance	NÃO	INFO	SERVERPROPERTY(IsClustered). Não confundir com WSFC usado por Always On.
+12	01 - Instância	Ciclo de vida (fim do suporte estendido)	11/01/2033	OK	Versão dentro do ciclo de suporte da Microsoft.
+13	01 - Instância	Uptime (dias)	6	INFO	Dias desde o último início do serviço. DMVs cumulativas (waits, I/O, índices) refletem este período.
+14	02 - Hardware	CPU lógica	8	INFO	CPU lógica visível ao SQL Server.
+15	02 - Hardware	Memória física (GB)	64.00	INFO	Memória física reportada pelo SQL Server.
+16	02 - Hardware	NUMA nodes	1	INFO	Quantidade de nós NUMA.
+17	02 - Hardware	Virtualização	HYPERVISOR	INFO	Indicador de virtualização do SQL Server; deve ser validado com o SO/hipervisor.
+18	02 - Hardware	SQL Server Start Time	2026-10-14 16:08:02	INFO	Último início do serviço SQL Server.
+19	02 - Hardware	Lock Pages in Memory	NÃO	INFO	Modelo de memória do SQL Server. Avaliar LPIM em servidores dedicados com max server memory configurado.
+20	02 - Hardware	Instant File Initialization	NÃO	ATENÇÃO	Sem IFI, crescimentos e restores de arquivos de dados são mais lentos (conta de serviço sem "Perform Volume Maintenance Tasks").
+21	02 - SO	Plataforma	Windows / Windows Server 2022 Standard	INFO	Informação reportada pelo SQL Server.
+22	02 - SO	Release	10.0	INFO	Release do sistema operacional.
+23	02 - SO	Idioma	1033	INFO	Idioma do SO.
+24	03 - Cluster / FCI	FCI	NÃO	INFO	A instância não está instalada como FCI. Um WSFC pode existir para Always On mesmo assim.
+25	04 - Always On	Always On	NÃO HABILITADO	INFO	HADR não está habilitado nesta instância.
+26	05 - Linked Servers	Quantidade	0	INFO	Linked Servers configurados, excluindo a própria instância.
+27	06 - Endpoints	Quantidade	6	INFO	Endpoints configurados na instância.
+28	06 - Endpoints	Database Mirroring / HADR endpoint	0	INFO	Endpoint utilizado normalmente em cenários de Always On/Database Mirroring.
+29	07 - Databases	Total de databases	7	INFO	Inclui bancos de sistema.
+30	07 - Databases	Databases de usuário	3	INFO	Bancos com database_id > 4.
+31	07 - Databases	Databases fora de ONLINE	0	OK	Databases de usuário em estado diferente de ONLINE (OFFLINE, RESTORING, SUSPECT, RECOVERY_PENDING...).
+32	07 - Databases	Auto Close habilitado	0	OK	Auto Close geralmente merece validação em ambientes de produção.
+33	07 - Databases	Auto Shrink habilitado	0	OK	Auto Shrink pode gerar operações recorrentes de shrink; validar necessidade.
+34	07 - Databases	Page Verify diferente de CHECKSUM	0	OK	Validar bancos que não usam CHECKSUM.
+35	07 - Databases	Compatibility level inferior ao da instância	0	INFO	Pode ser intencional (homologação da aplicação); considerar no planejamento de upgrade/otimizações.
+36	07 - Databases	Crescimento percentual em arquivos	5	ATENÇÃO	Arquivos com growth em percentual merecem revisão.
+37	08 - Storage	Volumes com espaço livre < 15%	0	OK	Baseado nos volumes que possuem arquivos do SQL Server.
+38	08 - Storage	Arquivos em C:	0	INFO	Validar se armazenamento do SQL Server está concentrado no volume do SO.
+39	09 - TempDB	Arquivos de dados	8	INFO	Um único arquivo não é automaticamente um problema; avaliar contenção e carga.
+40	09 - TempDB	Arquivos com tamanhos diferentes	0	OK	Idealmente os arquivos de dados devem ter tamanho inicial e crescimento coerentes.
+41	09 - TempDB	Arquivos com growth percentual	0	OK	Validar configuração de crescimento.
+42	10 - Backups	DBs em FULL sem backup de log nos últimos 24h	1	ATENÇÃO	Avaliação indicativa; validar política de backup e RPO.
+43	10 - Backups	DBs sem backup FULL nos últimos 7 dias	0	OK	Validar política de backup, retenção e necessidade do banco.
+44	10 - Backups	DBs sem CHECKDB com sucesso nos últimos 7 dias	6	ATENÇÃO	Baseado em DATABASEPROPERTYEX(LastGoodCheckDbTime). Integridade física/lógica sem verificação recente.
+45	11 - SQL Agent	Jobs totais	14	INFO	Jobs cadastrados no SQL Agent.
+46	11 - SQL Agent	Jobs desabilitados	1	INFO	Revisar se jobs desabilitados são intencionais.
+47	11 - SQL Agent	Jobs habilitados com falha na última execução	0	OK	Ver detalhamento de jobs (coluna LastRunStatusDesc).
+48	11 - SQL Agent	Alertas configurados	0	INFO	Alertas do SQL Agent.
+49	11 - SQL Agent	Alertas para erros graves (sev. 19-25 / 823-825)	0	ATENÇÃO	Boa prática: alertas habilitados para severidades 19 a 25 e erros 823, 824 e 825 (I/O).
+50	11 - SQL Agent	Operadores habilitados	0	ATENÇÃO	Sem operadores, falhas de jobs e alertas não geram notificação.
+51	12 - Segurança	Logins sysadmin	8	ATENÇÃO	Quantidade alta não implica vulnerabilidade; revisar necessidade e governança.
+52	12 - Segurança	Login sa habilitado	SIM	ATENÇÃO	Validar conforme política de segurança do cliente.
+53	12 - Segurança	Logins SQL habilitados sem política de senha	0	OK	CHECK_POLICY = OFF: sem complexidade/bloqueio de senha do Windows.
+54	13 - Configuração	max server memory (MB)	55705	INFO	Memória máxima configurada para o SQL Server.
+55	13 - Configuração	min server memory (MB)	4096	INFO	Memória mínima configurada.
+56	13 - Configuração	cost threshold for parallelism	5	ATENÇÃO	Valor padrão (5) costuma ser baixo para cargas atuais; avaliar ajuste (ex.: 30-50) com base no workload.
+57	13 - Configuração	max degree of parallelism	8	INFO	MAXDOP configurado.
+58	13 - Configuração	backup compression default	0	INFO	Compressão padrão de backup.
+59	13 - Configuração	optimize for ad hoc workloads	0	INFO	Configuração de planos ad hoc.
+60	13 - Configuração	remote admin connections	0	INFO	DAC remoto.
+61	13 - Configuração	xp_cmdshell	0	OK	Habilitado amplia a superfície de ataque; validar necessidade.
+62	14 - Memória	SQL Server Memory Usage (MB)	54445.66	INFO	process_physical_memory_low deve normalmente estar em 0.
+63	14 - Memória	Locked Pages Allocation (MB)	0.00	INFO	Indica uso de locked pages pelo SQL Server.
+64	14 - Memória	Estado de memória do SO	Available physical memory is high	INFO	Indicador de pressão de memória no sistema operacional.
+65	14 - Memória	PLE médio	12770.00	INFO	Usar tendência e contexto; não utilizar valor isolado como diagnóstico.
+66	15 - I/O	Arquivos com latência média > 30 ms	0	OK	Indicador inicial; investigar por workload, storage e janela de tempo.
+67	16 - Integridade	Suspect Pages ativas	0	OK	Registros na msdb.dbo.suspect_pages devem ser investigados.
+68	17 - Log	Logs com uso acima de 80%	1	ATENÇÃO	Cruzar com log_reuse_wait_desc no detalhamento de databases.
+69	17 - Log	Arquivos de log com mais de 1.000 VLFs	1	ATENÇÃO	Excesso de VLFs aumenta o tempo de recovery, restore e sincronização de AG.
+70	18 - Segurança (V10)	Permissões de servidor de alto privilégio concedidas diretamente	0	OK	CONTROL SERVER, ALTER ANY LOGIN, IMPERSONATE ANY LOGIN etc. concedidas fora das server roles equivalem (ou quase) a sysadmin.
+71	18 - Segurança (V10)	Membros ativos de securityadmin	1	ATENÇÃO	securityadmin pode conceder qualquer permissão, inclusive sysadmin a si mesmo. Tratar como sysadmin.
+72	18 - Segurança (V10)	Logins SQL habilitados com senha em branco	0	OK	Verificado com PWDCOMPARE. Trocar a senha imediatamente.
+73	18 - Segurança (V10)	Logins SQL habilitados com senha igual ao nome do login	0	OK	Verificado com PWDCOMPARE. Primeira tentativa de qualquer ataque de força bruta.
+74	18 - Segurança (V10)	Logins SQL habilitados sem expiração de senha	1	ATENÇÃO	CHECK_EXPIRATION = OFF. Aceitável para contas de aplicação com rotação controlada; para pessoas, ativar.
+75	18 - Segurança (V10)	Logins SQL bloqueados por tentativas de senha	0	OK	Pode indicar aplicação com senha desatualizada ou tentativa de força bruta.
+76	19 - Índices (V10)	Índices com fragmentação >= 70%	1	ATENÇÃO	Somente índices com 1000 páginas ou mais (modo LIMITED). Avaliar REBUILD/rotina de manutenção.
+77	19 - Índices (V10)	Índices sugeridos pelo engine (impacto >= 80%)	6	ATENÇÃO	Top 25 do sys.dm_db_missing_index_*. Consolidar sugestões sobrepostas e avaliar o custo de escrita antes de criar.
+78	20 - Queries (V10)	Queries com duração média > 5 s (top 20 do plan cache)	4	ATENÇÃO	Baseado em sys.dm_exec_query_stats (somente planos em cache, ao menos 2 execuções). Revisar planos e índices.
+79	21 - Sessões (V10)	Sessões bloqueadas no momento da coleta	0	OK	Fotografia do momento da coleta. Recorrência deve ser investigada com blocked process report / sp_WhoIsActive.
+80	21 - Sessões (V10)	Sessões ociosas com transação aberta	0	OK	Transações esquecidas seguram locks e impedem a reutilização do log.
+81	22 - Histórico de backup (V10)	Backups Full/Diff (7 dias) gravados no mesmo volume dos dados	0	OK	Se o disco falhar, perdem-se os dados e os backups juntos. Gravar em outro volume/servidor e manter cópia fora do site.
+82	22 - Histórico de backup (V10)	Backups nativos (7 dias) sem compressão	0	OK	Taxa de compressão ~1,0. Usar WITH COMPRESSION ou ativar backup compression default.
+83	22 - Histórico de backup (V10)	Backups por ferramenta externa (VDI/snapshot) em 7 dias	6	INFO	Ex.: Veeam, Commvault. Confirmar retenção e testes de restore na própria ferramenta. Em Always On, o msdb mostra só os backups desta réplica.
+84	11 - SQL Agent	Jobs habilitados sem agendamento ativo (V10)	1	INFO	Só executam manualmente ou por outro job. Confirmar se é intencional.
+
+Warning: Null value is eliminated by an aggregate or other SET operation.
+Warning: Null value is eliminated by an aggregate or other SET operation.
+MachineName	ServerName	InstanceName	IsClustered	ComputerNamePhysicalNetBIOS	Edition	ProductLevel	ProductUpdateLevel	ProductVersion	ProductBuild	ProductBuildType	ProductUpdateReference	ProcessID	Collation	IsFullTextInstalled	IsIntegratedSecurityOnly	FilestreamConfiguredLevel	IsHadrEnabled	HadrManagerStatus	InstanceDefaultDataPath	InstanceDefaultLogPath	ErrorLogFileName	BuildClrVersion	IsXTPSupported	IsPolybaseInstalled
+ECMDB01PRD	ECMDB01PRD	NULL	0	ECMDB01PRD	Standard Edition (64-bit)	RTM	CU26	16.0.4265.3	4265	NULL	KB5093420	6916	SQL_Latin1_General_CP1_CI_AS	0	0	0	0	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Log\ERRORLOG	v4.0.30319	1	0
+
+LogicalCPUCount	scheduler_count	socket_count	cores_per_socket	numa_node_count	PhysicalMemoryMB	max_workers_count	affinity_type_desc	sqlserver_start_time	UptimeHours	virtual_machine_type_desc	softnuma_configuration_desc	sql_memory_model_desc
+8	4	8	1	1	65535	576	AUTO	2026-10-14 16:08:02.790	142	HYPERVISOR	OFF	CONVENTIONAL
+
+host_platform	host_distribution	host_release	host_service_pack_level	host_sku	os_language_version
+Windows	Windows Server 2022 Standard	10.0		7	1033
+
+servicename	process_id	startup_type_desc	status_desc	last_startup_time	service_account	is_clustered	cluster_nodename	filename	instant_file_initialization_enabled
+SQL Server (MSSQLSERVER)	6916	Automatic	Running	2026-10-14 16:07:59.0615706 -03:00	COPEL\ecm_sqladmin	N	NULL	"E:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Binn\sqlservr.exe" -sMSSQLSERVER	N
+SQL Server Agent (MSSQLSERVER)	11180	Automatic	Running	NULL	COPEL\ecm_sqladmin	N	NULL	"E:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Binn\SQLAGENT.EXE" -i MSSQLSERVER	N
+
+Information
+FCI não configurado para esta instância.
+
+Information
+Always On não habilitado nesta instância.
+
+name	product	provider	data_source	location	catalog	connect_timeout	query_timeout	is_linked	is_data_access_enabled	is_rpc_out_enabled	is_remote_login_enabled	is_system
+
+name	endpoint_id	type_desc	state_desc	protocol_desc	database_mirroring_role_desc	is_encryption_enabled	connection_auth_desc	port	is_dynamic_port	ip_address
+Dedicated Admin Connection	1	TSQL	STARTED	TCP	NULL	NULL	NULL	0	1	NULL
+TSQL Local Machine	2	TSQL	STARTED	SHARED_MEMORY	NULL	NULL	NULL	NULL	NULL	NULL
+TSQL Named Pipes	3	TSQL	STARTED	NAMED_PIPES	NULL	NULL	NULL	NULL	NULL	NULL
+TSQL Default TCP	4	TSQL	STARTED	TCP	NULL	NULL	NULL	0	1	NULL
+TSQL Default VIA	5	TSQL	STARTED	VIA	NULL	NULL	NULL	NULL	NULL	NULL
+ConfigMgrEndpoint	65536	SERVICE_BROKER	STARTED	TCP	NULL	NULL	NULL	4022	0	NULL
+
+database_id	DatabaseName	state_desc	user_access_desc	DatabaseOwner	recovery_model_desc	compatibility_level	page_verify_option_desc	is_auto_close_on	is_auto_shrink_on	is_auto_create_stats_on	is_auto_update_stats_on	is_auto_update_stats_async_on	is_parameterization_forced	snapshot_isolation_state_desc	is_read_committed_snapshot_on	is_cdc_enabled	is_encrypted	is_query_store_on	log_reuse_wait_desc	DataSizeMB	LogSizeMB	DataFiles	LogFiles
+1	master	ONLINE	MULTI_USER	sa	SIMPLE	160	CHECKSUM	0	0	1	1	0	0	ON	0	0	0	0	NOTHING	4.44	1.25	1	1
+2	tempdb	ONLINE	MULTI_USER	sa	SIMPLE	160	CHECKSUM	0	0	1	1	0	0	OFF	0	0	0	0	NOTHING	64.00	8.00	8	1
+3	model	ONLINE	MULTI_USER	sa	FULL	160	CHECKSUM	0	0	1	1	0	0	OFF	0	0	0	1	NOTHING	8.00	8.00	1	1
+4	msdb	ONLINE	MULTI_USER	sa	SIMPLE	160	CHECKSUM	0	0	1	1	0	0	ON	0	0	0	0	NOTHING	43.94	19.63	1	1
+5	ReportServer	ONLINE	MULTI_USER	sa	FULL	160	CHECKSUM	0	0	1	1	0	0	OFF	0	0	0	1	LOG_BACKUP	200.00	104456.00	1	1
+6	ReportServerTempDB	ONLINE	MULTI_USER	sa	SIMPLE	160	CHECKSUM	0	0	1	1	0	0	OFF	0	0	0	1	NOTHING	136.00	264.00	1	1
+7	CM_001	ONLINE	MULTI_USER	sa	SIMPLE	160	CHECKSUM	0	0	1	1	0	0	ON	1	0	0	1	NOTHING	64593.00	10696.00	1	1
+
+DatabaseName	file_id	LogicalName	physical_name	type_desc	state_desc	SizeMB	is_percent_growth	GrowthValue	GrowthUnit	max_size
+CM_001	1	CM_001	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CM_001.mdf	ROWS	ONLINE	64593.00	1	2.00	%	-1
+CM_001	2	CM_001_log	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CM_001_log.ldf	LOG	ONLINE	10696.00	0	64.00	MB	268435456
+master	1	master	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\master.mdf	ROWS	ONLINE	4.44	1	10.00	%	-1
+master	2	mastlog	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\mastlog.ldf	LOG	ONLINE	1.25	1	10.00	%	-1
+model	1	modeldev	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\model.mdf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+model	2	modellog	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\modellog.ldf	LOG	ONLINE	8.00	0	64.00	MB	-1
+msdb	1	MSDBData	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\MSDBData.mdf	ROWS	ONLINE	43.94	1	10.00	%	-1
+msdb	2	MSDBLog	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\MSDBLog.ldf	LOG	ONLINE	19.63	1	10.00	%	268435456
+ReportServer	1	ReportServer	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServer.mdf	ROWS	ONLINE	200.00	0	64.00	MB	-1
+ReportServer	2	ReportServer_log	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServer_log.ldf	LOG	ONLINE	104456.00	0	64.00	MB	268435456
+ReportServerTempDB	1	ReportServerTempDB	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServerTempDB.mdf	ROWS	ONLINE	136.00	0	64.00	MB	-1
+ReportServerTempDB	2	ReportServerTempDB_log	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServerTempDB_log.ldf	LOG	ONLINE	264.00	0	64.00	MB	268435456
+tempdb	1	tempdev	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb.mdf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	2	templog	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\templog.ldf	LOG	ONLINE	8.00	0	64.00	MB	-1
+tempdb	3	temp2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_2.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	4	temp3	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_3.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	5	temp4	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_4.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	6	temp5	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_5.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	7	temp6	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_6.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	8	temp7	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_7.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+tempdb	9	temp8	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_8.ndf	ROWS	ONLINE	8.00	0	64.00	MB	-1
+
+volume_mount_point	file_system_type	logical_volume_name	TotalGB	AvailableGB	FreePct	supports_compression	is_compressed	supports_sparse_files	supports_alternate_streams
+D:\	NTFS	DATA	499.98	300.14	60.03	1	0	1	1
+
+fixed_drive_path	drive_type_desc	AvailableGB
+C:\	DRIVE_FIXED	102.78
+D:\	DRIVE_FIXED	300.14
+E:\	DRIVE_FIXED	235.07
+
+name	physical_name	type_desc	SizeMB	is_percent_growth	GrowthValue	GrowthUnit	file_id
+tempdev	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb.mdf	ROWS	328.00	0	64.00	MB	1
+temp2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_2.ndf	ROWS	328.00	0	64.00	MB	3
+temp3	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_3.ndf	ROWS	328.00	0	64.00	MB	4
+temp4	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_4.ndf	ROWS	328.00	0	64.00	MB	5
+temp5	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_5.ndf	ROWS	328.00	0	64.00	MB	6
+temp6	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_6.ndf	ROWS	328.00	0	64.00	MB	7
+temp7	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_7.ndf	ROWS	328.00	0	64.00	MB	8
+temp8	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_8.ndf	ROWS	328.00	0	64.00	MB	9
+templog	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\templog.ldf	LOG	200.00	0	64.00	MB	2
+
+DatabaseName	reserved_page_count	ReservedSpaceMB
+CM_001	2872	22.44
+msdb	0	0.00
+ReportServer	0	0.00
+ReportServerTempDB	0	0.00
+
+DatabaseName	recovery_model_desc	state_desc	LastFullBackup	LastDifferentialBackup	LastLogBackup	LastGoodCheckDB
+CM_001	SIMPLE	ONLINE	2026-10-20 00:06:39.000	NULL	NULL	1900-01-01 00:00:00.000
+master	SIMPLE	ONLINE	2026-10-20 00:06:44.000	NULL	NULL	1900-01-01 00:00:00.000
+model	FULL	ONLINE	2026-10-20 00:06:39.000	NULL	NULL	1900-01-01 00:00:00.000
+msdb	SIMPLE	ONLINE	2026-10-20 00:06:47.000	NULL	NULL	1900-01-01 00:00:00.000
+ReportServer	FULL	ONLINE	2026-10-20 00:07:00.000	NULL	NULL	1900-01-01 00:00:00.000
+ReportServerTempDB	SIMPLE	ONLINE	2026-10-20 00:07:01.000	NULL	NULL	1900-01-01 00:00:00.000
+tempdb	SIMPLE	ONLINE	NULL	NULL	NULL	1900-01-01 00:00:00.000
+
+JobName	JobEnabled	JobOwner	CategoryName	date_created	LastRunStatus	LastRunStatusDesc	LastRunDateTime	LastRunDuration	LastRunMessage
+03D02F8B-F97A-45CF-B769-B7916EF174DD	1	COPEL\ecm_rpt	Report Server	2026-03-24 17:02:41.090	1	Sucesso	2026-10-20 02:00:00.000	1	The job succeeded.  The Job was invoked by Schedule 20 (Schedule_1).  The last step to run was step 1 (03D02F8B-F97A-45CF-B769-B7916EF174DD_step_1).
+31BDF0E4-506A-40EB-AF9D-6E0C0FA175FE	1	COPEL\ecm_rpt	Report Server	2025-06-16 15:05:10.700	1	Sucesso	2026-10-19 02:00:00.000	1	The job succeeded.  The Job was invoked by Schedule 10 (Schedule_1).  The last step to run was step 1 (31BDF0E4-506A-40EB-AF9D-6E0C0FA175FE_step_1).
+47180C82-21FD-4A32-A5DF-739614EE95C9	1	COPEL\ecm_rpt	Report Server	2026-03-20 17:22:15.123	1	Sucesso	2026-10-20 02:00:00.000	1	The job succeeded.  The Job was invoked by Schedule 18 (Schedule_1).  The last step to run was step 1 (47180C82-21FD-4A32-A5DF-739614EE95C9_step_1).
+7D0DF901-CD24-4CA6-9C46-EAD05C268118	1	COPEL\ecm_rpt	Report Server	2026-02-11 11:22:42.397	1	Sucesso	2026-10-20 06:00:00.000	1	The job succeeded.  The Job was invoked by Schedule 13 (Schedule_1).  The last step to run was step 1 (7D0DF901-CD24-4CA6-9C46-EAD05C268118_step_1).
+BackFull_disco.Subplan_1	1	sa	Database Maintenance	2026-09-04 16:03:50.830	1	Sucesso	2026-10-20 00:01:00.000	557	The job succeeded.  The Job was invoked by Schedule 1023 (BackFull_disco).  The last step to run was step 1 (Subplan_1).
+BackupFull.Subplan_1	1	sa	Database Maintenance	2026-09-04 15:16:53.357	1	Sucesso	2026-10-20 00:01:00.000	603	The job succeeded.  The Job was invoked by Schedule 1022 (BackupFull.Subplan_1).  The last step to run was step 1 (Subplan_1).
+Disponibilização de dados - Central de software	1	sa	[Uncategorized (Local)]	2026-09-25 16:33:50.937	1	Sucesso	2026-10-20 06:00:00.000	8	The job succeeded.  The Job was invoked by Schedule 1024 (Relatorio diario 06:00).  The last step to run was step 2 (02 - Gerando CSV).
+E072D386-D016-4FAB-A86A-1E34BD6621F4	1	COPEL\ecm_rpt	Report Server	2026-03-10 17:20:50.247	1	Sucesso	2026-10-20 02:00:00.000	1	The job succeeded.  The Job was invoked by Schedule 17 (Schedule_1).  The last step to run was step 1 (E072D386-D016-4FAB-A86A-1E34BD6621F4_step_1).
+RebuidIndex.Subplan_1	1	sa	Database Maintenance	2026-09-28 13:38:40.003	1	Sucesso	2026-10-20 00:30:00.000	533	The job succeeded.  The Job was invoked by Schedule 1026 (RebuidIndex.Subplan_1).  The last step to run was step 1 (Subplan_1).
+RebuidIndex.Subplan_2	1	sa	Database Maintenance	2026-10-16 15:16:24.020	1	Sucesso	2026-10-20 11:30:00.000	546	The job succeeded.  The Job was invoked by Schedule 1027 (RebuidIndex.Subplan_2).  The last step to run was step 1 (Subplan_2).
+Revogar acesso copel\fshwsh	1	COPEL\A356673	[Uncategorized (Local)]	2025-06-11 17:08:11.807	NULL	NULL	NULL	NULL	NULL
+StatiscIndex.Subplan_1	1	sa	Database Maintenance	2026-09-04 14:50:34.380	1	Sucesso	2026-10-20 06:30:00.000	726	The job succeeded.  The Job was invoked by Schedule 1021 (StatiscIndex).  The last step to run was step 1 (Subplan_1).
+syspolicy_purge_history	1	sa	[Uncategorized (Local)]	2025-02-19 19:32:09.417	1	Sucesso	2026-10-20 02:00:00.000	3	The job succeeded.  The Job was invoked by Schedule 8 (syspolicy_purge_history_schedule).  The last step to run was step 3 (Erase Phantom System Health Records.).
+MaintenancePlan.Subplan_1	0	sa	Database Maintenance	2025-06-12 08:04:04.087	NULL	NULL	NULL	NULL	NULL
+
+name	event_source	message_id	severity	enabled	has_notification	delay_between_responses	occurrence_count	last_occurrence_date	last_occurrence_time
+
+LoginName	type_desc	is_disabled	default_database_name	create_date	modify_date	IsSysadmin
+COPEL\A356673	WINDOWS_LOGIN	1	master	2025-02-24 11:16:37.483	2026-05-04 10:25:49.487	1
+COPEL\ecm_sqladmin	WINDOWS_LOGIN	0	master	2025-02-19 19:32:08.373	2025-02-19 19:32:08.383	1
+COPEL\ECM01PRD$	WINDOWS_LOGIN	0	master	2025-02-24 11:48:32.993	2025-02-24 11:48:33.037	1
+NT Service\MSSQLSERVER	WINDOWS_LOGIN	0	master	2025-02-19 19:32:08.403	2025-02-19 19:32:08.413	1
+NT SERVICE\SQLSERVERAGENT	WINDOWS_LOGIN	0	master	2025-02-19 19:32:09.307	2025-02-19 19:32:09.317	1
+NT SERVICE\SQLWriter	WINDOWS_LOGIN	0	master	2025-02-19 19:32:08.387	2025-02-19 19:32:08.397	1
+NT SERVICE\Winmgmt	WINDOWS_LOGIN	0	master	2025-02-19 19:32:08.393	2025-02-19 19:32:08.403	1
+sa	SQL_LOGIN	0	master	2003-04-08 09:10:35.460	2026-10-15 10:02:53.193	1
+##MS_PolicyEventProcessingLogin##	SQL_LOGIN	1	master	2026-08-11 19:54:24.880	2026-08-11 19:54:24.893	0
+##MS_PolicyTsqlExecutionLogin##	SQL_LOGIN	1	master	2022-10-08 06:32:02.543	2026-08-11 19:54:24.897	0
+COPEL\A373426	WINDOWS_LOGIN	1	CM_001	2025-07-28 09:29:19.467	2026-05-04 10:25:57.090	0
+COPEL\C044830	WINDOWS_LOGIN	1	master	2026-04-27 16:45:02.800	2026-05-04 10:26:04.960	0
+COPEL\C051507	WINDOWS_LOGIN	1	master	2026-02-05 11:35:22.750	2026-05-04 10:26:14.330	0
+COPEL\C806986	WINDOWS_LOGIN	0	master	2026-08-26 15:04:34.790	2026-08-26 15:04:34.797	0
+COPEL\C807864	WINDOWS_LOGIN	0	master	2026-06-01 10:49:32.317	2026-06-01 10:49:32.323	0
+COPEL\ecm_end	WINDOWS_LOGIN	0	master	2026-06-03 08:23:26.867	2026-06-03 08:23:26.873	0
+COPEL\ecm_rpt	WINDOWS_LOGIN	0	master	2025-02-21 15:31:27.653	2025-02-21 15:31:27.660	0
+COPEL\EST_CLI	WINDOWS_LOGIN	0	master	2026-04-01 11:25:56.450	2026-04-01 11:25:56.457	0
+COPEL\fshasset	WINDOWS_LOGIN	0	master	2025-08-19 16:29:01.677	2025-08-19 16:29:01.683	0
+COPEL\GATI	WINDOWS_LOGIN	0	master	2026-04-13 09:52:09.373	2026-04-13 09:52:09.380	0
+COPEL\GEST_VULN	WINDOWS_LOGIN	0	CM_001	2026-04-02 11:29:38.360	2026-05-04 10:24:46.550	0
+COPEL\GS_ECMPRD	WINDOWS_GROUP	0	master	2025-06-23 08:45:03.410	2025-06-23 08:45:03.417	0
+COPEL\GS_GATI_S	WINDOWS_GROUP	0	master	2025-10-15 09:15:22.943	2025-10-15 09:15:22.950	0
+COPEL\SD_NAVA_ECM	WINDOWS_LOGIN	0	CM_001	2026-04-28 09:53:48.767	2026-05-04 10:23:40.420	0
+ECMDB01PRD\ConfigMgr_DViewAccess	WINDOWS_GROUP	0	master	2025-02-24 11:58:38.630	2025-02-24 11:58:38.637	0
+grafana_monitor	SQL_LOGIN	0	master	2026-08-05 10:36:20.180	2026-08-05 10:48:51.133	0
+NT AUTHORITY\SYSTEM	WINDOWS_LOGIN	0	master	2025-02-19 19:32:08.410	2025-02-19 19:32:08.417	0
+NT SERVICE\SQLServerReportingServices	WINDOWS_LOGIN	0	master	2025-02-21 10:55:12.153	2025-02-21 10:55:12.160	0
+NT SERVICE\SQLTELEMETRY	WINDOWS_LOGIN	0	master	2025-02-19 19:32:09.990	2025-02-19 19:32:09.997	0
+
+name	ConfiguredValue	RunningValue	minimum	maximum	is_dynamic	is_advanced	description
+Ad Hoc Distributed Queries	0	0	0	1	1	1	Enable or disable Ad Hoc Distributed Queries
+backup compression default	0	0	0	1	1	0	Enable compression of backups by default
+clr enabled	1	1	0	1	1	0	CLR user code execution enabled in the server
+contained database authentication	0	0	0	1	1	0	Enables contained databases and contained authentication
+cost threshold for parallelism	5	5	0	32767	1	1	cost threshold for parallelism
+Database Mail XPs	0	0	0	1	1	1	Enable or disable Database Mail XPs
+default trace enabled	1	1	0	1	1	1	Enable or disable the default trace
+max degree of parallelism	8	8	0	32767	1	1	maximum degree of parallelism
+max server memory (MB)	55705	55705	128	2147483647	1	1	Maximum size of server memory (MB)
+min server memory (MB)	4096	4096	0	2147483647	1	1	Minimum size of server memory (MB)
+Ole Automation Procedures	0	0	0	1	1	1	Enable or disable Ole Automation Procedures
+optimize for ad hoc workloads	0	0	0	1	1	1	When this option is set, plan cache size is further reduced for single-use adhoc OLTP workload.
+remote access	1	1	0	1	0	0	Allow remote access
+remote admin connections	0	0	0	1	1	0	Dedicated Admin Connections are allowed from remote clients
+xp_cmdshell	0	0	0	1	1	1	Enable or disable command shell
+
+configuration_id	name	value_in_use	description
+
+SQLMemoryUsedMB	LockedPagesMB	LargePagesMB	page_fault_count	memory_utilization_percentage	AvailableCommitLimitMB	process_physical_memory_low	process_virtual_memory_low
+54446.84	0.00	0.00	28891769	97	10365.27	0	0
+
+PhysicalMemoryMB	AvailablePhysicalMemoryMB	PageFileCommitLimitMB	AvailablePageFileMB	SystemCacheMB	system_memory_state_desc
+65535.02	2856.95	75263.02	10365.27	2117.13	Available physical memory is high
+
+ObjectName	instance_name	PageLifeExpectancy	CollectionTime
+SQLServer:Buffer Node	000                                                                                                                             	12771	2026-10-20 14:45:40.517
+
+SQLServerProcessCPU	SystemIdleCPU	OtherProcessCPU	EventTime
+2	94	4	2026-10-20 14:44:59.280
+3	93	4	2026-10-20 14:43:59.150
+2	93	5	2026-10-20 14:42:59.063
+2	94	4	2026-10-20 14:41:58.947
+1	94	5	2026-10-20 14:40:58.853
+1	93	6	2026-10-20 14:39:58.747
+1	93	6	2026-10-20 14:38:58.610
+5	92	3	2026-10-20 14:37:58.513
+1	95	4	2026-10-20 14:36:58.440
+1	95	4	2026-10-20 14:35:58.323
+1	96	3	2026-10-20 14:34:58.213
+1	96	3	2026-10-20 14:33:58.110
+1	95	4	2026-10-20 14:32:58.010
+3	94	3	2026-10-20 14:31:57.917
+2	93	5	2026-10-20 14:30:57.787
+1	94	5	2026-10-20 14:29:57.673
+1	95	4	2026-10-20 14:28:57.580
+4	93	3	2026-10-20 14:27:57.483
+2	95	3	2026-10-20 14:26:57.413
+1	96	3	2026-10-20 14:25:57.307
+1	96	3	2026-10-20 14:24:57.217
+3	92	5	2026-10-20 14:23:57.150
+2	94	4	2026-10-20 14:22:57.070
+2	92	6	2026-10-20 14:21:57.003
+1	94	5	2026-10-20 14:20:56.907
+1	94	5	2026-10-20 14:19:56.807
+1	96	3	2026-10-20 14:18:56.727
+3	94	3	2026-10-20 14:17:56.630
+4	92	4	2026-10-20 14:16:56.547
+2	95	3	2026-10-20 14:15:56.437
+1	96	3	2026-10-20 14:14:56.337
+1	96	3	2026-10-20 14:13:56.263
+2	95	3	2026-10-20 14:12:56.173
+2	95	3	2026-10-20 14:11:56.067
+2	93	5	2026-10-20 14:10:55.983
+1	97	2	2026-10-20 14:09:55.887
+2	91	7	2026-10-20 14:08:55.813
+2	95	3	2026-10-20 14:07:55.700
+6	91	3	2026-10-20 14:06:55.597
+2	95	3	2026-10-20 14:05:55.527
+1	96	3	2026-10-20 14:04:55.413
+1	96	3	2026-10-20 14:03:55.333
+2	95	3	2026-10-20 14:02:55.263
+2	94	4	2026-10-20 14:01:55.183
+3	94	3	2026-10-20 14:00:55.103
+3	94	3	2026-10-20 13:59:54.980
+1	96	3	2026-10-20 13:58:54.880
+2	94	4	2026-10-20 13:57:54.787
+4	91	5	2026-10-20 13:56:54.687
+1	96	3	2026-10-20 13:55:54.607
+1	96	3	2026-10-20 13:54:54.523
+4	92	4	2026-10-20 13:53:54.420
+37	60	3	2026-10-20 13:52:54.333
+36	61	3	2026-10-20 13:51:54.227
+20	76	4	2026-10-20 13:50:54.133
+1	96	3	2026-10-20 13:49:54.040
+1	96	3	2026-10-20 13:48:53.953
+2	94	4	2026-10-20 13:47:53.870
+5	92	3	2026-10-20 13:46:53.757
+2	95	3	2026-10-20 13:45:53.660
+1	97	2	2026-10-20 13:44:53.590
+1	96	3	2026-10-20 13:43:53.523
+2	94	4	2026-10-20 13:42:53.420
+2	95	3	2026-10-20 13:41:53.313
+1	95	4	2026-10-20 13:40:53.187
+1	96	3	2026-10-20 13:39:53.087
+1	95	4	2026-10-20 13:38:53.010
+2	94	4	2026-10-20 13:37:52.920
+4	93	3	2026-10-20 13:36:52.860
+1	95	4	2026-10-20 13:35:52.777
+2	95	3	2026-10-20 13:34:52.667
+1	96	3	2026-10-20 13:33:52.577
+4	93	3	2026-10-20 13:32:52.467
+11	85	4	2026-10-20 13:31:52.340
+13	84	3	2026-10-20 13:30:52.263
+4	93	3	2026-10-20 13:29:52.197
+1	96	3	2026-10-20 13:28:52.107
+2	95	3	2026-10-20 13:27:52.050
+2	94	4	2026-10-20 13:26:51.953
+3	94	3	2026-10-20 13:25:51.857
+1	96	3	2026-10-20 13:24:51.767
+1	95	4	2026-10-20 13:23:51.660
+2	95	3	2026-10-20 13:22:51.577
+1	95	4	2026-10-20 13:21:51.490
+1	95	4	2026-10-20 13:20:51.403
+1	96	3	2026-10-20 13:19:51.300
+1	96	3	2026-10-20 13:18:51.233
+1	96	3	2026-10-20 13:17:51.127
+2	95	3	2026-10-20 13:16:51.040
+5	90	5	2026-10-20 13:15:50.960
+1	96	3	2026-10-20 13:14:50.880
+1	97	2	2026-10-20 13:13:50.787
+2	95	3	2026-10-20 13:12:50.700
+2	94	4	2026-10-20 13:11:50.620
+2	94	4	2026-10-20 13:10:50.537
+1	96	3	2026-10-20 13:09:50.450
+1	96	3	2026-10-20 13:08:50.383
+1	96	3	2026-10-20 13:07:50.307
+1	96	3	2026-10-20 13:06:50.193
+3	94	3	2026-10-20 13:05:50.067
+1	95	4	2026-10-20 13:04:49.970
+1	96	3	2026-10-20 13:03:49.890
+1	96	3	2026-10-20 13:02:49.803
+1	96	3	2026-10-20 13:01:49.697
+6	90	4	2026-10-20 13:00:49.590
+1	96	3	2026-10-20 12:59:49.493
+1	96	3	2026-10-20 12:58:49.403
+1	96	3	2026-10-20 12:57:49.340
+1	96	3	2026-10-20 12:56:49.253
+3	94	3	2026-10-20 12:55:49.163
+1	96	3	2026-10-20 12:54:49.090
+2	94	4	2026-10-20 12:53:48.993
+1	96	3	2026-10-20 12:52:48.900
+1	96	3	2026-10-20 12:51:48.773
+16	82	2	2026-10-20 12:50:48.677
+36	61	3	2026-10-20 12:49:48.577
+39	57	4	2026-10-20 12:48:48.473
+3	93	4	2026-10-20 12:47:48.347
+2	95	3	2026-10-20 12:46:48.250
+4	93	3	2026-10-20 12:45:48.153
+2	95	3	2026-10-20 12:44:48.077
+1	97	2	2026-10-20 12:43:47.963
+2	93	5	2026-10-20 12:42:47.853
+2	95	3	2026-10-20 12:41:47.753
+1	96	3	2026-10-20 12:40:47.663
+1	96	3	2026-10-20 12:39:47.560
+1	96	3	2026-10-20 12:38:47.477
+1	96	3	2026-10-20 12:37:47.390
+2	95	3	2026-10-20 12:36:47.297
+2	95	3	2026-10-20 12:35:47.183
+4	93	3	2026-10-20 12:34:47.080
+1	96	3	2026-10-20 12:33:46.993
+1	96	3	2026-10-20 12:32:46.900
+2	94	4	2026-10-20 12:31:46.823
+2	95	3	2026-10-20 12:30:46.750
+2	95	3	2026-10-20 12:29:46.660
+1	96	3	2026-10-20 12:28:46.587
+4	93	3	2026-10-20 12:27:46.490
+4	93	3	2026-10-20 12:26:46.367
+1	95	4	2026-10-20 12:25:46.260
+3	95	2	2026-10-20 12:24:46.153
+1	96	3	2026-10-20 12:23:46.057
+2	96	2	2026-10-20 12:22:45.947
+2	95	3	2026-10-20 12:21:45.880
+2	93	5	2026-10-20 12:20:45.807
+1	96	3	2026-10-20 12:19:45.720
+2	95	3	2026-10-20 12:18:45.640
+2	95	3	2026-10-20 12:17:45.557
+3	94	3	2026-10-20 12:16:45.490
+1	96	3	2026-10-20 12:15:45.363
+9	88	3	2026-10-20 12:14:45.280
+2	96	2	2026-10-20 12:13:45.197
+3	94	3	2026-10-20 12:12:45.127
+1	96	3	2026-10-20 12:11:45.047
+4	91	5	2026-10-20 12:10:44.937
+2	94	4	2026-10-20 12:09:44.840
+1	95	4	2026-10-20 12:08:44.767
+2	95	3	2026-10-20 12:07:44.683
+1	96	3	2026-10-20 12:06:44.577
+3	94	3	2026-10-20 12:05:44.497
+3	94	3	2026-10-20 12:04:44.407
+2	95	3	2026-10-20 12:03:44.313
+2	95	3	2026-10-20 12:02:44.217
+1	95	4	2026-10-20 12:01:44.150
+4	93	3	2026-10-20 12:00:44.053
+2	95	3	2026-10-20 11:59:43.977
+2	94	4	2026-10-20 11:58:43.867
+2	95	3	2026-10-20 11:57:43.750
+2	95	3	2026-10-20 11:56:43.673
+1	96	3	2026-10-20 11:55:43.583
+1	96	3	2026-10-20 11:54:43.490
+4	92	4	2026-10-20 11:53:43.407
+2	95	3	2026-10-20 11:52:43.327
+1	95	4	2026-10-20 11:51:43.247
+1	95	4	2026-10-20 11:50:43.163
+1	96	3	2026-10-20 11:49:43.067
+1	96	3	2026-10-20 11:48:42.963
+35	60	5	2026-10-20 11:47:42.853
+38	59	3	2026-10-20 11:46:42.773
+24	73	3	2026-10-20 11:45:42.667
+3	94	3	2026-10-20 11:44:42.550
+5	92	3	2026-10-20 11:43:42.463
+2	95	3	2026-10-20 11:42:42.360
+2	95	3	2026-10-20 11:41:42.273
+2	94	4	2026-10-20 11:40:42.200
+2	95	3	2026-10-20 11:39:42.117
+2	95	3	2026-10-20 11:38:42.027
+2	94	4	2026-10-20 11:37:41.937
+3	95	2	2026-10-20 11:36:41.843
+13	83	4	2026-10-20 11:35:41.770
+12	84	4	2026-10-20 11:34:41.680
+13	83	4	2026-10-20 11:33:41.590
+14	83	3	2026-10-20 11:32:41.517
+13	84	3	2026-10-20 11:31:41.430
+9	87	4	2026-10-20 11:30:41.353
+1	96	3	2026-10-20 11:29:41.277
+1	95	4	2026-10-20 11:28:41.197
+1	96	3	2026-10-20 11:27:41.107
+1	94	5	2026-10-20 11:26:41.007
+2	95	3	2026-10-20 11:25:40.887
+1	95	4	2026-10-20 11:24:40.763
+3	94	3	2026-10-20 11:23:40.677
+6	91	3	2026-10-20 11:22:40.563
+3	95	2	2026-10-20 11:21:40.450
+6	90	4	2026-10-20 11:20:40.343
+1	96	3	2026-10-20 11:19:40.263
+1	96	3	2026-10-20 11:18:40.180
+2	95	3	2026-10-20 11:17:40.117
+2	95	3	2026-10-20 11:16:40.033
+1	94	5	2026-10-20 11:15:39.947
+8	88	4	2026-10-20 11:14:39.827
+8	89	3	2026-10-20 11:13:39.747
+11	86	3	2026-10-20 11:12:39.637
+2	94	4	2026-10-20 11:11:39.543
+2	94	4	2026-10-20 11:10:39.443
+1	96	3	2026-10-20 11:09:39.347
+2	94	4	2026-10-20 11:08:39.257
+1	95	4	2026-10-20 11:07:39.153
+1	95	4	2026-10-20 11:06:39.063
+1	95	4	2026-10-20 11:05:38.970
+1	94	5	2026-10-20 11:04:38.847
+1	95	4	2026-10-20 11:03:38.747
+4	92	4	2026-10-20 11:02:38.647
+2	95	3	2026-10-20 11:01:38.560
+10	87	3	2026-10-20 11:00:38.487
+1	96	3	2026-10-20 10:59:38.393
+1	96	3	2026-10-20 10:58:38.287
+1	96	3	2026-10-20 10:57:38.203
+2	95	3	2026-10-20 10:56:38.130
+2	95	3	2026-10-20 10:55:38.040
+1	96	3	2026-10-20 10:54:37.940
+2	94	4	2026-10-20 10:53:37.823
+3	93	4	2026-10-20 10:52:37.767
+2	95	3	2026-10-20 10:51:37.687
+1	95	4	2026-10-20 10:50:37.610
+0	97	3	2026-10-20 10:49:37.520
+2	94	4	2026-10-20 10:48:37.387
+1	95	4	2026-10-20 10:47:37.287
+2	95	3	2026-10-20 10:46:37.187
+11	85	4	2026-10-20 10:45:37.033
+37	60	3	2026-10-20 10:44:36.997
+38	58	4	2026-10-20 10:43:36.883
+19	77	4	2026-10-20 10:42:36.803
+4	93	3	2026-10-20 10:41:36.690
+2	94	4	2026-10-20 10:40:36.620
+2	95	3	2026-10-20 10:39:36.533
+1	96	3	2026-10-20 10:38:36.443
+1	96	3	2026-10-20 10:37:36.310
+2	94	4	2026-10-20 10:36:36.207
+2	95	3	2026-10-20 10:35:36.137
+1	96	3	2026-10-20 10:34:36.030
+1	96	3	2026-10-20 10:33:35.930
+1	96	3	2026-10-20 10:32:35.827
+6	90	4	2026-10-20 10:31:35.753
+2	94	4	2026-10-20 10:30:35.687
+1	96	3	2026-10-20 10:29:35.587
+
+DatabaseName	file_id	physical_name	type_desc	FileSizeMB	AvgReadLatencyMS	AvgWriteLatencyMS	AvgIOLatencyMS	num_of_reads	num_of_writes	io_stall_read_ms	io_stall_write_ms
+CM_001	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CM_001.mdf	ROWS	64593.00	2.76	6.73	5.49	2661682	5846077	7353277	39329303
+ReportServerTempDB	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServerTempDB.mdf	ROWS	136.00	4.07	3.89	4.02	1372	537	5590	2089
+ReportServerTempDB	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServerTempDB_log.ldf	LOG	264.00	1.67	3.11	3.10	42	6295	70	19591
+master	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\master.mdf	ROWS	4.44	2.37	3.24	2.73	1094	788	2590	2555
+msdb	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\MSDBData.mdf	ROWS	43.94	2.70	2.56	2.66	2437	1133	6581	2898
+ReportServer	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServer.mdf	ROWS	200.00	1.69	2.30	2.12	15657	36975	26444	84954
+tempdb	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\templog.ldf	LOG	8.00	0.70	1.88	1.88	10	793175	7	1493439
+tempdb	4	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_3.ndf	ROWS	8.00	1.17	2.45	1.81	1101302	1097049	1286021	2684443
+tempdb	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb.mdf	ROWS	8.00	1.17	2.46	1.81	1101350	1098273	1288913	2696394
+tempdb	5	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_4.ndf	ROWS	8.00	1.17	2.45	1.80	1101427	1097145	1284099	2684245
+tempdb	6	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_5.ndf	ROWS	8.00	1.16	2.43	1.80	1101267	1096985	1280551	2667119
+tempdb	7	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_6.ndf	ROWS	8.00	1.16	2.43	1.80	1101308	1096993	1281991	2666451
+tempdb	8	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_7.ndf	ROWS	8.00	1.16	2.44	1.80	1101219	1097028	1282188	2677342
+tempdb	9	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_8.ndf	ROWS	8.00	1.16	2.44	1.80	1101495	1097105	1282349	2676521
+tempdb	3	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\tempdb_mssql_2.ndf	ROWS	8.00	1.17	2.44	1.80	1101127	1096923	1283821	2672506
+msdb	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\MSDBLog.ldf	LOG	19.63	2.06	1.69	1.71	49	1598	101	2708
+master	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\mastlog.ldf	LOG	1.25	2.33	1.67	1.68	21	1466	49	2452
+ReportServer	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ReportServer_log.ldf	LOG	104456.00	1.53	1.63	1.63	2383	446538	3644	727028
+model	1	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\model.mdf	ROWS	8.00	1.50	7.50	1.60	124	2	186	15
+model	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\modellog.ldf	LOG	8.00	1.67	1.50	1.56	6	10	10	15
+CM_001	2	D:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\CM_001_log.ldf	LOG	10696.00	4.86	1.25	1.25	1326	8396583	6439	10462755
+
+IORank	DatabaseName	TotalIOMB	ReadIOMB	WriteIOMB	TotalIOPct
+1	tempdb	1141884.06	547821.36	594062.70	64.01
+2	CM_001	625206.20	453106.68	172099.52	35.05
+3	ReportServer	16036.35	2010.81	14025.54	0.90
+4	msdb	529.91	495.78	34.13	0.03
+5	ReportServerTempDB	199.18	143.74	55.44	0.01
+6	master	70.77	53.68	17.09	0.00
+7	model	10.16	10.12	0.04	0.00
+8	model_msdb	0.90	0.88	0.02	0.00
+9	model_replicatedmaster	0.71	0.69	0.02	0.00
+
+LogDate	ProcessInfo	LogText
+
+DatabaseName	file_id	page_id	event_type	error_count	last_update_date	LogicalName	physical_name
+
+TraceFlag	Status	Global	Session
+8295	1	1	0
+
+BufferPoolRank	DatabaseName	CachedMB	BufferPoolPct
+1	CM_001	42771.97	97.49
+2	tempdb	1033.84	2.36
+3	ReportServer	42.98	0.10
+4	msdb	17.66	0.04
+5	ReportServerTempDB	3.40	0.01
+6	master	2.03	0.00
+7	model	0.77	0.00
+8	model_replicatedmaster	0.18	0.00
+9	model_msdb	0.17	0.00
+
+DatabaseName	LogSizeMB	LogSpaceUsedPct	Status
+ReportServer	104455.99	99.97	0
+master	1.24	46.54	0
+model_msdb	0.99	39.62	0
+model_replicatedmaster	1.99	29.12	0
+model	7.99	15.73	0
+tempdb	199.99	8.90	0
+msdb	19.62	8.57	0
+ReportServerTempDB	263.99	8.13	0
+CM_001	10695.99	0.86	0
+
+DatabaseName	file_id	VLFCount
+ReportServer	2	1636
+CM_001	2	171
+msdb	2	31
+ReportServerTempDB	2	8
+tempdb	2	7
+master	2	5
+model	2	3
+
+wait_type	waiting_tasks_count	WaitTimeSec	SignalWaitSec	AvgWaitMs	PctTotal
+CXPACKET	41722242	41623.19	18541.24	1.00	39.24
+CXSYNC_PORT	2263580	20871.77	1055.58	9.22	19.68
+WRITELOG	7828001	11255.73	1191.32	1.44	10.61
+SOS_SCHEDULER_YIELD	19821682	7212.68	7193.36	0.36	6.80
+ASYNC_NETWORK_IO	8142544	3538.34	506.71	0.43	3.34
+BACKUPIO	810148	3101.77	19.99	3.83	2.92
+PREEMPTIVE_OS_QUERYREGISTRY	4757627	2693.43	0.00	0.57	2.54
+LATCH_EX	3904965	2641.62	1250.85	0.68	2.49
+ASYNC_IO_COMPLETION	245	1854.75	0.12	7570.39	1.75
+PREEMPTIVE_OS_AUTHENTICATIONOPS	1345050	1838.53	0.00	1.37	1.73
+BACKUPBUFFER	1591252	1723.68	181.61	1.08	1.63
+LCK_M_U	307	1711.47	0.63	5574.82	1.61
+CXSYNC_CONSUMER	732337	730.98	92.06	1.00	0.69
+PAGELATCH_EX	8931756	711.38	686.96	0.08	0.67
+IO_COMPLETION	2270769	652.96	13.50	0.29	0.62
+PREEMPTIVE_OS_GENERICOPS	432421	501.25	0.00	1.16	0.47
+PAGEIOLATCH_EX	405968	447.52	2.85	1.10	0.42
+PAGELATCH_SH	2693126	363.74	344.22	0.14	0.34
+WAIT_ON_SYNC_STATISTICS_REFRESH	103797	319.25	0.00	3.08	0.30
+PAGEIOLATCH_SH	304627	309.11	3.53	1.01	0.29
+
+PolLogin	PolDisabled	PolPolicyChecked	PolExpirationChecked	PolPasswordLastSet	PolIsLocked	PolIsExpired	PolBadPwdCount	PolBlankPassword	PolPasswordEqualsLogin	PolDefaultDb
+grafana_monitor	0	1	1	2026-08-05 10:48:51.137	0	0	0	0	0	master
+sa	0	1	0	2025-02-21 15:19:52.833	0	0	0	0	0	master
+
+SrvRoleName	SrvRoleMember	SrvRoleMemberType	SrvRoleMemberDisabled
+securityadmin	COPEL\ECM01PRD$	WINDOWS_LOGIN	0
+sysadmin	COPEL\A356673	WINDOWS_LOGIN	1
+sysadmin	COPEL\ecm_sqladmin	WINDOWS_LOGIN	0
+sysadmin	COPEL\ECM01PRD$	WINDOWS_LOGIN	0
+sysadmin	NT Service\MSSQLSERVER	WINDOWS_LOGIN	0
+sysadmin	NT SERVICE\SQLSERVERAGENT	WINDOWS_LOGIN	0
+sysadmin	NT SERVICE\SQLWriter	WINDOWS_LOGIN	0
+sysadmin	NT SERVICE\Winmgmt	WINDOWS_LOGIN	0
+sysadmin	sa	SQL_LOGIN	0
+
+PermPrincipal	PermPrincipalType	PermName	PermState	PermClass	PermObject	PermGrantor
+COPEL\ECM01PRD$	WINDOWS_LOGIN	VIEW SERVER STATE	GRANT	SERVER		sa
+grafana_monitor	SQL_LOGIN	VIEW ANY DEFINITION	GRANT	SERVER		sa
+grafana_monitor	SQL_LOGIN	VIEW SERVER STATE	GRANT	SERVER		sa
+NT AUTHORITY\SYSTEM	WINDOWS_LOGIN	ALTER ANY AVAILABILITY GROUP	GRANT	SERVER		sa
+NT AUTHORITY\SYSTEM	WINDOWS_LOGIN	VIEW SERVER STATE	GRANT	SERVER		sa
+NT SERVICE\SQLTELEMETRY	WINDOWS_LOGIN	ALTER ANY EVENT SESSION	GRANT	SERVER		sa
+NT SERVICE\SQLTELEMETRY	WINDOWS_LOGIN	CONNECT ANY DATABASE	GRANT	SERVER		sa
+NT SERVICE\SQLTELEMETRY	WINDOWS_LOGIN	VIEW ANY DEFINITION	GRANT	SERVER		sa
+NT SERVICE\SQLTELEMETRY	WINDOWS_LOGIN	VIEW SERVER STATE	GRANT	SERVER		sa
+
+ObjDatabase	ObjTabelas	ObjViews	ObjProcedures	ObjFunctions	ObjTriggers	ObjIndices	ObjSinonimos	ObjSchemas
+CM_001	1808	2394	3032	1736	2086	2548	40	12
+master	NULL	NULL	NULL	NULL	NULL	0	NULL	3
+model	NULL	NULL	NULL	NULL	NULL	0	NULL	0
+msdb	0	1	0	13	0	0	0	14
+ReportServer	46	5	319	1	7	98	0	3
+ReportServerTempDB	14	0	1	0	0	36	0	3
+
+FragResDatabase	FragResCriticos	FragResModerados	FragResOk	FragResTotal	FragResMinPaginas
+CM_001	1	3	149	153	1000
+
+FragDatabase	FragSchema	FragTable	FragIndex	FragIndexType	FragIndexId	FragPct	FragPages	FragAction
+CM_001	dbo	ResPolicyCollMap	ResPolicyCollMap_CollectionID_idx	NONCLUSTERED	2	74.7	1313	REBUILD Crítico
+CM_001	dbo	EventRawResultItem	EventRawResultItem_AK_AS_idx	NONCLUSTERED	2	40.5	6657	REBUILD
+CM_001	dbo	Update_ComplianceStatus	Update_ComplianceStatus_Machine_idx	NONCLUSTERED	3	37.9	2346	REBUILD
+CM_001	dbo	CI_Files	CI_Files_AK	NONCLUSTERED	4	35.6	2846	REBUILD
+
+MIDatabase	MITable	MIEquality	MIInequality	MIIncluded	MIUserSeeks	MIUserScans	MIAvgImpactPct	MIImprovement	MILastSeek	MICreateStatement
+CM_001	[CM_001].[dbo].[Group_User_Relationship]	[Group_ObjectGUID]		[GroupType]	124132	0	84.8	548983.0	2026-10-20 13:59:49.940	CREATE NONCLUSTERED INDEX [IX_Group_User_Relationship_sug654] ON [CM_001].[dbo].[Group_User_Relationship] ([Group_ObjectGUID]) INCLUDE ([GroupType]);
+CM_001	[CM_001].[dbo].[EventRawResult]	[EventListID], [GeneratedTime], [ItemID]			45845	0	98.5	223440.8	2026-10-20 14:45:35.460	CREATE NONCLUSTERED INDEX [IX_EventRawResult_sug2] ON [CM_001].[dbo].[EventRawResult] ([EventListID], [GeneratedTime], [ItemID]);
+CM_001	[CM_001].[dbo].[Group_User_Relationship]	[Group_ObjectGUID]			62066	0	98.6	210694.9	2026-10-20 13:59:49.870	CREATE NONCLUSTERED INDEX [IX_Group_User_Relationship_sug652] ON [CM_001].[dbo].[Group_User_Relationship] ([Group_ObjectGUID]);
+CM_001	[CM_001].[dbo].[Update_ComplianceStatus]		[Status]	[EnforcementSource], [LastEnforcementMessageID]	8433	0	38.4	46693.3	2026-10-20 13:52:59.513	CREATE NONCLUSTERED INDEX [IX_Update_ComplianceStatus_sug86126] ON [CM_001].[dbo].[Update_ComplianceStatus] ([Status]) INCLUDE ([EnforcementSource], [LastEnforcementMessageID]);
+CM_001	[CM_001].[dbo].[AttributeMap]	[GroupKey], [IsKey]			799171	0	82.9	27727.3	2026-10-20 14:39:48.753	CREATE NONCLUSTERED INDEX [IX_AttributeMap_sug111] ON [CM_001].[dbo].[AttributeMap] ([GroupKey], [IsKey]);
+CM_001	[CM_001].[dbo].[AttributeMap]	[IsKey]			799171	0	79.2	26503.1	2026-10-20 14:39:48.753	CREATE NONCLUSTERED INDEX [IX_AttributeMap_sug113] ON [CM_001].[dbo].[AttributeMap] ([IsKey]);
+CM_001	[CM_001].[dbo].[Group_System_Relationship]	[Group_ObjectGUID]		[GroupType]	124132	0	41.7	23706.7	2026-10-20 13:59:49.947	CREATE NONCLUSTERED INDEX [IX_Group_System_Relationship_sug656] ON [CM_001].[dbo].[Group_System_Relationship] ([Group_ObjectGUID]) INCLUDE ([GroupType]);
+CM_001	[CM_001].[dbo].[Group_System_Relationship]	[Group_ObjectGUID]		[GroupType], [LastRefreshTime]	62065	0	68.6	6736.3	2026-10-20 13:59:49.833	CREATE NONCLUSTERED INDEX [IX_Group_System_Relationship_sug650] ON [CM_001].[dbo].[Group_System_Relationship] ([Group_ObjectGUID]) INCLUDE ([GroupType], [LastRefreshTime]);
+CM_001	[CM_001].[dbo].[MPE_RequestMessages_Discovery]		[State], [NextProcessTime]		508306	0	43.9	6401.0	2026-10-20 08:13:51.620	CREATE NONCLUSTERED INDEX [IX_MPE_RequestMessages_Discovery_sug1837] ON [CM_001].[dbo].[MPE_RequestMessages_Discovery] ([State], [NextProcessTime]);
+CM_001	[CM_001].[dbo].[System_DISC]	[ManagementAuthority]		[SMS_Unique_Identifier0]	2500	0	93.8	3090.2	2026-10-20 14:43:56.977	CREATE NONCLUSTERED INDEX [IX_System_DISC_sug127220] ON [CM_001].[dbo].[System_DISC] ([ManagementAuthority]) INCLUDE ([SMS_Unique_Identifier0]);
+CM_001	[CM_001].[dbo].[ActiveDirectoryObjectInfo]	[CName]			4620	0	35.8	2999.8	2026-10-20 14:44:32.180	CREATE NONCLUSTERED INDEX [IX_ActiveDirectoryObjectInfo_sug237] ON [CM_001].[dbo].[ActiveDirectoryObjectInfo] ([CName]);
+CM_001	[CM_001].[dbo].[ClientOSVersion]	[SMSID], [OSBuild], [Obsolete]			10273	0	98.2	2116.9	2026-10-20 14:43:56.977	CREATE NONCLUSTERED INDEX [IX_ClientOSVersion_sug15] ON [CM_001].[dbo].[ClientOSVersion] ([SMSID], [OSBuild], [Obsolete]);
+CM_001	[CM_001].[dbo].[SuperPeers]	[SiteNumber]		[Port]	27977	0	30.7	1928.1	2026-10-19 04:32:29.960	CREATE NONCLUSTERED INDEX [IX_SuperPeers_sug75361] ON [CM_001].[dbo].[SuperPeers] ([SiteNumber]) INCLUDE ([Port]);
+CM_001	[CM_001].[dbo].[CI_ContentPackages]	[Content_UniqueID]	[MinPackageVersion]		43747	0	13.9	1231.2	2026-10-20 14:45:26.600	CREATE NONCLUSTERED INDEX [IX_CI_ContentPackages_sug116641] ON [CM_001].[dbo].[CI_ContentPackages] ([Content_UniqueID], [MinPackageVersion]);
+CM_001	[CM_001].[dbo].[MeterData]	[SystemItemKey]	[EndTime], [TimeSerial]	[StartTime], [FileID], [MeteredUserID], [Started]	830	0	49.6	871.6	2026-10-20 01:44:38.650	CREATE NONCLUSTERED INDEX [IX_MeterData_sug127210] ON [CM_001].[dbo].[MeterData] ([SystemItemKey], [EndTime], [TimeSerial]) INCLUDE ([StartTime], [FileID], [MeteredUserID], [Started]);
+CM_001	[CM_001].[dbo].[System_DISC]	[Decommissioned0], [EAS_DeviceID]	[ItemKey]		3831	0	9.9	705.3	2026-10-20 14:43:56.977	CREATE NONCLUSTERED INDEX [IX_System_DISC_sug127215] ON [CM_001].[dbo].[System_DISC] ([Decommissioned0], [EAS_DeviceID], [ItemKey]);
+CM_001	[CM_001].[dbo].[CI_ContentPackages]	[Content_UniqueID]			21816	0	27.6	591.5	2026-10-20 14:45:26.590	CREATE NONCLUSTERED INDEX [IX_CI_ContentPackages_sug116643] ON [CM_001].[dbo].[CI_ContentPackages] ([Content_UniqueID]);
+CM_001	[CM_001].[dbo].[MPE_RequestMessages_Discovery]	[NextProcessTime]	[LastUpdateTime]		1523	0	59.3	576.8	2026-10-20 14:44:17.460	CREATE NONCLUSTERED INDEX [IX_MPE_RequestMessages_Discovery_sug7827] ON [CM_001].[dbo].[MPE_RequestMessages_Discovery] ([NextProcessTime], [LastUpdateTime]);
+CM_001	[CM_001].[dbo].[TEL_TelemetryResults]	[SiteNumber]		[LastRunTime]	8548	0	71.5	463.7	2026-10-20 14:44:52.717	CREATE NONCLUSTERED INDEX [IX_TEL_TelemetryResults_sug37] ON [CM_001].[dbo].[TEL_TelemetryResults] ([SiteNumber]) INCLUDE ([LastRunTime]);
+CM_001	[CM_001].[dbo].[CI_ConfigurationItems]	[IsHidden], [IsTombstoned]	[CIType_ID]	[CI_UniqueID], [ModelId], [CIVersion], [DateCreated], [DateLastModified], [LastModifiedBy], [CreatedBy], [PermittedUses], [IsBundle], [IsUserDefined], [IsEnabled], [IsExpired], [IsLatest], [SourceSite], [ApplicabilityCondition], [ConfigurationFlags], [IsUserCI], [SEDOComponentID]	35	0	8.5	444.4	2026-10-20 12:21:28.330	CREATE NONCLUSTERED INDEX [IX_CI_ConfigurationItems_sug95] ON [CM_001].[dbo].[CI_ConfigurationItems] ([IsHidden], [IsTombstoned], [CIType_ID]) INCLUDE ([CI_UniqueID], [ModelId], [CIVersion], [DateCreated], [DateLastModified], [LastModifiedBy], [CreatedBy], [PermittedUses], [IsBundle], [IsUserDefined], [IsEnabled], [IsExpired], [IsLatest], [SourceSite], [ApplicabilityCondition], [ConfigurationFlags], [IsUserCI], [SEDOComponentID]);
+CM_001	[CM_001].[dbo].[Flat_Group_User_Relationship_Path]	[ParentGroup]		[ChildUser], [IsSecureRelationship]	75	0	90.0	424.4	2026-10-20 13:59:50.293	CREATE NONCLUSTERED INDEX [IX_Flat_Group_User_Relationship_Path_sug673] ON [CM_001].[dbo].[Flat_Group_User_Relationship_Path] ([ParentGroup]) INCLUDE ([ChildUser], [IsSecureRelationship]);
+CM_001	[CM_001].[dbo].[Flat_Group_User_Relationship]	[Group_ObjectGUID], [SiteCode]		[User_ObjectGUID]	65	0	95.2	409.2	2026-10-20 13:59:50.383	CREATE NONCLUSTERED INDEX [IX_Flat_Group_User_Relationship_sug675] ON [CM_001].[dbo].[Flat_Group_User_Relationship] ([Group_ObjectGUID], [SiteCode]) INCLUDE ([User_ObjectGUID]);
+ReportServer	[ReportServer].[dbo].[Catalog]	[Name]			7642	0	78.1	375.2	2026-10-20 14:44:57.097	CREATE NONCLUSTERED INDEX [IX_Catalog_sug33] ON [ReportServer].[dbo].[Catalog] ([Name]);
+CM_001	[CM_001].[dbo].[DiscItemAgents]	[AgentID]		[AgentTime]	290	0	43.6	337.0	2026-10-20 13:59:49.090	CREATE NONCLUSTERED INDEX [IX_DiscItemAgents_sug643] ON [CM_001].[dbo].[DiscItemAgents] ([AgentID]) INCLUDE ([AgentTime]);
+CM_001	[CM_001].[dbo].[MPE_RequestMessages_Discovery]	[State]		[DequeueTime], [LastUpdateTime], [NextProcessTime], [RetryAttempt]	1526	0	54.1	263.1	2026-10-20 14:44:17.460	CREATE NONCLUSTERED INDEX [IX_MPE_RequestMessages_Discovery_sug1824] ON [CM_001].[dbo].[MPE_RequestMessages_Discovery] ([State]) INCLUDE ([DequeueTime], [LastUpdateTime], [NextProcessTime], [RetryAttempt]);
+
+TQDatabase	TQAvgDurationMs	TQExecutions	TQAvgCpuMs	TQAvgLogicalReads	TQAvgPhysicalReads	TQPlanCreated	TQLastExecution	TQSqlText
+CM_001	265924.36	741	0.52	20	0	2026-10-18 07:56:33.990	2026-10-20 14:35:54.797	WAITFOR       (           RECEIVE TOP(1) @message = CAST(message_body AS XML), @message_type=message_type_name           FROM ConfigMgrBGBQueue          WHERE conversation_handle = @handle      ),       TIMEOUT @timeout_miliseconds
+CM_001	14037.64	186	12482.93	0	0	2026-10-19 07:04:01.247	2026-10-20 14:37:18.630	WITH tooManyLocks AS      (          SELECT [session_id] = [request_session_id]              , [num_locks] = COUNT(*)          FROM [sys].[dm_tran_locks]          WHERE [resource_database_id] = DB_ID()          GROUP BY [request_session_id]          HAVING COUNT(*) > 100000      )      INSERT INTO [DBMON_RunningQueries]      (          [SnapshotTime]          , [session_id]          , [program_name]          , [Context]          , [host_name]          , [start_time]          , [running_time]          , [cpu_time]          , [wait_time]          , [wait_type]          , [last_wait_type]          , [wait_resource]          , [reads]          , [writes]          , [blocking_session_id]          , [statement_start_offset]          , [statement_end_offset]          , [text]          , [query_plan]          , [num_locks]      )      SELECT GETUTCDATE()          , MEM.[session_id]          , S.[program_name]          , (              SELECT [ReplicationGroup]              FROM [ReplicationData]              WHERE [ID] = CONVERT(INT, R.[context_info])          )          , S.[host_name]          , R.[start_time]          , 0          , R.[cpu_time]          , R.[wait_time]          , R.[wait_type]          , R.[last_wait_type]          , R.[wait_resource]          , R.[reads]          , R.[writes]          , R.[blocking_session_id]          , R.[statement_start_offset]          , R.[statement_end_offset]          , LEFT(E.[text], 1024)          , NULL          , MEM.[num_locks]      FROM [tooManyLocks] MEM      JOIN [sys].[dm_exec_sessions] S ON S.[session_id] = MEM.[session_id]          AND S.[database_id] = DB_ID()      LEFT JOIN [sys].[dm_exec_requests] R ON MEM.[session_id] = R.[session_id]          AND R.[database_id] = DB_ID()      OUTER APPLY [sys].[dm_exec_sql_text](R.[sql_handle]) E      WHERE MEM.[session_id] != @@spid
+CM_001	10973.87	6	8920.62	147155	40	2026-10-14 17:08:13.523	2026-10-19 17:12:49.210	with AppInsights as       (           SELECT x.i.query('.') as Nodes, t.AppModelID, t.DTModelID, t.PackageID,           x.i.value('./MsiProgramId[1]', 'nvarchar(255)') as MsiProgramId,          x.i.value('./Size[1]', 'int') as Size,          x.i.value('count(./FileTable/FileProperties)', 'int') as FileCount,          x.i.value('count(./ServiceTable/MsiServiceEntry)', 'int') as ServiceCount,          x.i.value('count(./CustomActionTable/MsiCustomActionEntry)', 'int') as CustomActionCount,          x.i.value('./Date[1]', 'nvarchar(255)') as Date          FROM AppInsightsCollectionStatus as t          CROSS APPLY           t.ReportXml.nodes('./AppContentResult/FileData/FileProperties/MsiDetails') AS x(i)      )        select app.MsiProgramId,             app.Size,              app.FileCount,              app.ServiceCount,              app.CustomActionCount,              app.Date,              count(distinct app.AppModelId) as AppCount,              count(distinct app.DTModelID) as DTCount,              count(distinct app.PackageID) as PackageCount      from AppInsights app      group by app.MsiProgramId, app.FileCount, app.ServiceCount, app.CustomActionCount, app.Size, app.Date
+CM_001	5872.13	2	2974.30	332018	104428	2026-10-20 12:43:53.270	2026-10-20 13:44:56.513	INSERT INTO #UXEventRawResultItemTemp              SELECT                  IsDel,                  ID,                   LogName,                  ProviderName,                  ProviderGUID,                  EventGUID,                  EventID,                  EventIDQualifiers,                  Version,                  Level,                  Task,                  Opcode,                  Keywords,                  TimeCreatedSystemTime,                  EventRecordID,                  ActivityID,                  RelatedActivityID,                  Channel,                  UserSID,                  EventDataXML,                  SMSID              FROM (                  SELECT                      IIF(ct.SYS_CHANGE_OPERATION='D', 1, 0) as IsDel,                      erri.ID,                      erri.LogName,                      erri.ProviderName,                      erri.ProviderGUID,                      CONVERT(UNIQUEIDENTIFIER, (CONVERT(binary, 0))) AS EventGUID,                      erri.EventID,                      erri.EventIDQualifiers,                      erri.Version,                      erri.Level,                      erri.Task,                      erri.Opcode,                      erri.Keywords,                      erri.TimeCreatedSystemTime,                      erri.EventRecordID,                      erri.ActivityID,                      erri.RelatedActivityID,                      erri.Channel,                      erri.UserSID,                      CONVERT(nvarchar(max), erri.EventDataXML) AS EventDataXML,                      CONVERT(UNIQUEIDENTIFIER, REPLACE(sd.SMS_Unique_Identifier0, N'GUID:', N'')) AS SMSID,                      ROW_NUMBER() OVER(PARTITION BY erri.ClientItemKey ORDER BY TimeCreatedSystemTime DESC) as RowNum                  FROM CHANGETABLE(CHANGES EventRawResultItem, @RequestVersion) ct                  LEFT JOIN EventRawResultItem erri ON erri.ID = ct.ID                  JOIN System_DISC AS sd ON erri.ClientIte
+CM_001	3336.15	21	0.29	7	0	2026-10-20 13:31:18.323	2026-10-20 14:37:29.310	WAITFOR(                  RECEIVE TOP(1)                  @RecvDlgHandle = conversation_handle,                  @TriggerMsg = message_body,                  @TriggerMsgName = message_type_name                  FROM AlertVariableChangeTargetQueue              ), TIMEOUT 10000
+CM_001	3266.29	2238	0.18	6	0	2026-10-15 02:24:26.060	2026-10-20 14:37:29.310	WAITFOR(                  RECEIVE TOP(1)                  @RecvReplyDlgHandle = conversation_handle,                  @RecvReplyMsg = message_body                  FROM AlertVariableChangeInitiatorQueue                      ), TIMEOUT 10000
+CM_001	2575.19	10	4411.66	75977	0	2026-10-20 05:10:08.200	2026-10-20 14:10:08.270	WITH XMLNAMESPACES('http://schemas.microsoft.com/SystemCenterConfigurationManager/2009/AppMgmtDigest' as p0,       'http://schemas.microsoft.com/SystemCenterConfigurationManager/2009/AppMgmtDigest' as p1),       AppInsights AS        (           SELECT  FileProp.value('(MsiProgramId/text())[1]  ', 'varchar(64)') AS MsiProgramId,                   FileProp.value('(ProductName/text())[1]  ', 'varchar(64)') AS ProductName,                   FileProp.value('(Manufacturer/text())[1]  ', 'varchar(64)') AS Manufacturer,                   FileProp.value('(ProductVersion/text())[1]  ', 'varchar(64)') AS ProductVersion,                   FileProp.value('(ProductLanguage/text())[1]  ', 'varchar(64)') AS ProductLanguage,                   FileProp.value('(InstallProductCode/text())[1]  ', 'varchar(64)') AS ProductCode,                   ai.DTModelID,                   ai.AppModelID           FROM    AppInsightsCollectionStatus AS ai           CROSS APPLY ReportXml.nodes('/AppContentResult/FileData/FileProperties/MsiDetails') AS A ( FileProp )           WHERE ai.DTModelID IS NOT NULL AND ai.AppModelID IS NOT NULL       )      insert into #AppInsights(MsiProgramId , ProductName , Manufacturer , ProductVersion , ProductLanguage , ProductCode , DTModelID , AppModelID )      select MsiProgramId , ProductName , Manufacturer , ProductVersion , ProductLanguage , ProductCode , DTModelID , AppModelID from AppInsights
+CM_001	2169.56	15	1991.09	20387	0	2026-10-20 00:25:17.287	2026-10-20 00:27:52.463	with SystemDependencies(TableName,KeyName,ParentTable,ParentKey,Depth) as  (     select OBJECT_NAME(k.parent_object_id) as TableName, c.name as KeyName,            OBJECT_NAME(k.referenced_object_id), c2.name as ParentKey,            1 as Depth     from sys.foreign_key_columns k     join sys.columns c on k.parent_column_id=c.column_id and k.parent_object_id=c.object_id     join sys.columns c2 on k.referenced_column_id=c2.column_id and k.referenced_object_id=c2.object_id     where OBJECT_NAME(referenced_object_id) in (N'System_DISC',N'MachineIDGroupXRef')     union all     select OBJECT_NAME(k.parent_object_id) as TableName, c.name as KeyName,            OBJECT_NAME(k.referenced_object_id), c2.name as ParentKey,           (d.Depth + 1) as Depth     from sys.foreign_key_columns k     join sys.columns c on k.parent_column_id=c.column_id and k.parent_object_id=c.object_id     join sys.columns c2 on k.referenced_column_id=c2.column_id and k.referenced_object_id=c2.object_id     join SystemDependencies d on OBJECT_NAME(k.referenced_object_id)=d.TableName   )   insert into @SD(TableName,KeyName,ParentTable,ParentKey,Depth)   select TableName, KeyName, ParentTable, ParentKey, Depth   from SystemDependencies
+CM_001	1201.51	8	3830.00	297669	4133	2026-10-20 13:52:49.433	2026-10-20 13:52:59.513	with SelectedUpdatesComplianceSummary AS          (              Select C.CI_ID, LastSummaryTime, NumTotal, NumUnknown, NumNotApplicable, NumMissing, NumPresent, NumInstalled, NumFailed from Update_ComplianceSummary as C              join @ci as T on C.CI_ID = T.CI_ID          )          merge SelectedUpdatesComplianceSummary dst            using (select * from fn_UpdateSummaryPerCollection(@ci,default) where NumUnknown>=0) src               on dst.CI_ID=src.CI_ID               when matched                     then update set LastSummaryTime=getutcdate(), NumTotal=src.NumTotal, NumUnknown=src.NumUnknown,                                     NumNotApplicable=src.NumNotApplicable, NumMissing=src.NumMissing, NumPresent=src.NumPresent, NumInstalled=src.NumInstalled, NumFailed=src.NumFailed                when not matched                    then insert (CI_ID, LastSummaryTime, NumTotal, NumUnknown, NumNotApplicable, NumMissing, NumPresent, NumInstalled, NumFailed)                         values(src.CI_ID, getutcdate(), src.NumTotal, src.NumUnknown, src.NumNotApplicable, src.NumMissing, src.NumPresent, src.NumInstalled, src.NumFailed)                ;
+CM_001	1179.85	17505	0.41	18	0	2026-10-16 08:58:04.340	2026-10-20 14:45:17.567	WAITFOR            (                RECEIVE TOP(100)                  conversation_handle,                  message_body,                  message_type_name                FROM ConfigMgrGSQueue               INTO  @MessagesTable          ), TIMEOUT 3000
+CM_001	1168.67	2	691.93	707393	0	2026-10-19 19:08:23.863	2026-10-19 19:33:23.257	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000CA'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\DSSA_TOD'
+CM_001	1093.84	2	655.47	705064	0	2026-10-20 08:05:24.497	2026-10-20 09:39:26.177	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000CA'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\DSSA_TOD'
+master	810.39	2	698.69	4659	1	2026-10-20 14:43:46.177	2026-10-20 14:44:27.167	INSERT #D20_Objetos      SELECT DB_NAME(),          SUM(CASE WHEN o.type = 'U' THEN 1 ELSE 0 END),          SUM(CASE WHEN o.type = 'V' THEN 1 ELSE 0 END),          SUM(CASE WHEN o.type IN ('P','PC') THEN 1 ELSE 0 END),          SUM(CASE WHEN o.type IN ('FN','IF','TF','FS','FT') THEN 1 ELSE 0 END),          SUM(CASE WHEN o.type = 'TR' THEN 1 ELSE 0 END),          (SELECT COUNT(*) FROM sys.indexes i JOIN sys.objects x ON x.object_id = i.object_id            WHERE x.is_ms_shipped = 0 AND i.index_id > 0 AND x.type IN ('U','V')),          SUM(CASE WHEN o.type = 'SN' THEN 1 ELSE 0 END),          (SELECT COUNT(*) FROM sys.schemas s WHERE s.schema_id BETWEEN 5 AND 16383)      FROM sys.objects o      WHERE o.is_ms_shipped = 0
+CM_001	759.63	2	748.26	705293	0	2026-10-20 09:44:44.057	2026-10-20 10:55:41.430	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000C3'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\VSOTI_TOD'
+CM_001	750.77	3	726.43	705239	0	2026-10-20 10:10:25.560	2026-10-20 10:24:30.850	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000C4'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\DIOP_TOD'
+CM_001	738.58	10	592.86	429477	1	2026-10-20 12:12:58.293	2026-10-20 12:21:28.330	select  all upd.CI_ID,upd.LocaleID,upd.ApplicabilityCondition,upd.ArticleID,upd.BulletinID,upd.CI_ID,upd.CI_UniqueID,upd.CIType_ID,upd.CIVersion,upd.CMTag,upd.CMTagName,upd.ConfigurationFlags,upd.CreatedBy,upd.CustomSeverity,upd.CustomSeverityName,upd.DateCreated,upd.DateLastModified,upd.DatePosted,upd.DateRevised,upd.EffectiveDate,upd.EULAAccepted,upd.EULAExists,upd.EULASignoffDate,upd.EULASignoffUser,upd.IsUserCI,upd.InUse,upd.IsBroken,upd.IsBundle,upd.IsChild,upd.IsContentProvisioned,upd.IsDeployable,upd.IsDeployed,upd.IsEnabled,upd.IsExpired,upd.IsHidden,upd.IsLatest,upd.IsMetadataOnlyUpdate,upd.IsOfflineServiceable,upd.IsQuarantined,upd.IsSuperseded,upd.IsUserDefined,upd.LastModifiedBy,upd.LastStatusTime,upd.Description,upd.DisplayName,upd.CIInformativeURL,upd.LocaleID,upd.MaxExecutionTime,upd.ModelID,upd.ModelName,upd.NumMissing,upd.NumNotApplicable,upd.NumPresent,upd.NumTotal,upd.NumUnknown,upd.ObjectPath,upd.PercentCompliant,upd.PermittedUses,upd.PlatformType,upd.RequiresExclusiveHandling,upd.RevisionNumber,upd.SDMPackageVersion,upd.SedoObjectVersion,upd.Severity,upd.SeverityName,upd.SourceSite from vSMS_CIRelation as cr,fn_ListUpdateCIs(1046) as upd  where ((cr.FromCIID = 16836908 AND cr.RelationType = 1) AND upd.CI_ID = cr.ToCIID) OPTION(USE HINT('FORCE_LEGACY_CARDINALITY_ESTIMATION'))
+CM_001	720.30	2	632.24	705250	0	2026-10-20 12:34:56.403	2026-10-20 14:11:42.233	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000C3'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\VSOTI_TOD'
+CM_001	708.85	2	695.86	705250	0	2026-10-20 14:06:06.920	2026-10-20 14:26:47.353	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000C3'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\VSOTI_TOD'
+CM_001	697.54	4	631.80	707437	0	2026-10-19 22:03:41.290	2026-10-19 23:53:43.050	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000C3'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\VSOTI_TOD'
+CM_001	687.19	2	658.45	704958	0	2026-10-20 08:20:24.327	2026-10-20 09:28:23.710	WITH LimitedBaseTable as (  select res.* from [vSMS_R_System] as res  join CollectionMachineChanges as cmc on res.ItemKey=cmc.MachineID and cmc.SiteID=N'001000CA'  join CollectionMembers as cm on res.ItemKey=cm.MachineID and cm.SiteID=N'00100058'  )  insert into #CollTemp(MachineID,ArchitectureKey,Name,SMSID,Domain ,IsClient)  select  distinct SMS_R_SYSTEM.ItemKey,SMS_R_SYSTEM.DiscArchKey,SMS_R_SYSTEM.Name0,SMS_R_SYSTEM.SMS_Unique_Identifier0,SMS_R_SYSTEM.Resource_Domain_OR_Workgr0,SMS_R_SYSTEM.Client0 from LimitedBaseTable AS SMS_R_System INNER JOIN v_UserMachineRelationship AS SMS_UserMachineRelationship ON SMS_R_System.ItemKey = SMS_UserMachineRelationship.MachineResourceID  INNER JOIN (User_DISC AS SMS_R_User LEFT OUTER JOIN User_User_Group_Name_F_ARR AS __User_User_Group_Name_F_ARR0 ON SMS_R_User.ItemKey = __User_User_Group_Name_F_ARR0.ItemKey ) ON SMS_UserMachineRelationship.UniqueUserName = SMS_R_User.Unique_User_Name0   where __User_User_Group_Name_F_ARR0.User_Group_Name0 = N'COPEL\DSSA_TOD'
+
+TCDatabase	TCTotalCpuMs	TCAvgCpuMs	TCExecutions	TCTotalDurationMs	TCTotalLogicalReads	TCLastExecution	TCSqlText
+CM_001	2321824.45	12482.93	186	2611000.68	0	2026-10-20 14:37:18.630	WITH tooManyLocks AS      (          SELECT [session_id] = [request_session_id]              , [num_locks] = COUNT(*)          FROM [sys].[dm_tran_locks]          WHERE [resource_database_id] = DB_ID()          GROUP BY [request_session_id]          HAVING COUNT(*) > 100000      )      INSERT INTO [DBMON_RunningQueries]      (          [SnapshotTime]          , [session_id]          , [program_name]          , [Context]          , [host_name]          , [start_time]          , [running_time]          , [cpu_time]          , [wait_time]          , [wait_type]          , [last_wait_type]          , [wait_resource]          , [reads]          , [writes]          , [blocking_session_id]          , [statement_start_offset]          , [statement_end_offset]          , [text]          , [query_plan]          , [num_locks]      )      SELECT GETUTCDATE()          , MEM.[session_id]          , S.[program_name]          , (              SELECT [ReplicationGroup]              FROM [ReplicationData]              WHERE [ID] = CONVERT(INT, R.[context_info])          )          , S.[host_name]          , R.[start_time]          , 0          , R.[cpu_time]          , R.[wait_time]          , R.[wait_type]          , R.[last_wait_type]          , R.[wait_resource]          , R.[reads]          , R.[writes]          , R.[blocking_session_id]          , R.[statement_start_offset]          , R.[statement_end_offset]          , LEFT(E.[text], 1024)          , NULL          , MEM.[num_locks]      FROM [tooManyLocks] MEM      JOIN [sys].[dm_exec_sessions] S ON S.[session_id] = MEM.[session_id]          AND S.[database_id] = DB_ID()      LEFT JOIN [sys].[dm_exec_requests] R ON MEM.[session_id] = R.[session_id]          AND R.[database_id] = DB_ID()      OUTER APPLY [sys].[dm_exec_sql_text](R.[sql_handle]) E      WHERE MEM.[session_id] != @@spid
+CM_001	1283996.24	7.64	168051	1383520.06	1547173211	2026-10-20 14:45:38.183	with allServers as      (          SELECT distinct S.SiteCode as SiteCode,                 case when BGM.LocalityEx <= 0x00000100 then 0       -- Local    LSELocalityEx::eBoundaryGroup                      when BGM.LocalityEx <= 0x00000400 then 1       -- Remote   LSELocalityEx::eNeighborBoundaryGroup                      else 2 end as DownloadExecute,                 -- Site     LSELocalityEx::eSite                 DP.ServerName as ServerName,                    S.BuildNumber as Version,                    CONVERT(NVARCHAR(4000), S.Capabilities) as Capabilities,                 BGM.LocalityEx as LocalityEx,                 case @DeploymentFlags & 0x0F when 0x03 then 0 else BGM.FallbackTime end as Fallback    -- Immediate fallback to all boundary groups          FROM Sites S            join SysResList srl on S.SiteCode = srl.SiteCode            join DPInfo DP on DP.SiteCode=srl.SiteCode and DP.ServerName = srl.Servername           join BoundaryGroupSiteSystem BGSS on srl.NALPath=BGSS.ServerNALPath            join @BoundaryGroups BGM on BGSS.GroupID=BGM.BoundaryGroupID            where BGSS.Flags = 0 and ((@AFlag = 1 and UPPER(SRL.ResourceType) = UPPER(N'Windows Azure')) or (@AFlag = 0  and UPPER(SRL.ResourceType) <> UPPER(N'Windows Azure')))                       ), allServers1 as (      select SiteCode, DownloadExecute, ServerName, Version, Capabilities, LocalityEx, Fallback, ROW_NUMBER() over (partition by ServerName order by (LocalityEx) asc, (DownloadExecute) desc ) as rn from allServers      )      select SiteCode, DownloadExecute, ServerName, Version, Capabilities, LocalityEx, Fallback from allServers1 where rn = 1
+CM_001	798136.71	104.66	7626	842854.38	328585110	2026-10-20 11:35:44.227	SELECT i.name AS [Name], CAST(i.index_id AS int) AS [ID], CAST(OBJECTPROPERTY(i.object_id,N'IsMSShipped') AS bit) AS [IsSystemObject], ISNULL(s.no_recompute,0) AS [NoAutomaticRecomputation], i.fill_factor AS [FillFactor], CAST(CASE i.index_id WHEN 1 THEN 1 ELSE 0 END AS bit) AS [IsClustered], i.is_primary_key + 2*i.is_unique_constraint AS [IndexKeyType], i.is_unique AS [IsUnique], i.ignore_dup_key AS [IgnoreDuplicateKeys], ~i.allow_row_locks AS [DisallowRowLocks], ~i.allow_page_locks AS [DisallowPageLocks], CAST(ISNULL(INDEXPROPERTY(i.object_id, i.name, N'IsPadIndex'), 0) AS bit) AS [PadIndex], i.is_disabled AS [IsDisabled], CAST(ISNULL(k.is_system_named, 0) AS bit) AS [IsSystemNamed], CAST(INDEXPROPERTY(i.object_id,i.name,N'IsFulltextKey') AS bit) AS [IsFullTextKey], CAST(case when i.type=3 then 1 else 0 end AS bit) AS [IsXmlIndex], case UPPER(ISNULL(xi.secondary_type,'')) when 'P' then 1 when 'V' then 2 when 'R' then 3 else 0 end AS [SecondaryXmlIndexType], ISNULL(xi2.name, N'') AS [ParentXmlIndex], CAST(ISNULL(spi.spatial_index_type,0) AS tinyint) AS [SpatialIndexType], CAST(ISNULL(si.bounding_box_xmin,0) AS float(53)) AS [BoundingBoxXMin], CAST(ISNULL(si.bounding_box_ymin,0) AS float(53)) AS [BoundingBoxYMin], CAST(ISNULL(si.bounding_box_xmax,0) AS float(53)) AS [BoundingBoxXMax], CAST(ISNULL(si.bounding_box_ymax,0) AS float(53)) AS [BoundingBoxYMax], CAST(ISNULL(si.level_1_grid,0) AS smallint) AS [Level1Grid], CAST(ISNULL(si.level_2_grid,0) AS smallint) AS [Level2Grid], CAST(ISNULL(si.level_3_grid,0) AS smallint) AS [Level3Grid], CAST(ISNULL(si.level_4_grid,0) AS smallint) AS [Level4Grid], CAST(ISNULL(si.cells_per_object,0) AS int) AS [CellsPerObject], CAST(case when i.type=4 then 1 else 0 end AS bit) AS [IsSpatialIndex], CAST(          ISNULL ((select distinct 1 from sys.index_columns ic                    join sys.columns c on ic.object_id = c.object_id and c.column_id = ic.column_id                    where c.is_sparse = 1 and c.object_id = i.object_id and i
+master	706713.32	412.80	1712	841461.02	2717414	2026-10-20 14:43:08.903	SELECT   CONVERT(uniqueidentifier, HASHBYTES('MD2', rankTable.[sql_handle])) as [qhash],   rankTable.[sql_handle] as [qhandle],   st.[text],   rankTable.[plan_count],   rankTable.[execution_count],   DATEADD(second, DATEDIFF(second, GETDATE(), GETUTCDATE()), rankTable.[last_execution_time]) AS [last_execution_time],   rankTable.[avg_worker_time],   rankTable.[last_worker_time],   rankTable.[avg_physical_reads],   rankTable.[avg_logical_reads],   rankTable.[avg_logical_writes],   rankTable.[avg_elapsed_time],   rankTable.[last_elapsed_time],   s.[session_id],   s.[login_name],   s.[host_name],   s.[host_process_id],   rankTable.[dbid],   rankTable.[dbname]  FROM (   SELECT    innerTable.*,    [plan].[dbid],    [plan].[dbname],    ROW_NUMBER() OVER (PARTITION BY [plan].[dbid] ORDER BY [avg_worker_time] DESC) AS [_rank_db_worker_time],    ROW_NUMBER() OVER (PARTITION BY [plan].[dbid] ORDER BY [avg_logical_reads] DESC) AS [_rank_db_logical_reads],    ROW_NUMBER() OVER (PARTITION BY [plan].[dbid] ORDER BY [avg_logical_writes] DESC) AS [_rank_db_logical_writes],    ROW_NUMBER() OVER (ORDER BY [avg_physical_reads] DESC) AS [_rank_physical_reads],    ROW_NUMBER() OVER (ORDER BY [avg_elapsed_time] DESC) AS [_rank_elapsed_time]   FROM (    SELECT     qs.[sql_handle],     SUM(qs_plan.[plan_count]) as [plan_count],     SUM(qs.[execution_count]) as [execution_count],     MAX(qs.[last_execution_time]) as [last_execution_time],     SUM(qs.[total_worker_time]) / SUM(qs.execution_count) / 1000 as [avg_worker_time],     AVG(qs.[last_worker_time]) / 1000 as [last_worker_time],     SUM(qs.[total_physical_reads]) / SUM(qs.execution_count) as [avg_physical_reads],     SUM(qs.[total_logical_reads]) / SUM(qs.execution_count) as [avg_logical_reads],     SUM(qs.[total_logical_writes]) / SUM(qs.execution_count) as [avg_logical_writes],     SUM(qs.[total_elapsed_time]) / SUM(qs.execution_count) / 1000 as [avg_elapsed_time],     AVG(qs.[last_elapsed_time]) / 1000 as [last_elapsed_time],     MAX
+CM_001	584819.38	1.56	374116	616569.87	13350053	2026-10-20 14:45:40.007	SELECT CONVERT(NVARCHAR(MAX), dbo.fnMP_GetBoundaryGroupsXML(@ClientLocationInfo)) AS BoundaryGroups
+ReportServer	519333.71	0.11	4856097	896516.53	78147629	2026-10-20 14:45:02.240	select     iif( Catalog.LinkSourceID is null, Catalog.Property, Linked.Property) as Property,      Catalog.Description,     Catalog.Type,     Catalog.ContentSize,     Catalog.ItemID,     C.UserName,     C.UserName,     Catalog.CreationDate,     M.UserName,     M.UserName,     Catalog.ModifiedDate,     Catalog.MimeType,     Catalog.ExecutionTime,     SecData.NtSecDescPrimary,     Catalog.LinkSourceID,     Catalog.Hidden,     Catalog.ExecutionFlag,     Catalog.SnapshotLimit,     Catalog.Name,     Catalog.SubType,     Catalog.ComponentID,     Catalog.ParentID,     Catalog.Property AS LinkedItemProperty  FROM ExtendedCatalog(@OwnerID, @Path, @EditSessionID) Catalog     INNER JOIN Users C ON Catalog.CreatedByID = C.UserID     INNER JOIN Users M ON Catalog.ModifiedByID = M.UserID     LEFT OUTER JOIN SecData ON Catalog.PolicyID = SecData.PolicyID AND SecData.AuthType = @AuthType     LEFT OUTER JOIN Catalog Linked ON Linked.ItemID = Catalog.LinkSourceID
+ReportServer	466017.41	0.05	9689565	467913.73	58137422	2026-10-20 14:45:02.240	SELECT Type, ItemID, SnapshotLimit, NtSecDescPrimary, ExecutionFlag, Intermediate, [LinkSourceID], SubType, ComponentID  FROM ExtendedCatalog(@OwnerID, @Path, @EditSessionID)  LEFT OUTER JOIN SecData  ON ExtendedCatalog.PolicyID = SecData.PolicyID AND SecData.AuthType = @AuthType
+CM_001	274414.83	6.19	44352	289410.44	34359448	2026-10-20 14:41:24.060	SELECT DISTINCT(RBAC_Admins.AdminSID)    FROM [dbo].[vRBAC_DetailedPermissions]     JOIN RBAC_Admins on vRBAC_DetailedPermissions.AdminID = RBAC_Admins.AdminID     JOIN Report_FolderSecurity on vRBAC_DetailedPermissions.ObjectTypeID = Report_FolderSecurity.SecuredObjectId     WHERE FolderId = @folderId     AND  CASE @IsReadOnly WHEN 0 THEN GrantedOperations ELSE ReadOnlyOperations END & @permission=@permission     GROUP BY RBAC_Admins.AdminSID
+ReportServer	270135.83	0.07	4026807	367010.36	34430346	2026-10-20 14:45:02.227	SELECT     Type,     [Parameter],     ItemID,     SecData.NtSecDescPrimary,     [LinkSourceID],     [ExecutionFlag]  FROM Catalog  LEFT OUTER JOIN SecData ON Catalog.PolicyID = SecData.PolicyID AND SecData.AuthType = @AuthType  WHERE Path = @Path
+ReportServer	264118.77	0.06	4103221	264880.48	28722547	2026-10-20 14:45:02.227	SELECT         MainItem.Type,         MainItem.Intermediate,         MainItem.LinkSourceID,         MainItem.Property,         MainItem.Description,         SecData.NtSecDescPrimary,         MainItem.ItemID,         MainItem.ExecutionFlag,         LinkTarget.Intermediate,         LinkTarget.Property,         LinkTarget.Description,         MainItem.[SnapshotDataID],         MainItem.IntermediateIsPermanent      FROM ExtendedCatalog(@OwnerID, @Path, @EditSessionID) MainItem      LEFT OUTER JOIN SecData ON MainItem.PolicyID = SecData.PolicyID AND SecData.AuthType = @AuthType      LEFT OUTER JOIN Catalog LinkTarget with (INDEX(PK_Catalog)) on MainItem.LinkSourceID = LinkTarget.ItemID
+CM_001	193718.04	0.62	311802	202048.58	39175369	2026-10-20 14:39:48.713	select @InstanceKey = InstanceKey  from WINDOWS8_APPLICATION_USER_INFO_HIST  where MachineID = @MachineID  and FullName00 = @FullName00 and UserSecurityId00 = @UserSecurityId00
+CM_001	133910.21	1.60	83782	133975.24	8357833	2026-10-20 14:45:38.183	insert into @CloudDPs execute dbo.MP_GetSiteInfoUnifiedBGR @vchLocationInfo = @vchLocationInfo, @BoundaryGroupsInfo = @BoundaryGroupsInfo, @DefaultSiteCode = @vchClientSiteCode, @DeploymentFlags = @DeploymentFlags, @AFlag = 1
+ReportServer	130506.64	0.03	4103245	131029.61	16489404	2026-10-20 14:45:02.230	select csm.SegmentId,          csm.LogicalByteCount as LogicalSegmentLength,      csm.ActualByteCount as ActualSegmentLength     from ChunkSegmentMapping csm     where csm.ChunkId = @ChunkId   order by csm.StartByte asc
+ReportServer	124559.97	0.03	4103231	125301.53	12	2026-10-20 14:45:02.230	SELECT      DS.ID,      DS.LinkID,      DS.[Name],      C.Path,      SD.NtSecDescPrimary,      C.Intermediate,      C.[Parameter]  FROM     ExtendedDataSets AS DS     LEFT OUTER JOIN Catalog C ON DS.[LinkID] = C.[ItemID]     LEFT OUTER JOIN [SecData] AS SD ON C.[PolicyID] = SD.[PolicyID] AND SD.AuthType = @AuthType  WHERE     DS.[ItemID] = @ItemID
+master	110389.29	12.90	8556	113933.37	402236	2026-10-20 14:45:40.083	SELECT   cast(DB_Name(a.database_id) as varchar) AS [db],   sum(io_stall_read_ms) / 1000.0 AS [read],   sum(io_stall_write_ms) / 1000.0 AS [write] FROM   sys.dm_io_virtual_file_stats(null, null) a INNER JOIN sys.master_files b ON a.database_id = b.database_id AND a.file_id = b.file_id GROUP BY a.database_id
+ReportServer	100934.87	0.02	4103245	101659.44	16413000	2026-10-20 14:45:02.230	select @ChunkId = ChunkId,     @ChunkFlags = ChunkFlags,              @MimeType = MimeType   from dbo.SegmentedChunk chunk   where chunk.SnapshotDataId = @SnapshotId and chunk.ChunkName = @ChunkName and chunk.ChunkType = @ChunkType
+CM_001	96417.49	0.42	227490	96495.08	16185654	2026-10-20 14:45:38.907	INSERT @TSIDLIST        SELECT col.value('./text()[1]', 'nvarchar(64)') As SID        FROM @xmlTemp.nodes('/UserGroups/SID') document(col)
+CM_001	95094.08	0.28	338876	102548.51	71920252	2026-10-20 14:15:19.230	delete top (@batchsize) from #AllRes            output deleted.ResourceID into #ResBatch(ResourceID)
+ReportServer	90476.51	0.02	4103245	91214.41	8206490	2026-10-20 14:45:02.230	select top 1 @IsSegmented = IsSegmented          from          (              select convert(bit, 0)              from [ChunkData] c              where c.ChunkName = @ChunkName and c.ChunkType = @ChunkType and c.SnapshotDataId = @SnapshotId              union all              select convert(bit, 1)              from [SegmentedChunk] c WITH(NOLOCK)              where c.ChunkName = @ChunkName and c.ChunkType = @ChunkType and c.SnapshotDataId = @SnapshotId          ) A(IsSegmented)
+ReportServer	80062.06	0.02	4714499	80878.41	9428998	2026-10-20 14:45:02.240	SELECT Path  FROM Catalog  WHERE ItemID = @ItemID
+
+SessSessionId	SessLogin	SessHost	SessProgram	SessDatabase	SessStatus	SessBlockedBy	SessWaitType	SessWaitMs	SessCpuMs	SessReads	SessWrites	SessLogicalReads	SessOpenTran	SessElapsedSec	SessLoginTime	SessLastRequestEnd	SessSqlText
+254	COPEL\ECM01PRD$	ECM01PRD	SMS_REPLICATION_CONFIGURATION_MONITOR	CM_001	sleeping	0		0	310496	341146	61249	34301552	0	513333	2026-10-14 16:10:07.050	2026-10-20 14:44:52.720	
+348	COPEL\ECM01PRD$	ECM01PRD	SMS_STATUS_MANAGER	CM_001	sleeping	0		0	22250	1048	55696	1741867	0	6	2026-10-14 16:10:09.387	2026-10-20 14:45:34.137	exec sp_InsStatusMessageInsStr 2,72057594041488248,0,N'-2147024894',72057594041488248,1,N'BITS error: ''HTTP status 404: The requested URL does not exist on the server. ''  Context: ''The error occurred while the remote file was being processed. '''
+383	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_SERVER	CM_001	sleeping	0		0	13432	9	0	396552	0	513330	2026-10-14 16:10:10.333	2026-10-20 14:45:39.330	
+82	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	6322	0	70	86476	0	2	2026-10-14 16:10:32.227	2026-10-20 14:45:38.190	exec spGetProviderNotification @ServerName=N'ECM01PRD.copel.nt'
+98	COPEL\ECM01PRD$	ECM01PRD	NotificationManager	CM_001	sleeping	0		0	3536	0	0	73307	0	513337	2026-10-14 16:10:03.817	2026-10-20 14:45:30.470	
+381	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_SERVER	CM_001	sleeping	0		0	1422	0	0	17592	0	513330	2026-10-14 16:10:10.050	2026-10-20 14:45:14.173	
+380	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_SERVER	CM_001	suspended	0	BROKER_RECEIVE_WAITFOR	285560	967	2	360	57137	0	286	2026-10-14 16:10:09.910	2026-10-20 14:40:54.803	--  -- Name         : MP_BgbGetPushMessage  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE MP_BgbGetPushMessage @timeout_seconds INT, @mp_name NVARCHAR(256), @message XML OUT, @message_type NVARCHAR(MAX) OUT  AS  BEGIN      SET NOCOUNT ON        DECLARE @timeout_miliseconds BIGINT      SET @timeout_miliseconds = @timeout_seconds*1000            DECLARE @Error INT=0;        DECLARE @RowCount INT=0;            DECLARE @handle UNIQUEIDENTIFIER            SELECT @handle = ep.conversation_handle       FROM BGB_Server server            JOIN sys.conversation_endpoints ep ON ep.conversation_id=server.ConversationID       WHERE server.ServerName=@mp_name AND ep.is_initiator=0            --      -- BGG_Server's data is not replicated to secondary site yet or dialog is not setup yet      --      IF @handle IS N
+53	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	171	0	39	4765	0	22128	2026-10-20 08:36:52.403	2026-10-20 08:36:52.670	exec dbo.spSystemDecommission 16790148, true, true, false, false, true
+68	COPEL\ECM01PRD$	ECM01PRD	SMS_SOFTWARE_INVENTORY_PROCESSOR	CM_001	sleeping	0		0	125	0	261	12887	0	53	2026-10-20 14:44:47.347	2026-10-20 14:44:47.557	 exec dbo.sp_SoftwareInventory 16786861,N'10/20/2026 14:45:00',72057594037929892,72057594039324059,0,2,N'10/19/2026 07:52:21'
+181	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	125	1	57	4403	0	448146	2026-10-15 10:16:34.303	2026-10-15 10:16:34.423	exec dbo.spSystemDecommission 16789317, true, true, false, false, true
+479	COPEL\ecm_sqladmin	ECMDB01PRD	SQLAgent - Generic Refresher	msdb	sleeping	0		0	110	57	6	3371	0	343756	2026-10-14 16:10:31.400	2026-10-16 15:16:24.203	(@P1 int,@P2 uniqueidentifier,@P3 int,@P4 int,@P5 int)EXECUTE [msdb].[dbo].[sp_sqlagent_update_jobactivity_next_scheduled_date] @session_id = @P1, @job_id = @P2, @is_system = @P3,     @last_run_date = @P4, @last_run_time = @P5
+136	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	47	0	272	3714	0	8	2026-10-20 14:45:32.497	2026-10-20 14:45:32.670	exec dbo.spProcessStateReport N'﻿<?xml version="1.0" encoding="UTF-16"?>  <Report><ReportHeader><Identification><Machine><ClientInstalled>1</ClientInstalled><ClientType>1</ClientType><ClientID>GUID:97D46DDA-E702-4C04-BC97-122D5B35192A</ClientID><ClientVersion>5.00.9146.1027</ClientVersion><NetBIOSName>GET990559</NetBIOSName><CodePage>850</CodePage><SystemDefaultLCID>1046</SystemDefaultLCID><Priority>5</Priority></Machine></Identification><ReportDetails><ReportContent>State Message Data</ReportContent><ReportType>Full</ReportType><Date>20261020174501.472000+000</Date><Version>1.0</Version><Format>1.0</Format></ReportDetails></ReportHeader><ReportBody><StateMessage MessageTime="20261020174208.997000+000" SerialNumber="3175"><Topic ID="{B9086C3E-B6C7-4556-B290-962843B3C218}" Type="501" IDType="4" User="" UserSID=""/><State ID="3" Criticality="0"/><UserParameters Flags="0" Count="2"><Param>541</Param><Param>http://ECM01PRD.copel.nt:8530</Param></UserParameters></StateMessage><StateMessage 
+187	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	32	0	49	2454	0	53	2026-10-20 14:44:47.467	2026-10-20 14:44:47.593	exec dbo.spProcessStateReport N'﻿<?xml version="1.0" encoding="UTF-16"?>  <Report><ReportHeader><Identification><Machine><ClientInstalled>1</ClientInstalled><ClientType>1</ClientType><ClientID>GUID:451B9ADE-4C2F-4616-84A7-F3050F44C380</ClientID><ClientVersion>5.00.9146.1027</ClientVersion><NetBIOSName>DIS487129</NetBIOSName><CodePage>850</CodePage><SystemDefaultLCID>1046</SystemDefaultLCID><Priority>5</Priority></Machine></Identification><ReportDetails><ReportContent>State Message Data</ReportContent><ReportType>Full</ReportType><Date>20261020174425.002000+000</Date><Version>1.0</Version><Format>1.0</Format></ReportDetails></ReportHeader><ReportBody><StateMessage MessageTime="20261020173756.487000+000" SerialNumber="3812"><Topic ID="CoManagementState" Type="810" IDType="0" User="" UserSID=""/><State ID="100" Criticality="0"/><StateDetails Type="1"><![CDATA[<ClientCoManagementMessage><MDMEnrollment><Enrolled Value="1" /><Provisioned Value="1" /><ServiceUri Value="https://enrollment.mana
+123	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	32	1	39	2989	0	7790	2026-10-20 12:35:50.497	2026-10-20 12:35:50.537	exec dbo.spSystemDecommission 16789150, true, true, false, false, true
+96	sa	IMCORE01PRD	.Net SqlClient Data Provider	master	sleeping	0		0	16	0	0	2597	0	152	2026-10-20 14:43:08.677	2026-10-20 14:43:08.683	(@dbName nvarchar(6),@state int)SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;  IF @state = 0 BEGIN  DECLARE @sqlQuery NVARCHAR(MAX)  SET @sqlQuery = REPLACE(N'USE [@dbName] ' +  'SELECT   data_space_id,   [file_id],   [type],   name,   physical_name,   [state],   CONVERT(bigint, size) * 8 as size_kbytes,   CASE [type] WHEN 2 THEN NULL ELSE CONVERT(bigint, FILEPROPERTY(name,''SpaceUsed'')) * 8 END as space_used_kbytes,   CASE max_size WHEN -1 THEN NULL ELSE CONVERT(bigint, max_size) * 8 END as max_size_kbytes,   CASE is_percent_growth WHEN 1 THEN growth ELSE growth * 8 END as growth,   is_percent_growth,   ((SELECT SUM(CONVERT(bigint, size)) FROM sys.database_files WHERE [type] % 2 = 0) - (SELECT SUM(CONVERT(bigint,total_pages)) FROM sys.partitions AS p INNER JOIN sys.allocation_units AS a ON p.[partition_id] = a.container_id))*8 AS ShrinkSpace_kbytes  FROM sys.database_files',  '@dbName', @dbName)  EXECUTE (@sqlQuery)  END
+64	COPEL\ECM01PRD$	ECM01PRD	SMS_SOFTWARE_INVENTORY_PROCESSOR	CM_001	sleeping	0		0	16	0	0	0	0	53	2026-10-20 14:44:47.323	2026-10-20 14:44:47.337	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+88	COPEL\ecm_sqladmin	ECMDB01PRD	SQLAgent - Job invocation engine	msdb	sleeping	0		0	16	0	61	324	0	11740	2026-10-15 00:01:00.430	2026-10-20 11:30:00.990	(@P1 int,@P2 uniqueidentifier,@P3 int,@P4 int)EXECUTE [msdb].[dbo].[sp_sqlagent_update_jobactivity_requested_date] @session_id = @P1, @job_id = @P2, @is_system = @P3, @run_requested_source_id  = @P4
+142	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	16	0	76	19566	0	190	2026-10-20 14:42:30.397	2026-10-20 14:45:39.537	
+144	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	16	0	0	68	0	65	2026-10-20 14:44:35.377	2026-10-20 14:44:35.393	select CurrentStatus,CurrentStatusTime,getutcdate() from Collections where SiteID = N'SMSDM003'  
+177	COPEL\ECM01PRD$	ECM01PRD	SMS_MESSAGE_PROCESSING_ENGINE	CM_001	sleeping	0		0	16	0	0	154	0	2738	2026-10-20 14:00:02.383	2026-10-20 14:45:36.880	
+69	COPEL\GEST_VULN	ECMDB01PRD	Microsoft SQL Server Management Studio	master	sleeping	0		0	15	0	0	899	0	338740	2026-10-16 16:39:58.197	2026-10-16 16:40:00.940	(@dbname nvarchar(6))SELECT COLLATIONPROPERTY((select collation_name from sys.databases where name = ISNULL(@dbname, db_name())), 'LCID'), COLLATIONPROPERTY((select collation_name from sys.databases where name = ISNULL(@dbname, db_name())), 'ComparisonStyle')
+153	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	15	0	0	37	0	22	2026-10-20 14:45:18.383	2026-10-20 14:45:18.393	exec sp_BgbCheckAndGenerateResTask 0
+101	COPEL\ECM01PRD$	ECM01PRD	SMS_DATABASE_NOTIFICATION_MONITOR	CM_001	suspended	0	WAITFOR	382	15	0	2	225	0	66	2026-10-20 14:37:34.753	2026-10-20 14:44:34.913	--  -- Name         : spGetChangeNotifications  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : CAS_OR_PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE spGetChangeNotifications  AS  BEGIN    SET NOCOUNT ON    WHILE NOT EXISTS( SELECT RecordID FROM TableChangeNotifications                      WHERE TargetTriggerTime IS NULL OR TargetTriggerTime <= GETUTCDATE()                     )    BEGIN      WAITFOR DELAY '00:00:05'    END    SELECT TOP 1000 convert(nvarchar(64),RecordID),Component,TableName,ActionType,Key1,Key2,Key3      FROM TableChangeNotifications      WHERE TargetTriggerTime IS NULL OR TargetTriggerTime <= GETUTCDATE()  END  
+102	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	27	0	5	2026-10-20 14:45:35.983	2026-10-20 14:45:35.983	 select  distinct A.AdminID from RBAC_Admins A  INNER JOIN RBAC_ExtendedPermissions cap on A.AdminID=cap.AdminID and cap.RoleID=N'SMS0001R' and cap.ScopeID=N'SMS00ALL' and cap.ScopeTypeID=29  where not exists (select * from Collections_G cc  where IsNULL(cc.LimitToCollectionID,N'')=N''  and cc.SiteID NOT IN (N'SMSOTHER') and  NOT EXISTS (select * from RBAC_ExtendedPermissions pp2        where pp2.RoleID=N'SMS0001R' and   pp2.AdminID=A.AdminID and   pp2.ScopeID=cc.SiteID and   pp2.ScopeTypeID=1))  and A.AdminSID IN   (0x010500000000000515000000A1F40462BE043E32235F636BBC280000,0x010500000000000515000000A1F40462BE043E32235F636B72D30200)  union all  select 1 WHERE 1 = dbo.fnRBAC_IsSiteserver(0x010500000000000515000000A1F40462BE043E32235F636BBC280000) 
+103	COPEL\ecm_rpt	ECMDB01PRD	Report Server	ReportServer	sleeping	0		0	0	0	0	9	0	29	2026-10-20 14:45:11.037	2026-10-20 14:45:11.027	CREATE PROCEDURE [dbo].[PollEventsForRSProcess]      @NumberOfEvents AS INTEGER  AS    DECLARE @BatchID UNIQUEIDENTIFIER  SET @BatchID = NEWID()    UPDATE [Event] WITH (TABLOCKX)      SET [BatchID] = @BatchID,      [ProcessStart] = GETUTCDATE(),      [ProcessHeartbeat] = GETUTCDATE()  FROM (      SELECT TOP (@NumberOfEvents) [EventID]      FROM [Event] WITH (TABLOCKX)      WHERE [ProcessStart] is NULL AND [EventType] <> 'DataModelRefresh'      ORDER BY [TimeEntered]      ) AS t1  WHERE [Event].[EventID] = t1.[EventID]    SELECT TOP (@NumberOfEvents)      E.[EventID],      E.[EventType],      E.[EventData]  FROM      [Event] E WITH (TABLOCKX)  WHERE      [BatchID] = @BatchID      AND [EventType] <> 'DataModelRefresh'  ORDER BY [TimeEntered]
+104	COPEL\ECM01PRD$	ECM01PRD	SMS_CLIENT_CONFIG_MANAGER	CM_001	sleeping	0		0	0	0	0	12	0	71	2026-10-20 14:44:29.877	2026-10-20 14:44:29.890	exec [sp_CP_SetPushRequestMachineStatus] 2097168646, 1
+105	COPEL\ECM01PRD$	ECM01PRD	SMS_REPLICATION_CONFIGURATION_MONITOR	CM_001	sleeping	0		0	0	0	0	162	0	336882	2026-10-16 17:10:58.247	2026-10-18 17:11:48.500	
+106	COPEL\ECM01PRD$	ECM01PRD	SMS_HIERARCHY_MANAGER	CM_001	sleeping	0		0	0	0	0	2	0	71	2026-10-20 14:44:29.893	2026-10-20 14:44:29.893	IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('sys.availability_group_listener_ip_addresses') )     SELECT count(*) FROM sys.availability_group_listener_ip_addresses     WHERE ip_address IN(SELECT local_net_address FROM sys.dm_exec_connections WHERE session_id = @@SPID)  ELSE     SELECT 0
+107	COPEL\ECM01PRD$	ECM01PRD	SMS_SOFTWARE_INVENTORY_PROCESSOR	CM_001	sleeping	0		0	0	0	0	0	0	53	2026-10-20 14:44:47.340	2026-10-20 14:44:47.340	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+108	sa	ECMDB01PRD	Microsoft SQL Server Management Studio - Transact-SQL IntelliSense	tempdb	sleeping	0		0	0	0	0	62	0	24	2026-10-20 14:45:16.023	2026-10-20 14:45:16.020	(@_msparam_0 nvarchar(4000),@_msparam_1 nvarchar(4000),@_msparam_2 nvarchar(4000),@_msparam_3 nvarchar(4000))SELECT clmns.name AS [Name], clmns.column_id AS [ID], clmns.is_nullable AS [Nullable], clmns.is_computed AS [Computed], CAST(ISNULL(cik.index_column_id, 0) AS bit) AS [InPrimaryKey], clmns.is_ansi_padded AS [AnsiPaddingStatus], CAST(clmns.is_rowguidcol AS bit) AS [RowGuidCol], CAST(ISNULL(cc.is_persisted, 0) AS bit) AS [IsPersisted], ISNULL(clmns.collation_name, N'') AS [Collation], CAST(ISNULL((select TOP 1 1 from sys.foreign_key_columns AS colfk where colfk.parent_column_id = clmns.column_id and colfk.parent_object_id = clmns.object_id), 0) AS bit) AS [IsForeignKey], clmns.is_identity AS [Identity], CAST(ISNULL(ic.seed_value,0) AS numeric(38)) AS [IdentitySeedAsDecimal], CAST(ISNULL(ic.increment_value,0) AS numeric(38)) AS [IdentityIncrementAsDecimal], (case when clmns.default_object_id = 0 then N'' when d.parent_object_id > 0 then N'' else d.name end) AS [Default], (case when
+109	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	0	0	0	0	0	8	2026-10-20 14:45:32.490	2026-10-20 14:45:32.493	SELECT dbo.fnIsSnapshotInitializing(N'Site Control Data', N'')
+110	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	3	0	1	2026-10-20 14:45:39.090	2026-10-20 14:45:39.087	select AdminSID from RBAC_Admins where AdminSID in (0x010500000000000515000000A1F40462BE043E32235F636B01020000, 0x010100000000000100000000, 0x010500000000000515000000123E63F7706EAA3839B2EC37F4030000, 0x010500000000000515000000123E63F7706EAA3839B2EC37F3030000, 0x01020000000000052000000021020000, 0x010100000000000502000000, 0x01010000000000050B000000, 0x01010000000000050F000000, 0x010500000000000515000000A1F40462BE043E32235F636B082D0200, 0x010500000000000515000000A1F40462BE043E32235F636BFBFB0200, 0x010500000000000515000000A1F40462BE043E32235F636B08280100, 0x010500000000000515000000A1F40462BE043E32235F636BB3D90200, 0x010500000000000515000000A1F40462BE043E32235F636BEC780200, 0x010500000000000515000000A1F40462BE043E32235F636B35060300, 0x010500000000000515000000A1F40462BE043E32235F636BAD4E0200, 0x010500000000000515000000A1F40462BE043E32235F636B71CA0200, 0x010500000000000515000000A1F40462BE043E32235F636B52E60100, 0x010500000000000515000000A1F40462BE043E32235F636B2BA90200, 0x010500000000000515
+111	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	0	0	0	2026-10-20 14:45:40.073	2026-10-20 14:45:40.067	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+112	COPEL\ECM01PRD$	ECM01PRD	SMS_ENDPOINT_PROTECTION_MANAGER	CM_001	sleeping	0		0	0	0	0	13	0	57	2026-10-20 14:44:43.897	2026-10-20 14:44:43.903	exec dbo.spEPGenerateMalwareDetectionAlerts @EventRecurrenceInterval=24
+113	COPEL\ECM01PRD$	ECM01PRD	SMS_REPLICATION_CONFIGURATION_MONITOR	CM_001	sleeping	0		0	0	0	0	2	0	65	2026-10-20 14:44:35.677	2026-10-20 14:44:35.680	EXEC dbo.spHasUpdateToApply
+132	COPEL\ECM01PRD$	ECM01PRD	SMS_CLIENT_CONFIG_MANAGER	CM_001	sleeping	0		0	0	0	0	5	0	1	2026-10-20 14:45:39.840	2026-10-20 14:45:39.833	exec [sp_IsMPAvailable] N'001'
+134	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	0	0	0	0	0	8	2026-10-20 14:45:32.490	2026-10-20 14:45:32.493	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+135	sa	ECMDB01PRD	Microsoft SQL Server Management Studio	master	sleeping	0		0	0	0	0	0	0	84	2026-10-20 14:44:16.913	2026-10-20 14:44:16.917	
+114	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	27	0	3	2026-10-20 14:45:37.470	2026-10-20 14:45:37.463	 select  distinct A.AdminID from RBAC_Admins A  INNER JOIN RBAC_ExtendedPermissions cap on A.AdminID=cap.AdminID and cap.RoleID=N'SMS0001R' and cap.ScopeID=N'SMS00ALL' and cap.ScopeTypeID=29  where not exists (select * from Collections_G cc  where IsNULL(cc.LimitToCollectionID,N'')=N''  and cc.SiteID NOT IN (N'SMSOTHER') and  NOT EXISTS (select * from RBAC_ExtendedPermissions pp2        where pp2.RoleID=N'SMS0001R' and   pp2.AdminID=A.AdminID and   pp2.ScopeID=cc.SiteID and   pp2.ScopeTypeID=1))  and A.AdminSID IN   (0x010500000000000515000000A1F40462BE043E32235F636BBC280000,0x010500000000000515000000A1F40462BE043E32235F636B72D30200)  union all  select 1 WHERE 1 = dbo.fnRBAC_IsSiteserver(0x010500000000000515000000A1F40462BE043E32235F636BBC280000) 
+115	COPEL\ecm_rpt	ECMDB01PRD	RSManagement	ReportServer	sleeping	0		0	0	0	0	56	0	6	2026-10-20 14:45:34.463	2026-10-20 14:45:34.460	CREATE PROCEDURE [dbo].[AnnounceOrGetKey]  @MachineName nvarchar(256),  @InstanceName nvarchar(32),  @InstallationID uniqueidentifier,  @PublicKey image,  @NumAnnouncedServices int OUTPUT  AS    -- Acquire lock  IF NOT EXISTS (SELECT * FROM [dbo].[Keys] WITH(XLOCK) WHERE [Client] < 0)  BEGIN      RAISERROR('Keys lock row not found', 16, 1)      RETURN  END    -- Get the number of services that have already announced their presence  SELECT @NumAnnouncedServices = count(*)  FROM [dbo].[Keys]  WHERE [Client] = 1    DECLARE @StoredInstallationID uniqueidentifier  DECLARE @StoredInstanceName nvarchar(32)    SELECT @StoredInstallationID = [InstallationID], @StoredInstanceName = [InstanceName]  FROM [dbo].[Keys]  WHERE [InstallationID] = @InstallationID AND [Client] = 1    IF @StoredInstallationID IS NULL -- no record present  BEGIN      INSERT INTO [dbo].[Keys]          ([MachineName], [InstanceName], [InstallationID], [Client], [PublicKey], [SymmetricKey])      VALUES          (@MachineName
+116	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	2	102	0	3	2026-10-20 14:45:37.433	2026-10-20 14:45:37.447	select PropertyListID,Name, ISNULL(Value, case when ValueIndex is null then NULL else N'' end) as Value  from vSMS_SC_SiteDefinition_PropertyLists where ID = 1  order by Name,ValueIndex 
+117	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	0	0	3	2026-10-20 14:45:37.447	2026-10-20 14:45:37.443	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+118	COPEL\ECM01PRD$	ECM01PRD	SMS_SOFTWARE_INVENTORY_PROCESSOR	CM_001	sleeping	0		0	0	0	0	0	0	53	2026-10-20 14:44:47.340	2026-10-20 14:44:47.340	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+119	COPEL\ECM01PRD$	ECM01PRD	SMS_REST_PROVIDER	CM_001	sleeping	0		0	0	0	0	5	0	319	2026-10-20 14:40:21.403	2026-10-20 14:40:21.493	
+120	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	27	0	67	2026-10-20 14:44:33.190	2026-10-20 14:44:33.180	SELECT dbo.fnIsSiteInMaintMode()
+156	sa	ECMDB01PRD	Microsoft SQL Server Management Studio	master	sleeping	0		0	0	0	0	0	0	84	2026-10-20 14:44:16.923	2026-10-20 14:44:16.927	SELECT     SERVERPROPERTY('EngineEdition') EngineEdition,    SERVERPROPERTY('ProductVersion') ProductVersion  
+157	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	0	17	0	506	2026-10-20 14:37:14.770	2026-10-20 14:42:38.823	
+159	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	4	0	65	2026-10-20 14:44:35.393	2026-10-20 14:44:35.407	SELECT ISNULL(DATALENGTH(SQL),0), SQL FROM Collection_Rules_SQL where CollectionID = 16777230 and QueryKey = 1
+160	COPEL\ECM01PRD$	ECM01PRD	SMS_FAILOVER_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	21	2026-10-20 14:45:19.203	2026-10-20 14:45:19.200	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+121	COPEL\ecm_rpt	ECMDB01PRD	Report Server	ReportServer	sleeping	0		0	0	0	0	16	0	8	2026-10-20 14:45:32.207	2026-10-20 14:45:32.207	                                      declare @BatchID uniqueidentifier                                        set @BatchID = newid()                                        UPDATE [Notifications] WITH (TABLOCKX)                                          SET [BatchID] = @BatchID,                                          [ProcessStart] = GETUTCDATE(),                                          [ProcessHeartbeat] = GETUTCDATE()                                      FROM (                                          SELECT TOP 4  [NotificationID] FROM [Notifications] WITH (TABLOCKX) WHERE ProcessStart is NULL and                                       (ProcessAfter is NULL or ProcessAfter < GETUTCDATE()) ORDER BY [NotificationEntered]                                      ) AS t1                                      WHERE [Notifications].[NotificationID] = t1.[NotificationID]                                        select top 4                                        -- Notification data             
+122	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	27	0	1	2026-10-20 14:45:39.127	2026-10-20 14:45:39.123	 select  distinct A.AdminID from RBAC_Admins A  INNER JOIN RBAC_ExtendedPermissions cap on A.AdminID=cap.AdminID and cap.RoleID=N'SMS0001R' and cap.ScopeID=N'SMS00ALL' and cap.ScopeTypeID=29  where not exists (select * from Collections_G cc  where IsNULL(cc.LimitToCollectionID,N'')=N''  and cc.SiteID NOT IN (N'SMSOTHER') and  NOT EXISTS (select * from RBAC_ExtendedPermissions pp2        where pp2.RoleID=N'SMS0001R' and   pp2.AdminID=A.AdminID and   pp2.ScopeID=cc.SiteID and   pp2.ScopeTypeID=1))  and A.AdminSID IN   (0x010500000000000515000000A1F40462BE043E32235F636BBC280000,0x010500000000000515000000A1F40462BE043E32235F636B72D30200)  union all  select 1 WHERE 1 = dbo.fnRBAC_IsSiteserver(0x010500000000000515000000A1F40462BE043E32235F636BBC280000) 
+97	sa	IMCORE01PRD	.Net SqlClient Data Provider	master	sleeping	0		0	0	0	0	2	0	152	2026-10-20 14:43:08.827	2026-10-20 14:43:08.820	(@dbName nvarchar(6),@state int)IF @state = 0 BEGIN  DECLARE @useSQL NVARCHAR(MAX)  SET @useSQL = REPLACE(N'USE [@dbName] ' +  'SELECT  name,  data_space_id,  type  FROM sys.filegroups', '@dbName', @dbName)   EXECUTE (@useSQL) END
+51	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	0	0	1	2026-10-20 14:45:39.613	2026-10-20 14:45:39.610	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+52	COPEL\ECM01PRD$	ECM01PRD	SMS_CLIENT_CONFIG_MANAGER	CM_001	sleeping	0		0	0	0	0	4	0	1	2026-10-20 14:45:39.830	2026-10-20 14:45:39.827	exec [sp_CP_GetPushMachineName] 2097168686
+124	COPEL\ECM01PRD$	ECM01PRD	SMS_OFFER_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	50	2026-10-20 14:44:50.067	2026-10-20 14:44:50.067	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+126	COPEL\ECM01PRD$	ECM01PRD	Management Point	CM_001	sleeping	0		0	0	0	0	6	0	0	2026-10-20 14:45:40.197	2026-10-20 14:45:40.197	--  -- Name         : MP_GetEncryptionCertificateForSMSID  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE MP_GetEncryptionCertificateForSMSID @SMSID    nvarchar(255)  AS  BEGIN      SET NOCOUNT ON      DECLARE @EncryptionKey   varbinary(4096),              @MigrationCert   varbinary(4096),              @ApprovalStatus  int        SET @EncryptionKey = NULL      SET @ApprovalStatus = -1 -- Unknown status        SELECT  @EncryptionKey = EncryptionKeyData, @MigrationCert = MigrationCert,              @ApprovalStatus = ApprovalStatus      FROM    ClientKeyData      WHERE   SMSID=@SMSID        SELECT @EncryptionKey as EncryptionKey, @ApprovalStatus as ApprovalStatus, @MigrationCert AS MigrationCert  END  
+127	COPEL\ecm_rpt	ECMDB01PRD	Report Server	ReportServer	sleeping	0		0	0	0	0	4	0	13	2026-10-20 14:45:27.630	2026-10-20 14:45:27.627	CREATE PROCEDURE [dbo].[GetMyRunningJobs]  @ComputerName as nvarchar(32),  @JobType as smallint  AS  SELECT JobID, StartDate, ComputerName, RequestName, RequestPath, SUSER_SNAME(Users.[Sid]), Users.[UserName], Description,      Timeout, JobAction, JobType, JobStatus, Users.[AuthType]  FROM RunningJobs INNER JOIN Users  ON RunningJobs.UserID = Users.UserID  WHERE ComputerName = @ComputerName  AND JobType = @JobType
+128	COPEL\ECM01PRD$	ECM01PRD	EntityFramework	CM_001	sleeping	0		0	0	0	0	1172	0	554	2026-10-20 14:36:26.447	2026-10-20 14:42:21.233	
+70	COPEL\ECM01PRD$	ECM01PRD	SMS_BUSINESS_APP_PROCESS_MANAGER	CM_001	sleeping	0		0	0	0	0	2	0	7541	2026-10-20 12:39:59.273	2026-10-20 14:45:28.220	
+71	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	4	0	66	2026-10-20 14:44:34.307	2026-10-20 14:44:34.320	SELECT ISNULL(DATALENGTH(SQL),0), SQL FROM Collection_Rules_SQL where CollectionID = 16777303 and QueryKey = 1
+72	COPEL\ECM01PRD$	ECM01PRD	Management Point	CM_001	sleeping	0		0	0	0	0	11	0	0	2026-10-20 14:45:40.337	2026-10-20 14:45:40.333	--  -- Name         : MP_GetEncryptionCertificateForFQDN  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE MP_GetEncryptionCertificateForFQDN @fqdn nvarchar(255)  AS  BEGIN      SET NOCOUNT ON      DECLARE @EncryptionKey   varbinary(4096),              @MigrationCert   varbinary(4096),              @ApprovalStatus  int        SET @EncryptionKey = NULL      SET @ApprovalStatus = -1 -- Unknown status        SELECT  @EncryptionKey = ckd.EncryptionKeyData, @MigrationCert = MigrationCert,              @ApprovalStatus = ckd.ApprovalStatus      FROM    ClientKeyData ckd       JOIN    System_DISC sd       ON      ckd.SMSID = sd.SMS_Unique_Identifier0      JOIN    System_Resource_N_ARR sr      ON      sd.ItemKey = sr.ItemKey      WHERE   sr.Resource_Names0 = @fqdn        SELECT @EncryptionKey as EncryptionKey, 
+73	COPEL\ECM01PRD$	ECM01PRD	SMS_HIERARCHY_MANAGER	CM_001	sleeping	0		0	0	0	0	20	0	11	2026-10-20 14:45:29.910	2026-10-20 14:45:29.923	EXEC spUpdateHSMonitoringResult 13, 3, N'', 103, N'', NULL, NULL, NULL, NULL, NULL, NULL;
+74	COPEL\ECM01PRD$	ECM01PRD	SMS_ISVUPDATES_SYNCAGENT	CM_001	sleeping	0		0	0	0	0	10	0	500772	2026-10-14 19:39:28.263	2026-10-20 14:45:24.637	
+75	COPEL\ecm_rpt	ECMDB01PRD	Report Server	ReportServer	sleeping	0		0	0	0	0	12	0	38	2026-10-20 14:45:02.230	2026-10-20 14:45:02.230	(@SnapshotId uniqueidentifier,@IsPermanent bit,@ChunkName nvarchar(18),@ChunkType int,@ChunkId uniqueidentifier output,@ChunkFlags tinyint output,@MimeType nvarchar(260) output)  if (@IsPermanent = 1) begin     select @ChunkId = ChunkId,     @ChunkFlags = ChunkFlags,              @MimeType = MimeType   from dbo.SegmentedChunk chunk   where chunk.SnapshotDataId = @SnapshotId and chunk.ChunkName = @ChunkName and chunk.ChunkType = @ChunkType      select csm.SegmentId,          csm.LogicalByteCount as LogicalSegmentLength,      csm.ActualByteCount as ActualSegmentLength     from ChunkSegmentMapping csm     where csm.ChunkId = @ChunkId   order by csm.StartByte asc  end  else begin   select @ChunkId = ChunkId,     @ChunkFlags = ChunkFlags,              @MimeType = MimeType   from [ReportServerTempDB].dbo.SegmentedChunk chunk   where chunk.SnapshotDataId = @SnapshotId and chunk.ChunkName = @ChunkName and chunk.ChunkType = @ChunkType      if @ChunkFlags & 0x4 > 0 begin    -- Shallow copy: read
+76	COPEL\ECM01PRD$	ECM01PRD	SMS_HIERARCHY_MANAGER	CM_001	sleeping	0		0	0	0	0	2	0	41	2026-10-20 14:44:59.903	2026-10-20 14:44:59.900	IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('sys.availability_group_listener_ip_addresses') )     SELECT count(*) FROM sys.availability_group_listener_ip_addresses     WHERE ip_address IN(SELECT local_net_address FROM sys.dm_exec_connections WHERE session_id = @@SPID)  ELSE     SELECT 0
+77	COPEL\ECM01PRD$	ECM01PRD	SMS Provider	CM_001	sleeping	0		0	0	0	0	4	0	0	2026-10-20 14:45:40.073	2026-10-20 14:45:40.077	select  all SMS_ConsoleSetupInfo.FileVersion from vCM_Console_Setup AS SMS_ConsoleSetupInfo  where SMS_ConsoleSetupInfo.FileName = N'ConfigMgr.AC_Extension.i386.cab' OPTION(USE HINT('FORCE_LEGACY_CARDINALITY_ESTIMATION'))
+78	COPEL\ECM01PRD$	ECM01PRD	SMS_SOFTWARE_METERING_PROCESSOR	CM_001	sleeping	0		0	0	0	5	60	0	49	2026-10-20 14:44:51.067	2026-10-20 14:44:51.083	exec dbo.sp_InsertMeterData 0x1A5D010821F84624A8D7271C79E4AD2A,16778784,16782752,72057594038407116,N'20261020144405.000000-180',N'20261020144410.000000-180',0,1792518304 exec dbo.sp_InsertMeterData 0xB1B92EF9F71E4D26B289F040C1C888C7,16778784,16782752,72057594038407116,N'20261020144405.000000-180',N'20261020144410.000000-180',0,1792518304 
+79	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	27	0	25	2026-10-20 14:45:15.220	2026-10-20 14:45:15.227	TRUNCATE TABLE BGB_LiveDataLogonUsersPending
+80	COPEL\ECM01PRD$	ECM01PRD	SMS_FAILOVER_MANAGER	CM_001	sleeping	0		0	0	0	0	17	0	21	2026-10-20 14:45:19.163	2026-10-20 14:45:19.177	 IF (OBJECT_ID('SC_SysResUse_ServiceWindow') IS NOT NULL)   SELECT ServiceWindowID = CONVERT(NVARCHAR(38), ServiceWindowID), Name, Description, Enabled, ServiceWindowType, Schedules   FROM SC_SysResUse_ServiceWindow   WHERE SysResUseID =  72057594037927942 ORDER BY ServiceWindowID  
+81	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	38	0	7	2026-10-20 14:45:33.393	2026-10-20 14:45:33.430	exec sp_BgbCheckAndGenerateResTask 0
+54	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	0	0	0	2	0	8	2026-10-20 14:45:32.490	2026-10-20 14:45:32.493	select DateLastModified from SiteControl where SiteCode = N'001'  
+55	COPEL\ECM01PRD$	ECM01PRD	Management Point	CM_001	sleeping	0		0	0	0	0	6	0	51	2026-10-20 14:44:49.007	2026-10-20 14:44:49.007	--  -- Name         : sp_GetPublicKeyForSMSID  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE sp_GetPublicKeyForSMSID     @SMSID       nvarchar(255),     @CheckType   int = 0,     @GetDetails  int = 0,     @SelectCertificate int = 0  AS  BEGIN      SET NOCOUNT ON      DECLARE @PublicKey       varbinary(4096),              @KeyType         int,              @AgentType       int,              @Status          int,              @ValidFrom       DATETIME,              @ValidUntil      DATETIME,              @CurDateTime     DATETIME,              @IsRevoked       BIT,              @IsTSAssigned    int,              @NumOfRows       int,              @ApprovalStatus  int,              @MissingKeyInfo  int,              @Certificate     varbinary(4096),              @Thumbprint      varbinary(50),         
+56	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	2	0	71	2026-10-20 14:44:29.957	2026-10-20 14:44:29.957	select ThisSiteCode from SMSData
+57	COPEL\ECM01PRD$	ECM01PRD	SMS_HIERARCHY_MANAGER	CM_001	sleeping	0		0	0	0	0	2	0	41	2026-10-20 14:44:59.910	2026-10-20 14:44:59.903	IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('sys.availability_group_listener_ip_addresses') )     SELECT count(*) FROM sys.availability_group_listener_ip_addresses     WHERE ip_address IN(SELECT local_net_address FROM sys.dm_exec_connections WHERE session_id = @@SPID)  ELSE     SELECT 0
+58	COPEL\ECM01PRD$	ECM01PRD	SMS_REPLICATION_CONFIGURATION_MONITOR	CM_001	sleeping	0		0	0	0	0	0	0	105	2026-10-20 14:43:55.477	2026-10-20 14:43:55.477	
+59	COPEL\ECM01PRD$	ECM01PRD	SMS_DISTRIBUTION_MANAGER	CM_001	sleeping	0		0	0	0	0	8	0	1192	2026-10-20 14:25:48.460	2026-10-20 14:25:48.473	EXEC spGetDPsForUpgrade N'5.00.9146.1000', 0
+60	COPEL\ECM01PRD$	ECM01PRD	SMS_BUSINESS_APP_PROCESS_MANAGER	CM_001	sleeping	0		0	0	0	0	4	0	341	2026-10-20 14:39:59.950	2026-10-20 14:44:59.967	
+62	COPEL\ECM01PRD$	ECM01PRD	SMS_DISTRIBUTION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	1192	2026-10-20 14:25:48.467	2026-10-20 14:25:48.463	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+63	COPEL\ECM01PRD$	ECM01PRD	SMS_FAILOVER_MANAGER	CM_001	sleeping	0		0	0	0	0	7	0	21	2026-10-20 14:45:19.193	2026-10-20 14:45:19.227	 IF (OBJECT_ID('SC_SysResUse_ServiceWindow') IS NOT NULL)   SELECT ServiceWindowID = CONVERT(NVARCHAR(38), ServiceWindowID), Name, Description, Enabled, ServiceWindowType, Schedules   FROM SC_SysResUse_ServiceWindow   WHERE SysResUseID =  72057594037927941 ORDER BY ServiceWindowID  
+89	sa	IMCORE01PRD	.Net SqlClient Data Provider	master	sleeping	0		0	0	0	0	2	0	152	2026-10-20 14:43:08.693	2026-10-20 14:43:08.683	(@dbName nvarchar(5),@state int)IF @state = 0 BEGIN  DECLARE @useSQL NVARCHAR(MAX)  SET @useSQL = REPLACE(N'USE [@dbName] ' +  'SELECT  name,  data_space_id,  type  FROM sys.filegroups', '@dbName', @dbName)   EXECUTE (@useSQL) END
+99	sa	IMCORE01PRD	.Net SqlClient Data Provider	master	sleeping	0		0	0	0	0	2	0	152	2026-10-20 14:43:08.693	2026-10-20 14:43:08.683	(@dbName nvarchar(6),@state int)IF @state = 0 BEGIN  DECLARE @useSQL NVARCHAR(MAX)  SET @useSQL = REPLACE(N'USE [@dbName] ' +  'SELECT  name,  data_space_id,  type  FROM sys.filegroups', '@dbName', @dbName)   EXECUTE (@useSQL) END
+129	COPEL\ECM01PRD$	ECM01PRD	SMS_OFFER_MANAGER	CM_001	sleeping	0		0	0	0	0	2	0	50	2026-10-20 14:44:50.067	2026-10-20 14:44:50.070	select DateLastModified from SiteControl where SiteCode = N'001'  
+130	NT AUTHORITY\SYSTEM	ECMDB01PRD	.Net SqlClient Data Provider	CM_001	sleeping	0		0	0	0	0	0	0	38	2026-10-20 14:45:02.247	2026-10-20 14:45:02.247	select ReportGuid, DisplayName, Description, Hash, Folder from dbo.PowerBIReports
+131	COPEL\ECM01PRD$	ECM01PRD	SMS_OFFER_MANAGER	CM_001	sleeping	0		0	0	0	0	8	0	50	2026-10-20 14:44:50.067	2026-10-20 14:44:50.067	select distinct OfferID from OfferNotification
+90	COPEL\ECM01PRD$	ECM01PRD	Management Point	CM_001	sleeping	0		0	0	0	0	6	0	2	2026-10-20 14:45:38.190	2026-10-20 14:45:38.187	--  -- Name         : sp_GetPublicKeyForSMSID  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE sp_GetPublicKeyForSMSID     @SMSID       nvarchar(255),     @CheckType   int = 0,     @GetDetails  int = 0,     @SelectCertificate int = 0  AS  BEGIN      SET NOCOUNT ON      DECLARE @PublicKey       varbinary(4096),              @KeyType         int,              @AgentType       int,              @Status          int,              @ValidFrom       DATETIME,              @ValidUntil      DATETIME,              @CurDateTime     DATETIME,              @IsRevoked       BIT,              @IsTSAssigned    int,              @NumOfRows       int,              @ApprovalStatus  int,              @MissingKeyInfo  int,              @Certificate     varbinary(4096),              @Thumbprint      varbinary(50),         
+91	COPEL\ECM01PRD$	ECM01PRD	BCP-SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	1	125	0	25	2026-10-20 14:45:15.300	2026-10-20 14:45:15.303	insert bulk BGB_NetworkInfoPending([ResourceUid] nvarchar(50) collate SQL_Latin1_General_CP1_CI_AS,[IPAddress] nvarchar(446) collate SQL_Latin1_General_CP1_CI_AS,[IPSubnet] nvarchar(446) collate SQL_Latin1_General_CP1_CI_AS)
+92	COPEL\ECM01PRD$	ECM01PRD	BCP-SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	1	104	0	25	2026-10-20 14:45:15.220	2026-10-20 14:45:15.233	insert bulk BGB_LiveDataLogonUsersPending([ResourceUid] nvarchar(50) collate SQL_Latin1_General_CP1_CI_AS,[CurrentLogonUser] nvarchar(256) collate SQL_Latin1_General_CP1_CI_AS)
+93	sa	IMCORE01PRD	.Net SqlClient Data Provider	master	sleeping	0		0	0	0	0	0	0	151	2026-10-20 14:43:09.430	2026-10-20 14:43:09.447	DECLARE @dtFrom datetime DECLARE @dtTo datetime SET @dtTo = GETDATE() SET @dtFrom = DATEADD(second, -1.5 * 300, @dtTo) exec xp_readerrorlog 0, 1, NULL, NULL, @dtFrom, @dtTo, 'DESC'
+94	COPEL\ECM01PRD$	ECM01PRD	SMS_FAILOVER_MANAGER	CM_001	sleeping	0		0	0	0	0	15	0	18	2026-10-20 14:45:22.633	2026-10-20 14:45:22.637	EXEC spFdmRecordFileProcessed @fileName = N'3u5oa3sx.smx,4urbbqp6.smx,6ygbxmz7.smx,cha5fqkd.smx,ec2ink6y.smx,ikk6qezr.smx,iob5vb33.smx,r5i3ov7a.smx,'
+95	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	38	0	2	2026-10-20 14:45:38.450	2026-10-20 14:45:38.443	exec sp_BgbCheckAndGenerateResTask 0
+65	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_SERVER	CM_001	sleeping	0		0	0	0	0	0	0	112	2026-10-20 14:43:48.807	2026-10-20 14:43:48.803	
+66	COPEL\ECM01PRD$	ECM01PRD	SMS_FAILOVER_MANAGER	CM_001	sleeping	0		0	0	0	0	15	0	3	2026-10-20 14:45:37.677	2026-10-20 14:45:37.667	EXEC spFdmRecordFileProcessed @fileName = N'dlbivd9z.smx,evhhqss5.smx,ia41ux8o.smx,'
+67	COPEL\ecm_rpt	ECMDB01PRD	Report Server	ReportServer	sleeping	0		0	0	0	0	28	0	38	2026-10-20 14:45:02.247	2026-10-20 14:45:02.240	CREATE PROCEDURE [dbo].[IsFavoriteItem]  @ItemID uniqueidentifier,  @UserName nvarchar (425),  @UserSid varbinary(85) = NULL,  @AuthType int  AS    DECLARE @UserID uniqueidentifier  EXEC GetUserIDWithNoCreate @UserSid, @UserName, @AuthType, @UserID OUTPUT    SELECT CAST(      CASE WHEN EXISTS (SELECT ItemID FROM [dbo].[Favorites] WHERE UserID = @UserID AND ItemID = @ItemID) THEN 1      ELSE 0      END  AS BIT)
+83	COPEL\ECM01PRD$	ECM01PRD	SMS_COMPONENT_STATUS_SUMMARIZER	CM_001	sleeping	0		0	0	0	0	82	0	42	2026-10-20 14:44:58.607	2026-10-20 14:44:58.620	sp_UpdCompStatusTallys 16780891,N'0001128000080008',43,9177,15
+84	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	5	2103	0	1096	2026-10-20 14:27:24.033	2026-10-20 14:45:36.833	
+86	COPEL\ECM01PRD$	ECM01PRD	MP_RelayMsgMgr	CM_001	sleeping	0		0	0	0	0	59	0	609	2026-10-20 14:35:31.863	2026-10-20 14:45:37.023	
+87	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	1	26	0	25	2026-10-20 14:45:15.247	2026-10-20 14:45:15.247	TRUNCATE TABLE BGB_LiveData_BoundaryPending
+179	NT SERVICE\SQLTELEMETRY	ECMDB01PRD	SQLServerCEIP	master	sleeping	0		0	0	0	0	20	0	101	2026-10-20 14:43:59.787	2026-10-20 14:43:59.797	if not exists (select * from sys.dm_xe_sessions where name = 'telemetry_xevents')   alter event session telemetry_xevents on server state=start
+290	COPEL\ECM01PRD$	ECM01PRD	SMS_OBJECT_REPLICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513332	2026-10-14 16:10:08.277	2026-10-14 16:10:08.270	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+481	COPEL\ecm_sqladmin	ECMDB01PRD	SQLAgent - Email Logger	msdb	sleeping	0		0	0	0	0	0	0	513309	2026-10-14 16:10:31.400	2026-10-14 16:10:31.400	SELECT ISNULL(SUSER_SNAME(), SUSER_NAME())
+483	COPEL\ecm_sqladmin	ECMDB01PRD	SQLAgent - Contained AG	msdb	sleeping	0		0	0	5	0	590	0	513308	2026-10-14 16:10:32.390	2026-10-14 16:10:32.403	select ag.name from sys.availability_groups AS ag INNER JOIN  sys.dm_hadr_availability_replica_states AS ars ON ag.group_id = ars.group_id where ag.is_contained = 1 and ars.is_local = 1 and ars.role = 1
+505	grafana_monitor	ECMDB01PRD	go-mssqldb	master	sleeping	0		0	0	0	0	0	0	0	2026-10-20 14:45:40.117	2026-10-20 14:45:40.107	SELECT cntr_value FROM sys.dm_os_performance_counters WITH (NOLOCK) WHERE counter_name = 'Errors/sec' AND instance_name = 'User Errors' 
+506	grafana_monitor	ECMDB01PRD	go-mssqldb	master	sleeping	0		0	0	0	0	0	0	0	2026-10-20 14:45:40.120	2026-10-20 14:45:40.110	SELECT cntr_value FROM sys.dm_os_performance_counters WITH (NOLOCK) WHERE counter_name = 'Errors/sec' AND instance_name = 'Kill Connection Errors' 
+507	grafana_monitor	ECMDB01PRD	go-mssqldb	master	sleeping	0		0	0	0	0	0	0	0	2026-10-20 14:45:40.120	2026-10-20 14:45:40.110	SELECT cntr_value FROM sys.dm_os_performance_counters WHERE [counter_name] = 'Checkpoint pages/sec' 
+526	COPEL\ECM01PRD$	ECM01PRD	SMS_CLOUD_SERVICES_MANAGER	CM_001	sleeping	0		0	0	0	0	70	0	513275	2026-10-14 16:11:05.443	2026-10-20 14:44:59.987	
+145	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	0	2	0	189	2026-10-20 14:42:31.237	2026-10-20 14:42:39.103	
+146	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	17	0	64	2026-10-20 14:44:36.417	2026-10-20 14:44:36.413	select d1.DiscArchKey,d1.DiscArchName,d1.BaseTableName,d1.Flags,d2.PropertyName,d2.ColumnName,d2.ValueType,d2.MaxWidth,d2.Flags,d2.ArrayTableName FROM DiscoveryArchitectures AS d1 LEFT JOIN  DiscPropertyDefs AS d2 ON d1.DiscArchKey = d2.DiscArchKey   order by d1.DiscArchKey 
+147	sa	ECMDB01PRD	Microsoft SQL Server Management Studio	msdb	sleeping	0		0	0	0	0	0	0	84	2026-10-20 14:44:16.923	2026-10-20 14:44:16.927	  select       case           when object_id('dbo.sysdac_instances') is not null then 1                   else          0       end  
+148	sa	ECMDB01PRD	Microsoft SQL Server Management Studio	master	sleeping	0		0	0	0	0	64	0	84	2026-10-20 14:44:16.887	2026-10-20 14:44:16.990	SELECT CAST(serverproperty(N'Servername') AS sysname) AS [Name], 'Server[@Name=' + quotename(CAST(          serverproperty(N'Servername')         AS sysname),'''') + ']' + '/JobServer' AS [Urn] ORDER BY [Name] ASC
+150	COPEL\ECM01PRD$	ECM01PRD	BCP-SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	2	130	0	25	2026-10-20 14:45:15.247	2026-10-20 14:45:15.280	insert bulk BGB_LiveData_BoundaryPending([ResourceUid] nvarchar(50) collate SQL_Latin1_General_CP1_CI_AS,[BoundaryGroupID] bigint)
+151	COPEL\ECM01PRD$	ECM01PRD	SMS_CLOUD_SERVICES_MANAGER	CM_001	sleeping	0		0	0	0	0	58	0	513336	2026-10-14 16:10:04.880	2026-10-20 14:44:59.983	
+162	COPEL\ECM01PRD$	ECM01PRD	SMS_INBOX_MONITOR	CM_001	sleeping	0		0	0	0	0	4	0	53	2026-10-20 14:44:47.527	2026-10-20 14:44:47.533	EXEC spAoSetComponentRuntimeValue @component=N'SMS_INBOX_MONITOR', @scenarioId=1, @scenarioKey=N'Collection Evaluator', @value=1
+163	COPEL\ECM01PRD$	ECM01PRD	SMS_INBOX_MONITOR	CM_001	sleeping	0		0	0	0	0	4	0	53	2026-10-20 14:44:47.497	2026-10-20 14:44:47.500	EXEC spAoSetComponentRuntimeValue @component=N'SMS_INBOX_MONITOR', @scenarioId=1, @scenarioKey=N'Data Loader (Trusted)', @value=0
+165	COPEL\ECM01PRD$	ECM01PRD	BCP-SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	3	109	0	25	2026-10-20 14:45:15.207	2026-10-20 14:45:15.213	insert bulk BGB_LiveDataPending([ResourceUid] nvarchar(50) collate SQL_Latin1_General_CP1_CI_AS,[ChangedData] int,[ClientState] int)
+167	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	0	175	0	189	2026-10-20 14:42:31.267	2026-10-20 14:42:37.360	
+168	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	0	2	0	189	2026-10-20 14:42:31.267	2026-10-20 14:42:37.370	
+169	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	0	12	0	189	2026-10-20 14:42:31.317	2026-10-20 14:45:36.833	
+170	COPEL\ECM01PRD$	ECM01PRD	Management Point	CM_001	sleeping	0		0	0	0	0	6	0	1	2026-10-20 14:45:39.947	2026-10-20 14:45:39.937	--  -- Name         : sp_GetPublicKeyForSMSID  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : PRIMARY_OR_SECONDARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : <Please provide a description for this object>  --  CREATE PROCEDURE sp_GetPublicKeyForSMSID     @SMSID       nvarchar(255),     @CheckType   int = 0,     @GetDetails  int = 0,     @SelectCertificate int = 0  AS  BEGIN      SET NOCOUNT ON      DECLARE @PublicKey       varbinary(4096),              @KeyType         int,              @AgentType       int,              @Status          int,              @ValidFrom       DATETIME,              @ValidUntil      DATETIME,              @CurDateTime     DATETIME,              @IsRevoked       BIT,              @IsTSAssigned    int,              @NumOfRows       int,              @ApprovalStatus  int,              @MissingKeyInfo  int,              @Certificate     varbinary(4096),              @Thumbprint      varbinary(50),         
+171	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	27	0	65	2026-10-20 14:44:35.393	2026-10-20 14:44:35.403	SELECT dbo.fnIsSiteInMaintMode()
+172	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	91	0	65	2026-10-20 14:44:35.393	2026-10-20 14:44:35.403	select CollectionID,QueryKey from Collection_Rules_SQL where CollectionID = 16777230  order by QueryKey 
+173	COPEL\ECM01PRD$	ECM01PRD	SMS_HIERARCHY_MANAGER	CM_001	sleeping	0		0	0	0	0	2	0	11	2026-10-20 14:45:29.910	2026-10-20 14:45:29.923	IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID('sys.availability_group_listener_ip_addresses') )     SELECT count(*) FROM sys.availability_group_listener_ip_addresses     WHERE ip_address IN(SELECT local_net_address FROM sys.dm_exec_connections WHERE session_id = @@SPID)  ELSE     SELECT 0
+174	COPEL\ECM01PRD$	ECM01PRD	SMS_COLLECTION_EVALUATOR_EXPRESS_EVALUATOR	CM_001	sleeping	0		0	0	0	0	6	0	64	2026-10-20 14:44:36.480	2026-10-20 14:44:36.487	update Collections_L set EvaluationGQStatus = 0 where CollectionID = 16777230
+217	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513334	2026-10-14 16:10:06.330	2026-10-14 16:10:06.323	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+223	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513334	2026-10-14 16:10:06.363	2026-10-14 16:10:06.363	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+227	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513334	2026-10-14 16:10:06.410	2026-10-14 16:10:06.413	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+175	COPEL\ECM01PRD$	ECM01PRD	.Net SqlClient Data Provider	CM_001	sleeping	0		0	0	0	0	4	0	0	2026-10-20 14:45:40.133	2026-10-20 14:45:40.133	--  -- Name         : spGetMDMSCCMDeviceNotification  -- Version      : 5.0.9128.1007  -- Definition   : SqlObjs  -- Scope        : CAS_OR_PRIMARY  -- Object       : P  -- Dependencies : <Detect>  -- Description  : Get MDMSCCMDeviceNotification for onprem enrolled devices  --  CREATE PROCEDURE [dbo].[spGetMDMSCCMDeviceNotification] (@id bigint OUTPUT)  AS    BEGIN             SET NOCOUNT ON;        declare @StartId bigint = 1;    declare @EndId bigint = 0;         set @id = 0;                 IF NOT EXISTS (SELECT * FROM MDMSCCMDeviceNotification)       BEGIN           RETURN;       END                SELECT @StartId = MIN(r.ID), @EndId = MAX(r.ID) FROM      (      SELECT TOP 1000 dn.ID FROM MDMSCCMDeviceNotification dn      ORDER BY dn.ID      ) r        IF @StartId IS NULL OR @EndId IS NULL      BEGIN          RETURN;      END        SELECT distinct dn.ID, dn.DeviceID, mcd.DeviceType, mdp.PropertyValue AS ChannelUri FROM MDMSCCMDeviceNotification dn   INNER JOIN MDMClientIdentity mcd
+143	COPEL\ECM01PRD$	ECM01PRD	SMS_SERVICE_CONNECTOR	CM_001	sleeping	0		0	0	0	0	6	0	190	2026-10-20 14:42:30.417	2026-10-20 14:42:37.973	
+100	sa	ECMDB01PRD	Microsoft SQL Server Management Studio - Query	master	sleeping	0		0	0	0	0	20	0	35	2026-10-20 14:45:05.067	2026-10-20 14:45:05.157	select SERVERPROPERTY('ProductLevel');  if serverproperty('EngineEdition') = 5   begin      exec sp_executesql N'select CONVERT(NVARCHAR(36), CONTEXT_INFO())'  end  else   begin  select ''   end  if serverproperty('EngineEdition') not in (6)  begin    begin try      exec sp_executesql N'select case when encrypt_option = N''TRUE'' then 1 else 0 end, protocol_version from sys.dm_exec_connections where session_id = @@SPID'    end try    begin catch      select -1, 0    end catch  end  else   begin  select 100, 0  end  
+137	COPEL\ECM01PRD$	ECM01PRD	SMS_OFFER_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	61	2026-10-20 14:44:39.983	2026-10-20 14:44:39.993	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+138	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	0	0	0	0	0	23	2026-10-20 14:45:17.473	2026-10-20 14:45:17.470	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+139	COPEL\ECM01PRD$	ECM01PRD	SMS_CLIENT_CONFIG_MANAGER	CM_001	sleeping	0		0	0	0	0	12	0	1	2026-10-20 14:45:39.830	2026-10-20 14:45:39.833	exec [sp_CP_SetPushRequestMachineStatus] 2097168686, 1
+140	COPEL\ECM01PRD$	ECM01PRD	SMS_CLIENT_CONFIG_MANAGER	CM_001	sleeping	0		0	0	0	0	12	0	1	2026-10-20 14:45:39.830	2026-10-20 14:45:39.827	exec [sp_CP_GetPushRequestMachineResource] 2097168686
+141	COPEL\ECM01PRD$	ECM01PRD	SMS_OFFER_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	50	2026-10-20 14:44:50.067	2026-10-20 14:44:50.067	SELECT dbo.fnIsSnapshotInitializing(N'Site Control Data', N'')
+208	COPEL\ECM01PRD$	ECM01PRD	SMS_LICENSE_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513335	2026-10-14 16:10:05.610	2026-10-14 16:10:05.620	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+235	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513334	2026-10-14 16:10:06.627	2026-10-14 16:10:06.627	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+236	COPEL\ECM01PRD$	ECM01PRD	SMS_NOTIFICATION_MANAGER	CM_001	sleeping	0		0	0	0	0	0	0	513334	2026-10-14 16:10:06.567	2026-10-14 16:10:06.560	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+183	COPEL\ECM01PRD$	ECM01PRD	SMS_COMPONENT_STATUS_SUMMARIZER	CM_001	sleeping	0		0	0	0	0	172	0	42	2026-10-20 14:44:58.607	2026-10-20 14:44:58.623	exec sp_UpdateComponentSummaryStatus N'SMS_RES1.DLL', 39, N'{783EBEA0-ABBF-11d1-BB12-3A84C6000000}'
+184	COPEL\ECM01PRD$	ECM01PRD	SMS_STATE_SYSTEM	CM_001	sleeping	0		0	0	0	0	0	0	53	2026-10-20 14:44:47.440	2026-10-20 14:44:47.443	set quoted_identifier on;set ansi_warnings on;set ansi_padding on;set ansi_nulls on;set concat_null_yields_null on;set arithabort on;set numeric_roundabort off;set DATEFORMAT mdy;
+185	COPEL\ECM01PRD$	ECM01PRD	SMS_INBOX_MONITOR	CM_001	sleeping	0		0	0	0	0	4	0	53	2026-10-20 14:44:47.533	2026-10-20 14:44:47.543	EXEC spAoSetComponentRuntimeValue @component=N'SMS_INBOX_MONITOR', @scenarioId=1, @scenarioKey=N'Replication Configuration And Monitoring Inbox', @value=0
+186	COPEL\ECM01PRD$	ECM01PRD	SMS_INBOX_MONITOR	CM_001	sleeping	0		0	0	0	0	4	0	53	2026-10-20 14:44:47.563	2026-10-20 14:44:47.563	EXEC spAoSetComponentRuntimeValue @component=N'SMS_INBOX_MONITOR', @scenarioId=1, @scenarioKey=N'Hierarchy Manager (Forwarding messages)', @value=0
+
+BkDatabase	BkType	BkStart	BkFinish	BkDurationSec	BkSizeMB	BkCompressedMB	BkCompressionRatio	BkCopyOnly	BkSnapshot	BkServer	BkUser	BkDeviceType	BkDevice
+ReportServerTempDB	Full	2026-10-20 00:07:00.000	2026-10-20 00:07:01.000	1	12.08	1.71	7.06	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_20_000103_2512518.bak
+ReportServerTempDB	Full	2026-10-20 00:06:54.000	2026-10-20 00:06:54.000	0	12.08	1.71	7.06	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_20_000103_2512518.bak
+ReportServer	Full	2026-10-20 00:06:54.000	2026-10-20 00:07:00.000	6	133.65	25.90	5.16	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_20_000103_2512518.bak
+msdb	Full	2026-10-20 00:06:44.000	2026-10-20 00:06:47.000	3	41.10	5.10	8.06	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_20_000103_2512518.bak
+ReportServer	Full	2026-10-20 00:06:44.000	2026-10-20 00:06:54.000	10	140.65	26.66	5.28	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_20_000103_2512518.bak
+msdb	Full	2026-10-20 00:06:41.000	2026-10-20 00:06:44.000	3	41.10	5.10	8.06	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_20_000103_2512518.bak
+master	Full	2026-10-20 00:06:41.000	2026-10-20 00:06:44.000	3	4.33	0.86	5.06	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_20_000103_2506311.bak
+master	Full	2026-10-20 00:06:39.000	2026-10-20 00:06:41.000	2	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_20_000103_2471003.bak
+CM_001	Full	2026-10-20 00:06:27.000	2026-10-20 00:06:39.000	12	35380.95	35380.95	1.00	1	1	ECMDB01PRD	NT AUTHORITY\SYSTEM	7	{A18346F6-5FF5-46B7-9203-9F3613426DF7}5
+CM_001	Full	2026-10-20 00:03:40.000	2026-10-20 00:06:27.000	167	35509.18	6658.11	5.33	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_20_000103_2471003.bak
+master	Full	2026-10-20 00:01:43.000	2026-10-20 00:06:39.000	296	4.08	4.08	1.00	1	1	ECMDB01PRD	NT AUTHORITY\SYSTEM	7	{A18346F6-5FF5-46B7-9203-9F3613426DF7}6
+model	Full	2026-10-20 00:01:42.000	2026-10-20 00:06:39.000	297	2.88	2.88	1.00	1	1	ECMDB01PRD	NT AUTHORITY\SYSTEM	7	{A18346F6-5FF5-46B7-9203-9F3613426DF7}1
+ReportServer	Full	2026-10-20 00:01:42.000	2026-10-20 00:06:39.000	297	103209.62	103209.62	1.00	1	1	ECMDB01PRD	NT AUTHORITY\SYSTEM	7	{A18346F6-5FF5-46B7-9203-9F3613426DF7}3
+msdb	Full	2026-10-20 00:01:42.000	2026-10-20 00:06:39.000	297	39.46	39.46	1.00	1	1	ECMDB01PRD	NT AUTHORITY\SYSTEM	7	{A18346F6-5FF5-46B7-9203-9F3613426DF7}2
+ReportServerTempDB	Full	2026-10-20 00:01:42.000	2026-10-20 00:06:39.000	297	10.61	10.61	1.00	1	1	ECMDB01PRD	NT AUTHORITY\SYSTEM	7	{A18346F6-5FF5-46B7-9203-9F3613426DF7}4
+CM_001	Full	2026-10-20 00:01:03.000	2026-10-20 00:03:40.000	157	35452.05	6649.84	5.33	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_20_000103_2471003.bak
+ReportServerTempDB	Full	2026-10-19 00:05:59.000	2026-10-19 00:05:59.000	0	12.08	1.76	6.88	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_19_000101_2359717.bak
+ReportServer	Full	2026-10-19 00:05:58.000	2026-10-19 00:05:58.000	0	133.62	26.08	5.12	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_19_000101_2359717.bak
+msdb	Full	2026-10-19 00:05:57.000	2026-10-19 00:05:58.000	1	41.10	5.10	8.07	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_19_000101_2359717.bak
+master	Full	2026-10-19 00:05:56.000	2026-10-19 00:05:57.000	1	4.27	0.85	5.04	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_19_000101_2359717.bak
+ReportServerTempDB	Full	2026-10-19 00:03:35.000	2026-10-19 00:03:36.000	1	12.08	1.76	6.87	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_19_000101_2359717.bak
+ReportServer	Full	2026-10-19 00:03:34.000	2026-10-19 00:03:35.000	1	133.62	26.08	5.12	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_19_000101_2359717.bak
+msdb	Full	2026-10-19 00:03:33.000	2026-10-19 00:03:34.000	1	41.10	5.10	8.06	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_19_000101_2359717.bak
+CM_001	Full	2026-10-19 00:03:31.000	2026-10-19 00:05:56.000	145	35335.30	6529.92	5.41	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_19_000101_2359717.bak
+master	Full	2026-10-19 00:03:31.000	2026-10-19 00:03:33.000	2	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_19_000101_2359717.bak
+CM_001	Full	2026-10-19 00:01:01.000	2026-10-19 00:03:31.000	150	35803.87	6623.80	5.41	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_19_000101_2359717.bak
+ReportServerTempDB	Full	2026-10-18 00:05:50.000	2026-10-18 00:05:51.000	1	12.08	1.79	6.74	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_18_000101_8129738.bak
+msdb	Full	2026-10-18 00:05:49.000	2026-10-18 00:05:49.000	0	41.10	5.09	8.07	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_18_000101_8129738.bak
+ReportServer	Full	2026-10-18 00:05:49.000	2026-10-18 00:05:50.000	1	133.58	25.90	5.16	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_18_000101_8129738.bak
+master	Full	2026-10-18 00:05:48.000	2026-10-18 00:05:49.000	1	4.27	0.85	5.04	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_18_000101_8129738.bak
+ReportServerTempDB	Full	2026-10-18 00:03:24.000	2026-10-18 00:03:25.000	1	12.08	1.79	6.74	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_18_000101_8129738.bak
+ReportServer	Full	2026-10-18 00:03:23.000	2026-10-18 00:03:24.000	1	133.58	25.96	5.15	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_18_000101_8129738.bak
+msdb	Full	2026-10-18 00:03:22.000	2026-10-18 00:03:23.000	1	41.10	5.09	8.07	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_18_000101_8129738.bak
+master	Full	2026-10-18 00:03:21.000	2026-10-18 00:03:22.000	1	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_18_000101_8129738.bak
+CM_001	Full	2026-10-18 00:03:21.000	2026-10-18 00:05:48.000	147	34984.18	6414.41	5.45	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_18_000101_8129738.bak
+CM_001	Full	2026-10-18 00:01:01.000	2026-10-18 00:03:21.000	140	35036.62	6424.29	5.45	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_18_000101_8047398.bak
+ReportServerTempDB	Full	2026-10-17 00:06:20.000	2026-10-17 00:06:20.000	0	12.08	1.79	6.75	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_17_000101_3074587.bak
+msdb	Full	2026-10-17 00:06:19.000	2026-10-17 00:06:19.000	0	41.10	5.09	8.07	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_17_000101_2999393.bak
+ReportServer	Full	2026-10-17 00:06:19.000	2026-10-17 00:06:20.000	1	133.55	25.97	5.14	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_17_000101_2999393.bak
+master	Full	2026-10-17 00:06:18.000	2026-10-17 00:06:19.000	1	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_17_000101_2999393.bak
+ReportServerTempDB	Full	2026-10-17 00:03:55.000	2026-10-17 00:03:56.000	1	12.08	1.79	6.75	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_17_000101_2126333.bak
+ReportServer	Full	2026-10-17 00:03:54.000	2026-10-17 00:03:55.000	1	133.55	25.97	5.14	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_17_000101_2126333.bak
+msdb	Full	2026-10-17 00:03:53.000	2026-10-17 00:03:54.000	1	41.10	5.09	8.07	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_17_000101_2126333.bak
+CM_001	Full	2026-10-17 00:03:51.000	2026-10-17 00:06:18.000	147	34615.43	6287.72	5.51	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_17_000101_2999393.bak
+master	Full	2026-10-17 00:03:51.000	2026-10-17 00:03:53.000	2	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_17_000101_2126333.bak
+CM_001	Full	2026-10-17 00:01:01.000	2026-10-17 00:03:51.000	170	35052.81	6380.91	5.49	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_17_000101_2126333.bak
+ReportServerTempDB	Full	2026-10-16 00:05:48.000	2026-10-16 00:05:49.000	1	12.08	1.78	6.79	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_16_000101_8044279.bak
+msdb	Full	2026-10-16 00:05:47.000	2026-10-16 00:05:47.000	0	42.10	5.17	8.15	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_16_000101_8044279.bak
+ReportServer	Full	2026-10-16 00:05:47.000	2026-10-16 00:05:48.000	1	133.51	25.64	5.21	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_16_000101_8044279.bak
+master	Full	2026-10-16 00:05:46.000	2026-10-16 00:05:47.000	1	4.27	0.85	5.04	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_16_000101_8044279.bak
+ReportServerTempDB	Full	2026-10-16 00:03:29.000	2026-10-16 00:03:30.000	1	12.08	1.78	6.78	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_16_000101_8044279.bak
+msdb	Full	2026-10-16 00:03:28.000	2026-10-16 00:03:28.000	0	42.10	5.17	8.15	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_16_000101_8044279.bak
+ReportServer	Full	2026-10-16 00:03:28.000	2026-10-16 00:03:29.000	1	133.52	25.65	5.21	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_16_000101_8044279.bak
+master	Full	2026-10-16 00:03:25.000	2026-10-16 00:03:28.000	3	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_16_000101_8044279.bak
+CM_001	Full	2026-10-16 00:03:25.000	2026-10-16 00:05:46.000	141	33202.93	5964.15	5.57	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_16_000101_8044279.bak
+CM_001	Full	2026-10-16 00:01:01.000	2026-10-16 00:03:25.000	144	33258.12	5979.23	5.56	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_16_000101_8044279.bak
+ReportServer	Full	2026-10-15 00:06:29.000	2026-10-15 00:06:29.000	0	133.48	26.05	5.12	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_15_000101_9773722.bak
+ReportServerTempDB	Full	2026-10-15 00:06:29.000	2026-10-15 00:06:30.000	1	12.08	1.76	6.88	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_15_000101_9930469.bak
+msdb	Full	2026-10-15 00:06:28.000	2026-10-15 00:06:28.000	0	42.10	5.17	8.14	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_15_000101_9773722.bak
+master	Full	2026-10-15 00:06:27.000	2026-10-15 00:06:28.000	1	4.27	0.85	5.04	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_15_000101_9773722.bak
+ReportServerTempDB	Full	2026-10-15 00:03:42.000	2026-10-15 00:03:42.000	0	12.08	1.76	6.88	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_15_000101_9930469.bak
+msdb	Full	2026-10-15 00:03:40.000	2026-10-15 00:03:40.000	0	42.10	5.17	8.14	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_15_000101_9773722.bak
+ReportServer	Full	2026-10-15 00:03:40.000	2026-10-15 00:03:42.000	2	133.48	26.05	5.12	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_15_000101_9930469.bak
+CM_001	Full	2026-10-15 00:03:39.000	2026-10-15 00:06:27.000	168	35261.18	6582.57	5.36	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_15_000101_9773722.bak
+master	Full	2026-10-15 00:03:39.000	2026-10-15 00:03:40.000	1	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_15_000101_9773722.bak
+CM_001	Full	2026-10-15 00:01:02.000	2026-10-15 00:03:39.000	157	35250.06	6600.75	5.34	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_15_000101_9773722.bak
+ReportServerTempDB	Full	2026-10-14 00:05:35.000	2026-10-14 00:05:36.000	1	12.08	1.82	6.63	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_14_000101_8018806.bak
+msdb	Full	2026-10-14 00:05:34.000	2026-10-14 00:05:34.000	0	42.10	5.17	8.15	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_14_000101_8018806.bak
+ReportServer	Full	2026-10-14 00:05:34.000	2026-10-14 00:05:35.000	1	133.44	25.82	5.17	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_14_000101_8018806.bak
+master	Full	2026-10-14 00:05:33.000	2026-10-14 00:05:34.000	1	4.27	0.85	5.04	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_14_000101_8018806.bak
+ReportServerTempDB	Full	2026-10-14 00:03:18.000	2026-10-14 00:03:19.000	1	12.08	1.82	6.63	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServerTempDB_backup_2026_10_14_000101_8018806.bak
+ReportServer	Full	2026-10-14 00:03:17.000	2026-10-14 00:03:18.000	1	133.45	25.82	5.17	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\ReportServer_backup_2026_10_14_000101_8018806.bak
+msdb	Full	2026-10-14 00:03:16.000	2026-10-14 00:03:17.000	1	42.10	5.17	8.15	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\msdb_backup_2026_10_14_000101_8018806.bak
+master	Full	2026-10-14 00:03:14.000	2026-10-14 00:03:16.000	2	4.27	0.85	5.03	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\master_backup_2026_10_14_000101_8018806.bak
+CM_001	Full	2026-10-14 00:03:14.000	2026-10-14 00:05:33.000	139	33811.87	6241.36	5.42	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_14_000101_8018806.bak
+CM_001	Full	2026-10-14 00:01:01.000	2026-10-14 00:03:14.000	133	33915.30	6275.80	5.40	0	0	ECMDB01PRD	sa	2	E:\Bkp_MSSQL_ECM\CM_001_backup_2026_10_14_000101_8018806.bak
+
+LogBkDatabase	LogBkDay	LogBkCount	LogBkSizeMB	LogBkCompressedMB	LogBkFirst	LogBkLast
+
+SchJobName	SchJobEnabled	SchScheduleName	SchEnabled	SchFrequency	SchDays	SchSubday	SchStartTime	SchEndTime	SchNextRun
+BackFull_disco.Subplan_1	1	BackFull_disco	1	Diário		Uma vez às 00:01:00	00:01:00	23:59:59	2026-10-21 00:01:00.000
+BackupFull.Subplan_1	1	BackupFull.Subplan_1	1	Diário		Uma vez às 00:01:00	00:01:00	23:59:59	2026-10-21 00:01:00.000
+Disponibilização de dados - Central de software	1	Relatorio diario 06:00	1	Diário		Uma vez às 06:00:00	06:00:00	23:59:59	2026-10-21 06:00:00.000
+MaintenancePlan.Subplan_1	0	(sem agendamento)	0	-					NULL
+RebuidIndex.Subplan_1	1	RebuidIndex.Subplan_1	1	Diário		Uma vez às 00:30:00	00:30:00	23:59:59	2026-10-21 00:30:00.000
+RebuidIndex.Subplan_2	1	RebuidIndex.Subplan_2	1	Diário		Uma vez às 11:30:00	11:30:00	23:59:59	2026-10-21 11:30:00.000
+Revogar acesso copel\fshwsh	1	REVOGA ACESSO 0407	0	Uma vez			23:59:12	23:59:59	2025-08-04 23:59:12.000
+StatiscIndex.Subplan_1	1	StatiscIndex	1	Semanal	Seg,Ter,Qua,Qui,Sex	A cada 1 hora(s)	04:30:00	06:30:59	2026-10-21 04:30:00.000
+syspolicy_purge_history	1	syspolicy_purge_history_schedule	1	Diário		Uma vez às 02:00:00	02:00:00	23:59:59	2026-10-21 02:00:00.000
+
+Relatorio_HTML
+<html lang="pt-BR"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Assessment SQL Server - ECMDB01PRD</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;display=swap" /><style>:root{--red:#D32225;--red-dk:#A72A2B;--ink:#2F2F2E;--ink2:#3C3C3B;--muted:#76766F;--line:#E4E4E1;--soft:#F6F6F4;--bg:#EDEDEA;--ok:#2E7D4F;--ok-bg:#E6F2EA;--warn:#A86400;--warn-bg:#FFF2DB;--crit:#B3121B;--crit-bg:#FBE3E4;--info:#4F6272;--info-bg:#E9EEF2}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;padding:32px 16px;background:var(--bg);color:var(--ink);font:14px/1.5 "Lato","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}.page{position:relative;max-width:1180px;margin:0 auto;background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUkAAALOCAYAAAAk1+FVAAATQUlEQVR42u3dLXDbaBuG0budgkBDQzF7RiQwMDAwMDCwcOHChQsLFwYWFgYGBpp4xmKChoZm+UDefHVtWU1TJ43tc2Y822T7N49eXZX8I314eHgIAN0+GgHAdp+MAN6naTU6STJeecyT3NRtszQdkQRhfHzMyuMuyXWSs/JjRBKOPozfVo8ap9Xo3rREEoTR6bRIgjAKo0gCwiiSQEcYByWIp0mGwiiSIIzdYbxPMhNGkQRhFEaRBIRRJAFhRCRBGBFJEEZEEoQRkQRhRCRBGBFJEEZEEoQRkQRhRCRBGBFJEEYQSYQRRBJhBJFEGEEkEUZhRCQRRmFEJBFGYUQkQRgRSRBGRBKEEUQSYQSRRBhBJBFGEEmEEUQSYQSRRBhBJBFGEEmEEUQSYQSRRBgBkRRGQCSFERBJYRRGEElhFEYQSbaHcZCkFUYQSWH8MYyzJHd128xMB0RSGIURRBJhBJFEGEEkEUYQSYQREElhBERSGAGRFEZAJIUREElhBERSGAGRFEZAJIUREElhBERSGAEOMZLCCIikMAIiKYyASAojIJLCCIikMAIiKYyASL51HE9LGIfCCM/eb07KfnNnGgcYybKBz8pjkeQ+yaxum6VNAD/dd8ZJzpMs67aZmMrb+vDw8PDaG/msbOB5OWpsjR2eFcanx6wcVAjkIUVyWo2qJJdJlkluxRF+PYzOuA4wkmVjXyapypHjvTGDMIrk40YfJrkqp9bfbGjY2EcG5QBCGI8tkuW5x4tyau3oEX4M49Pb3YbCeISRnFajy7IIbuq2mRsrwiiMIpkfnn8clEDa+AijMIrkSiCvy5cCiTAK40H6nTeTCyTC+D2MPiAhkj8skkuBRBiF0el292K5yONbGAQSp9I4klxbNKdlwQgkjhgRyY7Fc5HHN4l7mw/CiEiuuUoycVkzhBGR3FxQ50lSt82tkSGMiOTmwjpLcmNcCCMiueminGZ7HhJhRCTXFluVx7f7fDEqhBGR3HSe5N4iQxgRye6jyGGSr8aEMCKSm84cRSKMiGT/ovxmRAgjIrnpNI+vaFuMCCMiuSWS3jiOMCKSHYt2mOTExw8RRug+kny6gxsIIyLZ8b2qLF7YZRgHSVph5FAi6b2R7CqMsyR3nr7hICJZ3kA+9688wgjdR5LDJC5kgTBCTyQXxoIwQnckB0kmxoIwwvZIej5SGIURtkXSxXWFURhheyQRRmEEkRRGYYRfjOTTeySNRBiB7UeSXrQRRsDp9sHH8Srf3/N6V7fNxGRAJElSt81iWo1uylHkOMnltBo9XdnJhSVAJCkhnCSZTKvRyVowZ4IJIolggkgimCCSCCaIJIIJIolggkgimCCSCKZgIpIgmCCSCCaIJO8kmG0J5sK0EEkEszuYF9NqNC//TzARSRBMRBIEE5EEwUQkQTBBJBFMEEkEE0QSwRRMRBIEE5EEwUQkQTARSRBMRBIEE5EEwUQkQTAFE5EEwUQkQTDZqQ8PDw9JkrIQ/k7yr0vtQ7e1YI6TCOaxRLIsgOskiyS3QgmCyWYkT5JcJalSbuAUN3ECwRTJjQ0+KBv6NMlQMEEwRXL7BhdMEEyRfOYGF0z4/WBW5b8LwTywSAom7DSaq0eYgnlokRRMEEyRFEwQTJF8eM2NLZiwm2CeJrmv2+bWVA4okoIJO9t/hkmuk3yt26Y1kQOMpGDCb+83F0mWddvcmcaBR1Iw4UX7ynmSiOSRRVIwQSRFUjBBJEVSMEEkRVIwQSRFUjBBJDmASAomIolICiaIpEgKJoikSAomiKRI7tGCW79itGAikoikYCKSiKRgIpKIpGAikoikYIJIiqRggkiKpGCCSIqkYAomIimSCCYiKZIIJiKJSAomIolICiYiiUgKJiKJSAqmYIqkSIokgolIiiSCiUiKJIKJSIokgolIiiSCiUiKJIKJSCKSgimYIolIIpgiiUgimCKJSCKYiKRIIpiIpEgimIjkXkdyWo3OkpwnWZadYFK3zdyY6AlmuxLMhQmJ5MFGclqNBkn+SvKtRPJpJxBMnhvMeZKJYIrkIfm08uNBknndNpPy9axsmKcd4HpajQST/yun2pMkk7VgXkyrkWBycJFMOWpc3xFmK8Gsyk5wNa1GEUwEk2OL5M92hDaPz0HdTqvRMMmpYCKYHLLV5ySrJOd129z86m+yEszxyqm6YLK+TjyH+XvzOy//CN2Zxp5FUjARTJEUScFEMEVSJHcbScFEMEVSJAUTwRRJkRRMBFMkRfKPRFIwEUyRFEnBRDBFUiQFE8EUSZEUTARTJEVyjxaNYHI0wRRJkRRMBFMkRVIwEUyRFEnBRDBFUiQFE8EUSZE85B1BMNmrYIqkSAomgimSIimYCKZIiqRgIpg7D6ZIiqRgIpgiKZKCiWC+LJgiKZKCiWCKpEgeWTDbshPMTIe1YFYrwVw8J5giKZKHHMyTcoQpmHStlfFzgimSIimYWCtbgplkmeS6rBuRFEnBhLVgPrnxfLdICqZgsrlWqiTzum2WpiGSgimYIJIIJogkggkiiWCCSCKYIJIiKZiASAomIJIIJogkggkiiWCCSCKYIJIIJogkggkiiWAKJiIJgolIiiSCCSKJYIJIIpggkggmiCQHHswqyUAw2QefjIC3Uu7yd1uCOShHl+fTanQpmDiShO1HmE/BPHWEiUiCYCKSIJiIJAgmIgmCiUiKJIIJIolggkiCYCKSIJiIJAgmIgmCiUiCYCKSIJiIJAimYB5tJIdJruq2+WIsIJisRbIsgr+S3NroIJh0R3Kc5CrJfZJJuUgqIJgiubbBz8pGT9ngggmCKZIdG3z1Jk6CCYIpkoIJgskLIimYIJgi+bINLpggmCIpmPBngpmkrdtmaUIHEEnBhFcJ5nAlmDPBPJBICiYIpkgKJgimSL5ZME/iSWsQTJEUTBBMkRRMEEyRFEwQTJEUTBBMkdzLDS6YIJgiKZggmCIpmCCYIimYIJgiKZggmCIpmCCYxxLMo4ykYIJgiqRggmCKpGCCYIqkYIJgiqRggmCKpGACexZMkRRMEEyRFEwQTJEUTBBMkRRMEMy3DKZICibsazCrsv+MXzOYIimYsO/7z8lKLHceTJEUTBBMkRRMEMyXBVMkBRMEUyQFE3hZMEVSMEEwe4IpkoIJ9ARTJAUT6AmmSAom0EMkjy+Yg3z/aNdAMEEkEUwQSQQTRBLBBJFEMEEkEUwQSQQTDiqS02p0muQsyXJl0S+MCcHk6CNZ3mH+d5JJkjbfP5ozL98TTASTo45kleSibpv/Vhb86mcZqyQLwUQwOeZIntdtc9Oz6Fc//C2YCCYiKZgIJiL5gkgKJoKJSL5s0QsmgolICiaCiUjudtELJoKJSAomgolICiaCiUj+kUUvmAgmIimYCCYiKZgIJiIpmAgmIimYCCYiuY+RFEwEE5EUTAQTkRRMBBORFEwEE5EUTAQTkRRMEEyRPNpFL5gIJiIpmPyJYCZp67ZZmpBICiZ0B3O4EsyZYIqkYIJgiqRgCiaCKZIIJoIpkiL5ysFs67aZmw6CKZJsD+ayLPiJYCKYIolgIpgiiWAimCKJYCKYIimSgolgIpKCiWAKpkgKJgimSAqmYCKYIolgIpgiiWAimCKJYCKY+xvJYZKrum2+WCKCCYK5FskyjH/qtvnHshBMEEyRRDARTJFEMBHMXUbyc5Lbum1am10wBRPB3IzkdZI7kUQwEczuSF4kWdZtc2fzIpgI5mYkz5JUddt8tUkRTARzM5LeK4lgIpjbIln+wv8k+eIOfwgmgtkdyavyF5rYZAgmxx7Mrkh6XhLBRDB7IjlI8rlum39tGgSTYw/mRiTLX+Jzknun3Agmxx7MbZF0yo1gIpg9kTxJ8ne8ys2fD2ZVFn4Ek19YOycr/9iOfyeYnZEsf8hlktRt883IeQeLfliOEASTNw1mXyQHST6Xo0n3ukAwOcpgbo3kytHksm6bW+NFMDnGYP4skoMkf8VzkwgmRxrM3kiWX3yRZOCVbgSTYwzmcyJ5Uo4mv9VtMzNCBJNjCuZPI1l+4jjJZbyIg2ByZJ4VybK4rpLEaTeCiUhuP+1++rjivdEhmIhk90L6nOQ/iwfBRCS7F9BpkoskNxYNgolIdi+ci7Jo/vNCDoIpmCLZvWAu83iljRuhRDAFUyT7Q/nVJ3IQTMEUye2hHMdzlCCYIrl1YZzm8cWcW1czB8EUye4FUSW5SjJJcud5ShBMkdxcCIM8fnzxJI+f9bYAQDBFsmMRnCU5d1QJgimSPz+qHJZQ+igjCKZIdmz4qhxVDpLc5Q1uJg6Cyd5EsiOWw3Iafu+9lSCYItm9wc/KBl+UYM4EEwRTJDc3+Oo9JQQTBFMkBRMEUyQFE95bMGd127SmcyCRFEx4lWCerATTTf0OJZKCCYIpkoIJgimSggmCKZKCCYIpkoIJgimSggkI5vFEUjBBMEVSMEEwRVIwQTBFUjBBMEVSMEEwRVIwgT0OpkgKJgimSAomCKZICiYIpkgKJgjmWwZTJAUTBFMk9yKYbdyTBN5dMEXy/QVzGTdxgncTTJEUTBBMkRRMEMyXBVMkBRMEUyQFE3hZMEVSMEEwe4IpkoIJ9ARTJAUT6A7mOMlYJAUT6CGSgimYIJIIJogkggkiiWCCSCKYIJIIJogkggkiiWAKJiIJgolIgmCCSCKYIJIIJogkggkiiWCaDiIJgolIgmAikvAWwazKtwQTkYQtwVy9J4lgIpIgmIgkCCYiCYKJSIJgIpIgmIgkCCYiCQgmIgmCiUiCYCKSIJiIJAgmIgmCiUiCYAqmSAKCKZKAYIokIJiIJAgmIgmCiUiCYCKSIJiCKZKAYIokIJgiCQimSAKCKZLAwQVzVrdNazoiCWwP5slKMGemI5KAYIokIJgiCQimSAKCKZKAYIokIJgiCQjmgQVTJAHBFElAMEUSEEyRBARTJAHBfCfBFElAMEUSEEyRBARTJAHBfMtgiiQgmCIJCKZIAuw8mCIJCKZIArwsmCIJCGZPMEUSEMyeYIokQE8wRRKgJ5giCdDjoxEAiCSASAKIJIBIAogkgEgCiCSASAKIJAAiCSCSACIJ8Jo+GQHsj2k1uk5SJZknmeTxwrALk3k9LpUG+xPI0yQXSW6SDPJ4UdhxkoVgiiSIZDU6T5K6be7Wvj8WTKfbwBblxlWztWCeT6uRYIokIJgiCQimSAKCKZLAew/m0/2m5yb1yKvbsCe2vbq9w99/9VXyZQnm5NiDKZIgkoIpkiCSgimSIJKCKZIgkn8ukscYTJEEkRRMkQSRFEyRBJEUTJEEkdyfSB5CMEUSRFIwRRJEUjBFEkRSMEUSRPJwI/kegymSIJKCKZIgkoIpkiCSgrnzYIokiKRgiiSIpGC+LJgiCSIpmCIJIsnLgimSIJKC2RNMkQSRNNueYIokiCQ9wXTfbYAV6/cl/2gkANuDKZIAPUQSQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAEQSQCRBBBJAJEEEEkAkQQQSQCRBBBJAJEEQCQBRBJAJAFEEkAkAUQSQCQBRBJAJAEQSQCRBBBJAJEEEEmg1zLJwBhEEujWJhlPq5FQvqEPDw8PpgB7YlqNLpKcJrlLMqvbZmEqIgn8GMqqhHKcZJFkIpgiCXQHc1xiKZgiCQimSAKCKZKAYIokIJgiCQimSAKCKZIAgimSgGCKJCCYIgkIpkgCexjMWQnmXCQBtgdzWYI52edgiiQgmCIJCKZIAoIpkoBgiiQgmO8kmCIJCKZIAoIpkoBgiiTAWwZTJAHBFElAMF8WTJEEBFMkAcF8WTBFEhDMnmCKJCCYPcEUSYCeYIokQE8wRRKgx0cjABBJAJEEEEkAkQQQSQCRBBBJAJEEEEkARBJAJAFEEkAkAf6QT0YAsGlajU6SjEUSYC2MK4+5i+4CwrgWxiSTJLO6bRYiCQjjWhhXf65IAsK4FkaRBISxJ4wiCQjjM4kkIIwiCQijSALCuHMiCQijSALCKJKAMIokIIwiCQjjOyGSgDCKJCCMIgkIo0gCwiiSgDCKJCCMIgkcVhhnSdpDD6NIAr8axlkJ4/LY5iGSgDCKJCCMIgkIo0gCwiiSgDCKJCCMIgkIo0gCwiiSwHsI5GmSi5RPvQjj6/tkBLA3gRyUQH6r22ZmIm/joxHA3qiStAIpkkC3QR6vvINIAogkgEgCiCSASAKIJAAiCSCSACIJIJIAIgkgkgAiCSCSACIJIJIAiCSASAKIJIBIAogkgEgCiCSASAKIJAAiCSCSACIJIJIAIgkgkgAiCSCSACIJIJIArJtWo5NPxgDwYxiTjJ8eIgkI41oYk8yTTJLciiQgjGthrNtm8fTzRBIQxrUwrhJJ4NjC2CaZ9YVRJIFjC+OsPL7VbbP8ld9LJAFhFElAGEUSEMblrv88kQSEUSQBYRRJQBhFEhBGkQSE8Z0QSUAYRRIQRpEEhFEkAWEUSUAYRRIQRpEEhFEkAWEUSUAYj5BIgjAKo0gCwiiSgDCKJCCMIgkIo0gCwiiSwO4sk5xPq9F9+VoY38CHh4cHU4D9OWL8XL4crIRxJowiCXyPZZVkLowiCfDHfTQCgO3+B+8VT1UP2uBdAAAAAElFTkSuQmCC) no-repeat right 0 top 28px;background-size:190px auto;box-shadow:0 2px 24px rgba(0,0,0,.08);padding:56px 64px 28px 76px;overflow:hidden}.page::before{content:"";position:absolute;left:0;top:92px;width:30px;height:168px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAE+CAYAAADcXQOKAAADLUlEQVR42u3awW2jUBDG8c+R70kHDpflwCEuwR04JTgVrDvYlEAHSzogFYR0gKXlwAnTAa6APSxICDmJLewsvPmP5IMPHH4eZt578zyr61oW4kZG4kaSMs9fZp5/7zJ09uf+Ryxp3XzfSUraT1DklUvQz4r0vYNOXIZ249DLduoqtB9lD753FdqPUdf3JaGjru9rQkdV398FPQaPv7O+/xf0WGOLJUXXyvZYoH102KArl6Hd1zuUFF4CPGboRcFTOL3cSvolKc08f2XhmLaQ9JZ5fph5/p2F8+hPSUnm+UsLB++HBrtyHdrW7lvm+RvXoW38PgXryszoS6xLw7HwswblEvRWUvzR0uPauHMhK
+
+RELATÓRIO HTML: clique na coluna Relatorio_HTML do último resultset e salve como .html
+=================================================================
+ASSESSMENT FINALIZADO
+Modo 1 = Dashboard + detalhes | Modo 2 = Dashboard | Modo 3 = detalhes.
+O Dashboard é o primeiro resultset quando o modo inclui o Dashboard.
+O relatório HTML é o último resultset quando @GerarHTML = 1.
+=================================================================
+
+Completion time: 2026-10-20T14:46:15.3931213-03:00
