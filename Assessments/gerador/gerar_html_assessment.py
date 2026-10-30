@@ -298,12 +298,20 @@ def ler_rpt(texto):
         # "Resultados em arquivo" com delimitador tab: cabeçalho sem linha de traços,
         # linhas até a próxima linha em branco
         tabs = lin.count('\t')
-        if (tabs and (not prox.strip() or prox.count('\t') >= tabs)) or (lin.strip() in COLUNAS_UNICAS and prox.strip()):
+        # primeira linha com tab depois do cabeçalho (pula mensagens do SQL no meio dos dados)
+        seg = next((x for x in linhas[i + 1:] if not x.strip() or '\t' in x), '')
+        if (tabs and (not prox.strip() or seg.count('\t') >= tabs or not seg.strip())) \
+                or (lin.strip() in COLUNAS_UNICAS and prox.strip()):
             cols = [c.strip() for c in lin.split('\t')]
             j = i + 1
             dados = []
             while j < n and linhas[j].strip() and not RE_AFETADAS.match(linhas[j]):
                 l = linhas[j]
+                if tabs and '\t' not in l:
+                    # mensagem do SQL impressa no meio do resultset (ex.: erro do SO numa unidade)
+                    mensagens.append(l.rstrip())
+                    j += 1
+                    continue
                 # valor com quebra de linha: junta até completar as colunas
                 while l.count('\t') < tabs and j + 1 < n and linhas[j + 1].strip():
                     j += 1
@@ -819,6 +827,8 @@ class Relatorio:
             if re.match(r'^Msg \d+, (Level|Nível) \d+', m):
                 det_msg = self.mensagens[k + 1] if k + 1 < len(self.mensagens) else ''
                 obs.append((m, det_msg))
+            elif re.search(r'returned the error|retornou o erro', m, re.I):
+                obs.append(('Mensagem do SQL Server durante a coleta', m))
         h += ('<section id="coleta"><h2><span class="num">12</span>Observações da coleta</h2>'
               '<p class="lead">Informações sobre a origem dos dados e itens que não puderam ser coletados.</p>'
               '<div class="tw"><table><thead><tr><th>Seção</th><th>Mensagem</th></tr></thead><tbody>'
