@@ -13,6 +13,10 @@
    (recomendado: sysadmin ou VIEW SERVER STATE + acesso de leitura à msdb).
 
  NOVIDADES DA V11
+ - Correção (11/2026): em instâncias com collation diferente da usada pelo
+   catálogo (ex.: SQL_Latin1_General_CP1_CI_AI) as tabelas do HTML falhavam com
+   "Cannot resolve collation conflict for string_agg operation" e várias seções
+   sumiam (Databases, Arquivos, Logins, Latência de I/O etc.).
  - Log shipping: configuração das databases primárias e secundárias (pastas,
    retenção, compressão, modo de restore, atraso, servidor monitor), jobs
    LSBackup/LSCopy/LSRestore/LSAlert, último backup/cópia/restore com atraso
@@ -2682,8 +2686,10 @@ BEGIN
                     @rHdr   = STRING_AGG(CAST(N'<th>' + REPLACE(REPLACE(REPLACE(c.name, N'&', N'&amp;'), N'<', N'&lt;'), N'>', N'&gt;') + N'</th>' AS nvarchar(max)), N'')
                               WITHIN GROUP (ORDER BY c.column_id),
                     @rApply = STRING_AGG(CAST(N'v' + CONVERT(nvarchar(10), c.column_id)
-                              + N' = REPLACE(REPLACE(REPLACE(ISNULL(' + ve.expr
-                              + N', N''''), N''&'', N''&amp;''), N''<'', N''&lt;''), N''>'', N''&gt;'')' AS nvarchar(max)), N', ')
+                              + N' = REPLACE(REPLACE(REPLACE(ISNULL((' + ve.expr + N')'
+                              /* COLLATE: colunas vindas do catálogo (ex.: Latin1_General_CI_AS_KS_WS) misturadas com a collation do tempdb
+                                 (ex.: SQL_Latin1_General_CP1_CI_AI) geravam "Cannot resolve collation conflict for string_agg operation" */
+                              + N' COLLATE DATABASE_DEFAULT, N''''), N''&'', N''&amp;''), N''<'', N''&lt;''), N''>'', N''&gt;'')' AS nvarchar(max)), N', ')
                               WITHIN GROUP (ORDER BY c.column_id),
                     @rCells = STRING_AGG(CAST(ce.expr AS nvarchar(max)), N' + ')
                               WITHIN GROUP (ORDER BY c.column_id),
