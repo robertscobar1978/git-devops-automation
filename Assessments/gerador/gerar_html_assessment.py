@@ -554,7 +554,27 @@ class Relatorio:
                 lst.append(dict(ordem=int(r[0]), cat=r[1] or '', ind=r[2] or '', val=r[3], st=r[4] or 'INFO', obs=r[5]))
         for a in lst:
             a['guia'] = 'seguranca' if a['ind'] == 'xp_cmdshell' else GUIA_ACHADO.get(a['cat'][:2], 'geral')
+        self._nomear_logins(lst)
         return lst
+
+    def _nomear_logins(self, lst):
+        """Acrescenta à observação os logins que disparam as verificações de senha (PWDCOMPARE)."""
+        rs = self.rs('Política de senha dos logins SQL')
+        if rs is None:
+            return
+        il, idis = rs.col('PolLogin'), rs.col('PolDisabled')
+        regras = (('senha igual ao nome do login', 'PolPasswordEqualsLogin'),
+                  ('senha em branco', 'PolBlankPassword'))
+        for a in lst:
+            ind = a['ind'].lower()
+            for trecho, coluna in regras:
+                ic = rs.col(coluna)
+                if trecho not in ind or ic < 0 or il < 0:
+                    continue
+                nomes = [r[il] for r in rs.linhas if (r[ic] or '').strip() == '1'
+                         and (idis < 0 or (r[idis] or '').strip() != '1')]
+                if nomes:
+                    a['obs'] = ((a['obs'] or '').rstrip() + ' Logins: ' + ', '.join(nomes) + '.').strip()
 
     # -- blocos HTML -----------------------------------------------------
     def html_secao(self, idx, sec):
