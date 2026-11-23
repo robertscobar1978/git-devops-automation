@@ -5,16 +5,25 @@ Padrão para gerar o relatório HTML dos assessments de SQL Server dos clientes 
 
 | Arquivo | Para que serve |
 |---|---|
-| `SQL_Server_Assessment_Profissional_v11.sql` | Script executado no cliente (somente leitura). Gera os resultsets que vão para o `.rpt`. |
-| `Gerar-RelatorioAssessment_v11.ps1` | Alternativa quando dá para rodar direto da máquina: executa o script e grava o HTML pronto. |
+| `SQL_Server_Assessment_Profissional_v12.sql` | Script executado no cliente (somente leitura). Gera os resultsets que vão para o `.rpt`. |
+| `Gerar-RelatorioAssessment_v12.ps1` | Alternativa quando dá para rodar direto da máquina: executa o script e grava o HTML pronto. |
 | `Papel Solo.docx` | Papel timbrado Solo (origem das imagens do cabeçalho e do rodapé). |
 | `Assessment_Calcenter_PENINSULA_SQL2017_v2.html` | Modelo de saída: estrutura e estilo que todo relatório deve seguir. |
 | `gerador/gerar_html_assessment.py` | Converte o `.rpt` no HTML do modelo. |
 | `gerador/template/` | Cabeçalho (CSS, scripts das guias, imagens do papel Solo) e rodapé Solo, extraídos do modelo. |
 
+## Novidade da v12
+
+Quando a instância tem HADR habilitado, a seção **04 · Databases fora dos AGs** lista as databases de usuário
+(`database_id > 4`, `sys.databases.replica_id IS NULL`, sem snapshots) com estado, recovery model, tamanho
+(dados + log), último backup Full e de Log (todo o histórico do msdb), dias sem Full e recomendação. O checklist
+ganha o item "04 - Always On · Databases de usuário fora de AG", em **ATENÇÃO** quando a instância tem AG e há
+bases fora dele (os nomes e o recovery model vão na observação; INFO quando o HADR está habilitado sem AG).
+Essas bases não acompanham o failover: avaliar incluir no AG (precisa de FULL + backup Full) ou documentar a exceção.
+
 ## Fluxo
 
-1. No cliente, abrir o `SQL_Server_Assessment_Profissional_v11.sql` no SSMS.
+1. No cliente, abrir o `SQL_Server_Assessment_Profissional_v12.sql` no SSMS.
 2. Deixar `@Modo = 1`, `@GerarHTML = 1` e `@SomenteHTML = 0` (padrão do script).
 3. Em Ferramentas > Opções > Resultados da Consulta > SQL Server > Resultados para Texto: formato de saída
    **delimitado por tab** e número máximo de caracteres por coluna **8192** (configuração recomendada).
@@ -41,8 +50,12 @@ quantas seções montou e se algum resultset não foi reconhecido.
 - Valores com quebra de linha (ex.: mensagem do job) são reagrupados na mesma célula.
 - A coluna `Relatorio_HTML` do último resultset é ignorada (vem truncada no `.rpt`). Se o `.rpt` só
   tiver esse resultset (`@SomenteHTML = 1`) e ele estiver completo, o gerador grava esse HTML.
-- Funciona também com `.rpt` de versões anteriores do script (v8 a v10): as seções que não existem
+- Funciona também com `.rpt` de versões anteriores do script (v8 a v11): as seções que não existem
   na versão simplesmente não aparecem e a capa mostra a versão detectada.
+- Exceção: a seção **04 · Databases fora dos AGs** (nova na v12) é montada também para `.rpt` antigos
+  quando a instância tem AG, cruzando 07 · Databases com 04 · Databases nos AGs (backups da seção 10,
+  que nessas versões cobre só 30 dias). O item "Databases de usuário fora de AG" entra no checklist e
+  na guia Atenção do mesmo jeito que na v12.
 
 ## Mapeamento `.rpt` → HTML
 
@@ -60,6 +73,7 @@ primeiras colunas (catálogo `SECOES` no gerador, espelho do `#Secoes` do script
 | `servicename` | 02 · Serviços do SQL Server | Visão Geral |
 | `NodeName` / `VerboseLogging` | 03 · Cluster (FCI) | Alta Disponibilidade |
 | `AGName, …` / `cluster_name` | 04 · Always On (AGs, réplicas, databases, quórum) | Alta Disponibilidade |
+| `ForaAGDatabase` | 04 · Databases fora dos AGs (v12) | Alta Disponibilidade |
 | `Information` | 03/04/20/25 · seção informativa (FCI, Always On, fragmentação, log shipping) | conforme o grupo |
 | `name, product` | 05 · Linked Servers | Conexões |
 | `name, endpoint_id` | 06 · Endpoints | Conexões |

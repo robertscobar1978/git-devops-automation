@@ -1,6 +1,6 @@
 ﻿/*
 ===============================================================================
- SQL SERVER ASSESSMENT / DISCOVERY - V11  (Solo Network)
+ SQL SERVER ASSESSMENT / DISCOVERY - V12  (Solo Network)
  Baseline: SQL Server 2017+
  Compatibilidade: SQL Server 2017, 2019, 2022 e 2025
  Objetivo: levantamento técnico não invasivo de uma nova instância.
@@ -11,6 +11,16 @@
  - SQL Server 2017 (14.x) é a versão mínima suportada.
  - Algumas informações dependem das permissões da conta de execução
    (recomendado: sysadmin ou VIEW SERVER STATE + acesso de leitura à msdb).
+
+ NOVIDADES DA V12
+ - Always On: nova seção "Databases fora dos AGs" (grupo 04) com as bases de
+   usuário (database_id > 4) que não pertencem a nenhum Availability Group
+   quando a instância tem HADR habilitado (sys.databases.replica_id IS NULL):
+   estado, recovery model, tamanho (dados + log), último backup Full e de Log
+   e recomendação. Essas bases não acompanham o failover do AG.
+ - Novo item no checklist (04 - Always On) "Databases de usuário fora de AG",
+   em ATENÇÃO quando a instância tem AG e há bases fora dele, com os nomes
+   na observação. Aparece na guia Atenção e na guia Alta Disponibilidade.
 
  NOVIDADES DA V11
  - Correção (11/2026): em instâncias com collation diferente da usada pelo
@@ -54,7 +64,7 @@
     (se o conteúdo vier cortado: Ferramentas > Opções > Resultados da Consulta
      > SQL Server > Resultados para Grade > Dados XML = Ilimitado).
  b) PowerShell (recomendado, grava o .html direto):
-    .\Gerar-RelatorioAssessment.ps1 -Instancia "SERVIDOR\INSTANCIA" -Cliente "Nome do Cliente"
+    .\Gerar-RelatorioAssessment_v12.ps1 -Instancia "SERVIDOR\INSTANCIA" -Cliente "Nome do Cliente"
 ===============================================================================
 */
 USE [master];
@@ -103,7 +113,7 @@ DECLARE @ServerName nvarchar(128) =
 DECLARE @AssessmentDate datetime =
     GETDATE();
 
-DECLARE @ScriptVersao nvarchar(20) = N'v11';
+DECLARE @ScriptVersao nvarchar(20) = N'v12';
 
 /* Fim do suporte estendido Microsoft por versão principal (NULL = não mapeado) */
 DECLARE @FimSuporte date =
@@ -127,7 +137,7 @@ BEGIN
 END;
 
 PRINT '==============================================================';
-PRINT ' SQL SERVER ASSESSMENT / DISCOVERY - V11';
+PRINT ' SQL SERVER ASSESSMENT / DISCOVERY - V12';
 PRINT ' SQL Server: ' + ISNULL(@ProductVersion,'N/D');
 PRINT ' Product Level: ' + ISNULL(@ProductLevel,'N/D');
 PRINT ' Edition: ' + ISNULL(@Edition,'N/D');
@@ -145,7 +155,7 @@ END;
 ============================================================================ */
 DROP TABLE IF EXISTS #Dashboard, #AssessmentSummary, #LogSpace, #Secoes, #ColetaErros, #Achados,
     #D01_Instancia, #D02_Hardware, #D02_HostInfo, #D02_Servicos, #D03_ClusterNodes, #D03_ClusterProps,
-    #D04_AGs, #D04_Replicas, #D04_Databases, #D04_Cluster, #D05_LinkedServers, #D06_Endpoints,
+    #D04_AGs, #D04_Replicas, #D04_Databases, #D04_ForaAG, #D04_Cluster, #D05_LinkedServers, #D06_Endpoints,
     #D07_Databases, #D08_Arquivos, #D08_Volumes, #D08_Drives, #D09_TempdbArquivos, #D09_VersionStore,
     #D10_Backups, #D11_Jobs, #D11_Alertas, #D12_Logins, #D13_Config, #D13_ConfigPendente,
     #D14_ProcessMemory, #D14_SysMemory, #D14_PLE, #D14_CPU, #D15_IOLatencia, #D15_IOPorDB,
@@ -610,6 +620,33 @@ BEGIN
            'Contagem baseada no estado reportado pelas réplicas locais/conhecidas.'
     FROM sys.dm_hadr_database_replica_states
     WHERE synchronization_state_desc <> 'SYNCHRONIZED' OR synchronization_state_desc IS NULL;
+
+    /* V12: databases de usuário fora de qualquer AG (não acompanham o failover) */
+    BEGIN TRY
+        DECLARE @V12_QtdAGs int = (SELECT COUNT(*) FROM sys.availability_groups);
+        DECLARE @V12_ForaAG int, @V12_ForaAGSimple int, @V12_ForaAGLista nvarchar(max);
+        SELECT @V12_ForaAG = COUNT(*),
+               @V12_ForaAGSimple = ISNULL(SUM(CASE WHEN d.recovery_model_desc = N'SIMPLE' THEN 1 ELSE 0 END), 0),
+               @V12_ForaAGLista = STRING_AGG(CONVERT(nvarchar(max), d.name + N' (' + d.recovery_model_desc + N')') COLLATE DATABASE_DEFAULT, N', ')
+                                  WITHIN GROUP (ORDER BY d.name)
+        FROM sys.databases d
+        WHERE d.database_id > 4
+          AND d.replica_id IS NULL
+          AND d.source_database_id IS NULL;   /* ignora snapshots */
+
+        INSERT INTO #AssessmentSummary (Categoria, Indicador, Valor, Status, Observacao)
+        SELECT '04 - Always On', 'Databases de usuário fora de AG', CONVERT(varchar(30), @V12_ForaAG),
+               CASE WHEN @V12_ForaAG > 0 AND @V12_QtdAGs > 0 THEN 'ATENÇÃO'
+                    WHEN @V12_ForaAG > 0 THEN 'INFO' ELSE 'OK' END,
+               LEFT(CASE WHEN @V12_ForaAG = 0 THEN N'Todas as databases de usuário estão em Availability Groups.'
+                         WHEN @V12_QtdAGs = 0 THEN N'HADR habilitado, mas sem AG configurado nesta instância: ' + @V12_ForaAGLista
+                         ELSE N'Não acompanham o failover do AG'
+                              + CASE WHEN @V12_ForaAGSimple > 0 THEN N' (' + CONVERT(nvarchar(10), @V12_ForaAGSimple) + N' em SIMPLE)' ELSE N'' END
+                              + N'; avaliar incluir no AG ou documentar a exceção: ' + @V12_ForaAGLista END, 1000);
+    END TRY
+    BEGIN CATCH
+        INSERT INTO #ColetaErros (Secao, Mensagem) VALUES (N'04 - Databases fora de AG', ERROR_MESSAGE());
+    END CATCH;
 END
 ELSE
 BEGIN
@@ -1941,6 +1978,51 @@ BEGIN
           ON ar.group_id=drs.group_id AND ar.replica_id=drs.replica_id;
         INSERT INTO #Secoes (Grupo, Titulo, Tabela, OrdenarPor, Descricao)
         VALUES (N'04', N'Databases nos AGs', N'#D04_Databases', N'AGName, replica_server_name, database_name', N'Estado de sincronização, filas de envio/redo (KB) e últimos tempos por database/réplica.');
+    END TRY
+    BEGIN CATCH
+        INSERT INTO #ColetaErros (Secao, Mensagem) VALUES (N'04 - Always On', ERROR_MESSAGE());
+    END CATCH;
+
+    /* V12: databases de usuário fora de qualquer AG */
+    BEGIN TRY
+        SELECT d.name AS ForaAGDatabase,
+               d.state_desc,
+               d.recovery_model_desc,
+               CONVERT(decimal(18,2), ISNULL(f.DataMB, 0) + ISNULL(f.LogMB, 0)) AS TotalMB,
+               b.LastFullBackup,
+               b.LastLogBackup,
+               DATEDIFF(day, b.LastFullBackup, GETDATE()) AS DiasSemFull,
+               CONVERT(nvarchar(400), N'Não acompanha o failover do AG.'
+                   + CASE WHEN d.state_desc <> N'ONLINE' THEN N' Database fora de ONLINE; confirmar se ainda é usada.' ELSE N'' END
+                   + CASE WHEN d.recovery_model_desc = N'SIMPLE' THEN N' Em SIMPLE: sem restore point-in-time; para entrar no AG precisa de FULL + backup Full.' ELSE N'' END
+                   + CASE WHEN b.LastFullBackup IS NULL THEN N' Sem backup Full registrado no msdb.'
+                          WHEN DATEDIFF(day, b.LastFullBackup, GETDATE()) > 7
+                              THEN N' Último backup Full há ' + CONVERT(nvarchar(10), DATEDIFF(day, b.LastFullBackup, GETDATE())) + N' dias.'
+                          ELSE N'' END
+                   + N' Avaliar incluir no AG ou documentar a exceção.') AS Recomendacao
+        INTO #D04_ForaAG
+        FROM sys.databases d
+        OUTER APPLY (SELECT SUM(CASE WHEN mf.type <> 1 THEN CONVERT(bigint, mf.size) ELSE 0 END) / 128.0 AS DataMB,
+                            SUM(CASE WHEN mf.type = 1 THEN CONVERT(bigint, mf.size) ELSE 0 END) / 128.0 AS LogMB
+                     FROM sys.master_files mf
+                     WHERE mf.database_id = d.database_id) f
+        OUTER APPLY (SELECT (SELECT MAX(bs.backup_finish_date) FROM msdb.dbo.backupset bs
+                             WHERE bs.database_name = d.name COLLATE DATABASE_DEFAULT AND bs.type = 'D') AS LastFullBackup,
+                            (SELECT MAX(bs.backup_finish_date) FROM msdb.dbo.backupset bs
+                             WHERE bs.database_name = d.name COLLATE DATABASE_DEFAULT AND bs.type = 'L') AS LastLogBackup) b
+        WHERE d.database_id > 4
+          AND d.replica_id IS NULL
+          AND d.source_database_id IS NULL;
+        INSERT INTO #Secoes (Grupo, Titulo, Tabela, OrdenarPor, Descricao, ColunasLargas)
+        VALUES (N'04', N'Databases fora dos AGs', N'#D04_ForaAG', N'TotalMB DESC, ForaAGDatabase',
+                N'Databases de usuário que não pertencem a nenhum Availability Group: não acompanham o failover. Último backup de cada tipo em todo o histórico do msdb.',
+                N'Recomendacao');
+    END TRY
+    BEGIN CATCH
+        INSERT INTO #ColetaErros (Secao, Mensagem) VALUES (N'04 - Databases fora dos AGs', ERROR_MESSAGE());
+    END CATCH;
+
+    BEGIN TRY
 
         SELECT cluster_name, quorum_type_desc, quorum_state_desc
         INTO #D04_Cluster
@@ -3379,7 +3461,7 @@ PRINT '=================================================================';
 
 DROP TABLE IF EXISTS #Dashboard, #AssessmentSummary, #LogSpace, #Secoes, #ColetaErros, #Achados,
     #D01_Instancia, #D02_Hardware, #D02_HostInfo, #D02_Servicos, #D03_ClusterNodes, #D03_ClusterProps,
-    #D04_AGs, #D04_Replicas, #D04_Databases, #D04_Cluster, #D05_LinkedServers, #D06_Endpoints,
+    #D04_AGs, #D04_Replicas, #D04_Databases, #D04_ForaAG, #D04_Cluster, #D05_LinkedServers, #D06_Endpoints,
     #D07_Databases, #D08_Arquivos, #D08_Volumes, #D08_Drives, #D09_TempdbArquivos, #D09_VersionStore,
     #D10_Backups, #D11_Jobs, #D11_Alertas, #D12_Logins, #D13_Config, #D13_ConfigPendente,
     #D14_ProcessMemory, #D14_SysMemory, #D14_PLE, #D14_CPU, #D15_IOLatencia, #D15_IOPorDB,

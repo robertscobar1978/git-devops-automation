@@ -3,9 +3,10 @@
 """
 Gera o relatório HTML do SQL Server Assessment (Solo Network) a partir do
 arquivo .rpt produzido pelo SSMS (Resultados em arquivo) ao executar o
-SQL_Server_Assessment_Profissional_v11.sql no cliente.
+SQL_Server_Assessment_Profissional_v12.sql no cliente (aceita também
+.rpt das versões anteriores).
 
-O HTML segue o layout do relatório v11 (guias, resumo executivo, checklist)
+O HTML segue o layout do relatório v12 (guias, resumo executivo, checklist)
 com o papel timbrado Solo embutido (template/cabecalho.html e
 template/rodape_solo.b64). Não depende de bibliotecas externas.
 
@@ -28,10 +29,17 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 MAX_LINHAS = 500  # igual ao @HtmlMaxLinhas do script
 
 # ---------------------------------------------------------------------------
-# Catálogo de seções (espelha o #Secoes do script v11)
+# Catálogo de seções (espelha o #Secoes do script v12)
 #   chave: primeiras colunas do resultset (minúsculas)
 #   valor: (grupo, título, descrição, colunas largas)
 # ---------------------------------------------------------------------------
+TITULO_FORA_AG = 'Databases fora dos AGs'
+DESC_FORA_AG = ('Databases de usuário que não pertencem a nenhum Availability Group: não acompanham o failover. '
+                'Último backup de cada tipo em todo o histórico do msdb.')
+IND_FORA_AG = 'Databases de usuário fora de AG'
+COLUNAS_FORA_AG = ['ForaAGDatabase', 'state_desc', 'recovery_model_desc', 'TotalMB',
+                   'LastFullBackup', 'LastLogBackup', 'DiasSemFull', 'Recomendacao']
+
 SECOES = [
     (('machinename', 'servername'), '01', 'Propriedades da instância',
      'SERVERPROPERTY: versão, edição, collation, caminhos padrão e recursos instalados.', ''),
@@ -46,6 +54,7 @@ SECOES = [
      'Modo de disponibilidade, failover, seeding e saúde de cada réplica.', ''),
     (('agname', 'replica_server_name', 'database_name'), '04', 'Databases nos AGs',
      'Estado de sincronização, filas de envio/redo (KB) e últimos tempos por database/réplica.', ''),
+    (('foraagdatabase',), '04', TITULO_FORA_AG, DESC_FORA_AG, 'Recomendacao'),
     (('cluster_name', 'quorum_type_desc'), '04', 'Cluster WSFC / quórum', 'sys.dm_hadr_cluster.', ''),
     (('name', 'product'), '05', 'Linked Servers', 'Provider, data source e opções de RPC/data access.', ''),
     (('name', 'endpoint_id'), '06', 'Endpoints', 'Endpoints TCP, HADR e Service Broker.', ''),
@@ -269,6 +278,13 @@ def ler_rpt(texto):
                 if j + 1 < n and RE_TRACOS.match(linhas[j + 1]) and linhas[j + 1].strip() \
                         and len(linhas[j + 1]) >= len(l.rstrip()) - 2:
                     break
+                if spans is None and len(cols) > 1 and '\t' not in l:
+                    # mensagem do SQL no meio dos dados (ex.: "Warning: Null value is eliminated...", sqlcmd)
+                    mensagens.append(l.rstrip())
+                    j += 1
+                    continue
+                if spans is None and j + 1 < n and RE_TRACOS_TAB.match(linhas[j + 1]) and linhas[j + 1].strip():
+                    break
                 if spans is None:
                     vals = l.split('\t')
                     j += 1
@@ -423,6 +439,20 @@ def identificar(rs):
     return melhor
 
 
+def recomendacao_fora_ag(estado, recovery, dt_full, dias, so_30_dias=False):
+    """Mesma regra da coluna Recomendacao do script v12 (seção 04 · Databases fora dos AGs)."""
+    txt = 'Não acompanha o failover do AG.'
+    if estado and estado.upper() != 'ONLINE':
+        txt += ' Database fora de ONLINE; confirmar se ainda é usada.'
+    if (recovery or '').upper() == 'SIMPLE':
+        txt += ' Em SIMPLE: sem restore point-in-time; para entrar no AG precisa de FULL + backup Full.'
+    if dt_full is None:
+        txt += ' Sem backup Full nos últimos 30 dias.' if so_30_dias else ' Sem backup Full registrado no msdb.'
+    elif dias is not None and dias > 7:
+        txt += f' Último backup Full há {dias} dias.'
+    return txt + ' Avaliar incluir no AG ou documentar a exceção.'
+
+
 def contagem(n):
     if n == 0:
         return 'nenhum registro'
@@ -492,6 +522,82 @@ class Relatorio:
             sec = dict(grupo=grupo, titulo=titulo, desc=desc, largas=largas, rs=rs)
             self.secoes.append(sec)
             self.por_titulo.setdefault(titulo, rs)
+        self._derivar_fora_ag()
+
+    # -- V12: databases fora dos AGs -------------------------------------
+    def _tem_ag(self):
+        qtd = self.dash('Availability Groups')
+        if qtd and RE_INT.match(qtd.strip()) and int(qtd) > 0:
+            return True
+        rs = self.rs('Databases nos AGs')
+        return bool(rs and rs.linhas)
+
+    def _derivar_fora_ag(self):
+        """.rpt de versões anteriores à v12: monta a seção a partir de 07 · Databases, 04 · Databases nos AGs
+        e 10 · Backups (que nessas versões cobre só os últimos 30 dias)."""
+        if self.rs(TITULO_FORA_AG) is not None or not self._tem_ag():
+            return
+        dbs, nos_ag = self.rs('Databases'), self.rs('Databases nos AGs')
+        if dbs is None or nos_ag is None:
+            return
+        em_ag = {(v or '').lower() for v in nos_ag.valores('database_name')}
+        bk = self.rs('Backups (últimos 30 dias) e último CHECKDB')
+        backups = {}
+        if bk is not None:
+            for r in bk.linhas:
+                backups[(r[bk.col('DatabaseName')] or '').lower()] = r
+        coleta = self.data_coleta()
+
+        def v(rs, r, c):
+            i = rs.col(c)
+            return r[i] if i >= 0 else None
+
+        linhas = []
+        for r in dbs.linhas:
+            nome, did = v(dbs, r, 'DatabaseName'), v(dbs, r, 'database_id')
+            if not nome or not RE_INT.match(did or '') or int(did) <= 4 or nome.lower() in em_ag:
+                continue
+            estado, rec = v(dbs, r, 'state_desc') or '', v(dbs, r, 'recovery_model_desc') or ''
+            try:
+                dmb, lmb = Decimal(v(dbs, r, 'DataSizeMB') or 0), Decimal(v(dbs, r, 'LogSizeMB') or 0)
+            except InvalidOperation:
+                dmb = lmb = Decimal(0)
+            b = backups.get(nome.lower())
+            full, log = (v(bk, b, 'LastFullBackup'), v(bk, b, 'LastLogBackup')) if b else (None, None)
+            dt_full = parse_dt(full)
+            dias = (coleta - dt_full).days if dt_full and coleta else None
+            linhas.append([nome, estado, rec, f'{dmb + lmb:.2f}', full, log,
+                           None if dias is None else str(dias), recomendacao_fora_ag(estado, rec, dt_full, dias, True)])
+        linhas.sort(key=lambda x: (-Decimal(x[3]), x[0].lower()))
+        rs = Resultset(list(COLUNAS_FORA_AG), linhas, 0)
+        desc = ('Databases de usuário que não pertencem a nenhum Availability Group: não acompanham o failover. '
+                'Calculado a partir das seções 07 e 04 (coleta anterior à v12); backups dos últimos 30 dias.')
+        sec = dict(grupo='04', titulo=TITULO_FORA_AG, desc=desc, largas='Recomendacao', rs=rs)
+        pos = next((i + 1 for i, x in enumerate(self.secoes) if x['titulo'] == 'Databases nos AGs'), len(self.secoes))
+        self.secoes.insert(pos, sec)
+        self.por_titulo[TITULO_FORA_AG] = rs
+
+    def _achado_fora_ag(self, lst):
+        """Checklist sem o item da v12: acrescenta o alerta com base na seção (derivada ou coletada)."""
+        rs = self.rs(TITULO_FORA_AG)
+        if rs is None or any(a['ind'].lower() == IND_FORA_AG.lower() for a in lst):
+            return
+        inome, irec = rs.col('ForaAGDatabase'), rs.col('recovery_model_desc')
+        nomes = [f'{r[inome]} ({r[irec]})' for r in sorted(rs.linhas, key=lambda r: (r[inome] or '').lower())]
+        simple = sum(1 for r in rs.linhas if (r[irec] or '').upper() == 'SIMPLE')
+        tem_ag = self._tem_ag()
+        if not nomes:
+            st, obs = 'OK', 'Todas as databases de usuário estão em Availability Groups.'
+        elif not tem_ag:
+            st, obs = 'INFO', 'HADR habilitado, mas sem AG configurado nesta instância: ' + ', '.join(nomes)
+        else:
+            st = 'ATENÇÃO'
+            obs = ('Não acompanham o failover do AG' + (f' ({simple} em SIMPLE)' if simple else '')
+                   + '; avaliar incluir no AG ou documentar a exceção: ' + ', '.join(nomes))
+        do_04 = [a for a in lst if a['cat'][:2] == '04']
+        ordem = (max(a['ordem'] for a in do_04) if do_04 else (max((a['ordem'] for a in lst), default=0))) + 0.5
+        lst.append(dict(ordem=ordem, cat=do_04[0]['cat'] if do_04 else '04 - Always On', ind=IND_FORA_AG,
+                        val=str(len(nomes)), st=st, obs=obs[:1000], guia='ha'))
 
     def rs(self, titulo):
         return self.por_titulo.get(titulo)
@@ -555,6 +661,8 @@ class Relatorio:
         for a in lst:
             a['guia'] = 'seguranca' if a['ind'] == 'xp_cmdshell' else GUIA_ACHADO.get(a['cat'][:2], 'geral')
         self._nomear_logins(lst)
+        if self.summary is not None:
+            self._achado_fora_ag(lst)
         return lst
 
     def _nomear_logins(self, lst):
